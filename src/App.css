@@ -21,11 +21,11 @@ header h1 {
 
 header h2 {
     font-family: 'Roboto Slab', Lato, sans-serif;
-    color: #4DB6AC;
+    color: #80CBC4;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 20px;
     text-align: center;
-    margin: 5px 0;
+    margin: 8px 0;
     padding: 0;
     text-transform: lowercase;
     text-shadow: 1px 1px 1px #004D40;
@@ -75,22 +75,59 @@ textarea.code:focus {
 }
 
 .step-header {
-    background: #26A69A;
+    background: #00796B;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     color: #fff;
-    padding: 8px;
+}
+
+.step-header:before, .step-header:after {
+    display: table;
+    content: " ";
+}
+
+.step-header:after {
+    clear: both;
+}
+.step-header:before, .step-header:after {
+    display: table;
+    content: " ";
+}
+*, *:before, *:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.step-header .btn-group {
+}
+.step-header .btn-group .btn-primary {
+    padding: 10px 13px 11px 13px;
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    text-transform: uppercase;
+    background: #00796B;
+    color: #80CBC4;
+    text-shadow: 1px 1px 1px #004D40;
+}
+.step-header .btn-group .btn-primary:hover,
+.step-header .btn-group .btn-primary:focus {
+    background: #00897B;
+}
+
+.step-header .btn-group .btn-primary.active {
+    background: #009688;
+    color: #fff;
 }
 
 .step-header h4 {
     font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-    text-align: center;
     color: #fff;
     font-weight: 400;
     margin: 0;
-    padding: 0;
+    padding: 10px;
     font-size: 18px;
     text-transform: uppercase;
+    text-shadow: 1px 1px 1px #004D40;
 }
 
 .step-body {
@@ -139,10 +176,10 @@ textarea.code:focus {
     position: absolute;
     top: -15px;
     left: 50%;
-    background: #26A69A;
+    background: #00796B;
     display: inline-block;
     margin: 0 1em 1em 0;
-    border: 1px solid #26A69A;
+    border: 1px solid #00796B;
     border-bottom: none;
     height: 15px;
     width: 30px;

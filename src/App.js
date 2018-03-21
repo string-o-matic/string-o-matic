@@ -9,7 +9,7 @@ class App extends Component {
       <div>
         <header>
           <h1>string-o-matic</h1>
-          <h2>Because the world needs another string tools site</h2>
+          <h2>do things with strings</h2>
         </header>
         <div className="container">
           <div className="row">
