@@ -12,28 +12,51 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  reverseString(str) {
+    return str.split("").reverse().join("");
+  }
+
   render() {
     var md5 = forge.md5.create();
     md5.update(this.state.string);
-    var digest = md5.digest().toHex();
+    var digest = md5.digest();
+    var hex = digest.toHex();
+    var reverse = this.reverseString(hex);
 
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">string-o-matic</h1>
+      <div>
+        <header>
+          <h1>string-o-matic</h1>
+          <h2>Because the world needs another string tools site</h2>
         </header>
-        <p className="App-intro">
-          Yet another string tools website.
-        </p>
-        <h1>MD5</h1>
-        <div>
-          <input
-            type="text"
-            value={this.state.string}
-            onChange={this.handleChange}
-            placeholder="Type here" />
+        <div className="container">
+          <div className="row">
+            <div className="col-xs-12">
+              <h4>Input</h4>
+              <textarea
+                className="code"
+                type="text"
+                value={this.state.string}
+                onChange={this.handleChange}
+                rows="4"
+                placeholder="Type here">
+              </textarea>
+              <div className="result-info">{this.state.string.length} characters</div>
+              <hr/>
+              <h4>MD5</h4>
+              <div className="result-info">{digest.length()} bytes</div>
+              <div>(No preview)</div>
+              <hr/>
+              <h4>Bytes to hex</h4>
+              <div className="result-info">String, {hex.length} characters</div>
+              <code>{hex}</code>
+              <hr/>
+              <h4>Reverse</h4>
+              <div className="result-info">String, {hex.length} characters</div>
+              <code>{reverse}</code>
+            </div>
+          </div>
         </div>
-        <code>{digest}</code>
       </div>
     );
   }

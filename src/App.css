@@ -1,13 +1,29 @@
-.App {
-  text-align: center;
+header {
+    padding: 50px;
+    background: #006064;
+
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+header h1 {
+    color: #fff;
+    font-weight: 100;
+    font-size: 60px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
 }
+
+header h2 {
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 200;
+    font-size: 16px;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    text-transform: lowercase;
+}
+
+
 
 .App-title {
   font-size: 1.5em;
@@ -17,3 +33,12 @@
   font-size: large;
 }
 
+textarea.code {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    width: 100%;
+}
+
+.result-info {
+    color: #777;
+    font-size: 12px;
+}
