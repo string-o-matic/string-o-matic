@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div>
         <header>
-          <h1>string-o-matic</h1>
+          <h1>string<span className="ion-ios-cog-outline"/>matic</h1>
           <h2>do things with strings</h2>
         </header>
         <div className="container">
