@@ -15,14 +15,13 @@ class MD5Step extends Step {
     return { 'String': 'ByteStringBuffer' }
   }
 
-  getOutput() {
-    console.log('MD5 get output', this.input);
+  calculate(input) {
     // TODO Check input type
-    if (this.input == null || this.input.data == null) {
+    if (input == null || input.data == null) {
       return { type: 'ByteStringBuffer', data: null };
     }
     var md5 = forge.md5.create();
-    md5.update(this.input.data);
+    md5.update(input.data);
     return { type: 'ByteStringBuffer', data: md5.digest() };
   }
 

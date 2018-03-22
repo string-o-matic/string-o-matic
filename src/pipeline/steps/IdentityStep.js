@@ -14,8 +14,8 @@ class IdentityStep extends Step {
     return { '*': '*' }
   }
 
-  getOutput() {
-    return this.input;
+  calculate(input) {
+    return input;
   }
 
 }

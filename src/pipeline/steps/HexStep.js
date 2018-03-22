@@ -14,14 +14,12 @@ class HexStep extends Step {
     return { 'ByteStringBuffer': 'String' }
   }
 
-  getOutput() {
-    console.log('hex get output', this.input);
-
+  calculate(input) {
     // TODO Check input type, this only supports a forge ByteStringBuffer
-    if (this.input == null || this.input.data == null) {
+    if (input == null || input.data == null) {
       return { type: 'String', data: null };
     }
-    return { type: 'String', data: this.input.data.toHex() };
+    return { type: 'String', data: input.data.toHex() };
   }
 
 }

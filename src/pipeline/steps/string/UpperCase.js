@@ -14,11 +14,11 @@ class UpperCase extends Step {
     return { 'String': 'String' }
   }
 
-  getOutput() {
-    if (this.input == null || this.input.data == null) {
+  calculate(input) {
+    if (input == null || input.data == null) {
       return { type: 'String', data: null };
     } else {
-      return { type: 'String', data: this.input.data.toUpperCase() };
+      return { type: 'String', data: input.data.toUpperCase() };
     }
   }
 

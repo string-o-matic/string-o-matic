@@ -1,5 +1,7 @@
 class Step {
 
+  output = null;
+
   setNext(step) {
     this.next = step;
     if (this.next) {
@@ -8,10 +10,9 @@ class Step {
   }
 
   setInput(input) {
-    console.log('step set input', input);
     this.input = input;
+    this.output = null;
     if (this.next) {
-      console.log('pass to next', this.next);
       this.next.setInput(this.getOutput());
     }
   }
@@ -28,9 +29,15 @@ class Step {
     return { '*': '*' }
   }
 
+  calculate(input) {
+    return input;
+  }
+
   getOutput() {
-    console.log('DEFAULT GET OUTPUT');
-    return this.input;
+    if (!this.output && this.input) {
+      this.output = this.calculate(this.input);
+    }
+    return this.output;
   }
 
 }
