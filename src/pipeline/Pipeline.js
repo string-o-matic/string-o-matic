@@ -10,7 +10,7 @@ import IdentityStep from './steps/IdentityStep';
 class Pipeline extends Component {
 
   initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
-  steps = [ new MD5Step(), new HexStep(), new StringReverseStep(), new IdentityStep(), new UpperCase() ];
+  steps = [ ];
 
   constructor(props) {
     super(props);
@@ -20,7 +20,7 @@ class Pipeline extends Component {
     console.log('pipeline construct update pipeline');
     this.updatePipelineChain();
     console.log('pipeline construct set initial');
-    this.steps[0].setInput({ type: 'String', data: this.initialInput });
+    // this.steps[0].setInput({ type: 'String', data: this.initialInput });
   }
 
   render() {
@@ -49,7 +49,9 @@ class Pipeline extends Component {
   inputChange(input) {
     // Pass new input to first step in pipeline. It will pass its output down the chain.
     console.log('input change', input);
-    this.steps[0].setInput(input);
+    if (this.steps.length > 0) {
+      this.steps[0].setInput(input);
+    }
     this.setState({ input: input });
   }
 

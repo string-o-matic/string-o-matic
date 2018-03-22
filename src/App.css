@@ -57,12 +57,12 @@ textarea.code {
     resize: vertical;
     font-size: 16px;
     color: #666;
-    border: 1px solid #ccc;
+    border: none;
+    padding: 20px 20px 10px 20px;
 }
 
 textarea.code:focus {
-    border: 1px solid #26A69A;
-    outline: 3px solid #26A69A;
+    outline: none;
 }
 
 .result-info {
@@ -72,7 +72,6 @@ textarea.code:focus {
 
 .step {
     background: #fff;
-    /*border: 1px solid #26A69A;*/
     position: relative;
     margin-bottom: 20px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
@@ -135,9 +134,15 @@ textarea.code:focus {
     text-shadow: 1px 1px 1px #004D40;
 }
 
+
 .step-body {
     padding: 20px 20px 10px 20px;
 }
+
+.step-input .step-body {
+    padding: 0 0 10px 0;
+}
+
 
 .step-body .meta {
     font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
