@@ -29,7 +29,7 @@ class Input extends Component {
             onChange={this.handleChange}
             rows="4">
           </textarea>
-          <div className="data-info">String, {this.state.input.length} characters</div>
+          <div className="meta">String, {this.state.input.length} characters</div>
         </div>
         <StepTail/>
       </div>

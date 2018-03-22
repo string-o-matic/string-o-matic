@@ -136,7 +136,18 @@ textarea.code:focus {
 }
 
 .step-body {
-    padding: 20px;
+    padding: 20px 20px 10px 20px;
+}
+
+.step-body .meta {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    text-align: center;
+    color: #999;
+    border-top: 1px dashed #eee;
+    margin-top: 10px;
+    padding-top: 5px;
+    text-transform: uppercase;
+    font-size: 10px;
 }
 
 .step-tail {
@@ -167,6 +178,9 @@ textarea.code:focus {
     border-width:15px;
     border-style:solid;
 
+}
+.step:last-child .step-tail {
+    display: none;
 }
 
 .step-top {
