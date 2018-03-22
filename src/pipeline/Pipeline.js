@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import Input from '../input/Input';
 import StepComponent from './StepComponent';
-import MD5Step from './steps/MD5Step';
-import HexStep from './steps/HexStep';
-import StringReverseStep from './steps/StringReverseStep';
-import UpperCase from './steps/string/UpperCase';
-import IdentityStep from './steps/IdentityStep';
+import StepSelector from './StepSelector';
 
 class Pipeline extends Component {
 
@@ -14,12 +10,13 @@ class Pipeline extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { input: this.initialInput };
+    this.state = { input: { type: 'String', data: this.initialInput } };
     this.inputChange = this.inputChange.bind(this);
     this.stepChange = this.stepChange.bind(this);
-    console.log('pipeline construct update pipeline');
-    this.updatePipelineChain();
-    console.log('pipeline construct set initial');
+    this.addStep = this.addStep.bind(this);
+    // console.log('pipeline construct update pipeline');
+    // this.updatePipelineChain();
+    // console.log('pipeline construct set initial');
     // this.steps[0].setInput({ type: 'String', data: this.initialInput });
   }
 
@@ -32,19 +29,20 @@ class Pipeline extends Component {
             <StepComponent key={i} step={step} stepChange={this.stepChange}/>
           )
         }
+        <StepSelector addStep={this.addStep}/>
       </div>
     );
   }
 
-  updatePipelineChain() {
-    var previous = null;
-    this.steps.forEach(step => {
-      if (previous) {
-        previous.setNext(step);
-      }
-      previous = step;
-    });
-  }
+  // updatePipelineChain() {
+  //   var previous = null;
+  //   this.steps.forEach(step => {
+  //     if (previous) {
+  //       previous.setNext(step);
+  //     }
+  //     previous = step;
+  //   });
+  // }
 
   inputChange(input) {
     // Pass new input to first step in pipeline. It will pass its output down the chain.
@@ -58,6 +56,16 @@ class Pipeline extends Component {
   // Called from any step in the pipeline when an option has been changed in the step that
   // requires a recalculation of later steps.
   stepChange() {
+    this.setState({});
+  }
+
+  addStep(step) {
+    if (this.steps.length > 0) {
+      this.steps[this.steps.length - 1].setNext(step);
+    } else {
+      step.setInput(this.state.input);
+    }
+    this.steps.push(step);
     this.setState({});
   }
 }

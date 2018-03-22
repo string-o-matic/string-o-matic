@@ -25,7 +25,7 @@ class StepComponent extends Component {
       <div className="step step-transform">
         <StepTop/>
         <div className="step-header">
-          <h4>{this.props.step.title()}</h4>
+          <h4>{this.props.step.constructor.title}</h4>
         </div>
         <div className="step-body">
           <code className="output">{view}</code>

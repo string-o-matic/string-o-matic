@@ -2,17 +2,9 @@ import Step from './Step'
 
 class HexStep extends Step {
 
-  title() {
-    return 'To Hex';
-  }
-
-  consumes() {
-    return ['ByteStringBuffer'];
-  }
-
-  produces() {
-    return { 'ByteStringBuffer': 'String' }
-  }
+  static title = 'Hex';
+  static consumes = ['ByteStringBuffer'];
+  static produces = { 'ByteStringBuffer': 'String' };
 
   calculate(input) {
     // TODO Check input type, this only supports a forge ByteStringBuffer

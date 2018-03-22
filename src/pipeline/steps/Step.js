@@ -1,5 +1,9 @@
 class Step {
 
+  static title = 'Identity';
+  static consumes = ['*'];
+  static produces = { '*': '*' };
+
   output = null;
 
   setNext(step) {
@@ -10,23 +14,12 @@ class Step {
   }
 
   setInput(input) {
+    console.log(this.constructor.name + ": setInput", input);
     this.input = input;
     this.output = null;
     if (this.next) {
       this.next.setInput(this.getOutput());
     }
-  }
-
-  title() {
-    return 'Identity'
-  }
-
-  consumes() {
-    return ['*']
-  }
-
-  produces() {
-    return { '*': '*' }
   }
 
   calculate(input) {
@@ -37,6 +30,7 @@ class Step {
     if (!this.output && this.input) {
       this.output = this.calculate(this.input);
     }
+    console.log(this.constructor.name + ": getOutput", { input: this.input, output: this.output });
     return this.output;
   }
 

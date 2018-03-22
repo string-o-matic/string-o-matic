@@ -3,19 +3,11 @@ import Step from './Step'
 
 class MD5Step extends Step {
 
+  static title = 'MD5';
+  static consumes = ['String'];
+  static produces = { 'String': 'ByteStringBuffer' };
+
   md5 = forge.md5.create();
-
-  title() {
-    return 'MD5';
-  }
-
-  consumes() {
-    return ['String'];
-  }
-
-  produces() {
-    return { 'String': 'ByteStringBuffer' }
-  }
 
   calculate(input) {
     // TODO Check input type

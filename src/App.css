@@ -78,6 +78,18 @@ textarea.code:focus {
     border-radius: 6px;
 }
 
+.step-selector {
+    background: #595959;
+    position: relative;
+    margin-bottom: 20px;
+    box-shadow: none;
+    border-radius: 6px;
+}
+
+.step-selector .step-body {
+    padding: 20px;
+}
+
 .step-header {
     background: #00796B;
     border-top-left-radius: 6px;
@@ -209,4 +221,23 @@ textarea.code:focus {
     width: 30px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+}
+
+.step-selector .category h4 {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-size: 16px;
+    color: #bbb;
+    margin: 0 0 10px 0;
+    padding: 0;
+    text-align: center;
+}
+
+.step-selector .step-top-1 {
+    background: #595959;
+    border: 1px solid #595959;
+}
+
+.step-selector .btn-inverse {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    background: #424242;
 }
