@@ -13,4 +13,19 @@ class StepTail extends Component {
 
 }
 
-export default StepTail;
+class StepTop extends Component {
+
+  render() {
+    return (
+      <div className="step-top">
+        <div className="step-top-1"></div>
+      </div>
+    )
+  }
+
+}
+
+export {
+  StepTail,
+  StepTop
+};

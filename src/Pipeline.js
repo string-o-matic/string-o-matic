@@ -1,88 +1,61 @@
 import React, { Component } from 'react';
-import * as forge from 'node-forge'
-import Input from './input/Input'
+import Input from './input/Input';
+import StepComponent from './steps/StepComponent';
+import MD5Step from './steps/MD5Step';
+import HexStep from './steps/HexStep';
+import StringReverseStep from './steps/StringReverseStep';
+import IdentityStep from './steps/IdentityStep';
 
 class Pipeline extends Component {
 
   initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
+  steps = [ new MD5Step(), new HexStep(), new StringReverseStep(), new IdentityStep() ];
 
   constructor(props) {
     super(props);
     this.state = { input: this.initialInput };
     this.inputChange = this.inputChange.bind(this);
-  }
-
-  reverseString(str) {
-    return str.split("").reverse().join("");
+    this.stepChange = this.stepChange.bind(this);
+    console.log('pipeline construct update pipeline');
+    this.updatePipelineChain();
+    console.log('pipeline construct set initial');
+    this.steps[0].setInput({ type: 'String', data: this.initialInput });
   }
 
   render() {
-    var string = this.state ? this.state.input : null;
-    var hex = null;
-    var reverse = null;
-    var digest = null;
-    if (string) {
-      var md5 = forge.md5.create();
-      md5.update(this.state.input);
-      digest = md5.digest();
-      hex = digest.toHex();
-      reverse = this.reverseString(hex);
-    }
-
     return (
       <div>
         <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
-        <div className="step step-transform">
-          <div className="step-top">
-            <div className="step-top-1"></div>
-          </div>
-          <div className="step-header">
-            <h4>MD5</h4>
-          </div>
-          <div className="step-body">
-            <div className="result-info">{digest.length()} bytes</div>
-            <div>No preview available for byte array</div>
-          </div>
-          <div className="step-tail">
-            <div className="step-tail-1"></div>
-            <div className="step-tail-2"></div>
-          </div>
-        </div>
-        <div className="step step-transform">
-          <div className="step-top">
-            <div className="step-top-1"></div>
-          </div>
-          <div className="step-header">
-            <h4>To Hex</h4>
-          </div>
-          <div className="step-body">
-            <div className="result-info">String, {hex.length} characters</div>
-            <code>{hex}</code>
-          </div>
-          <div className="step-tail">
-            <div className="step-tail-1"></div>
-            <div className="step-tail-2"></div>
-          </div>
-        </div>
-        <div className="step step-transform">
-          <div className="step-top">
-            <div className="step-top-1"></div>
-          </div>
-          <div className="step-header">
-            <h4>Reverse string</h4>
-          </div>
-          <div className="step-body">
-            <div className="result-info">String, {hex.length} characters</div>
-            <code>{reverse}</code>
-          </div>
-        </div>
+        {
+          this.steps.map((step, i) =>
+            <StepComponent key={i} step={step} stepChange={this.stepChange}/>
+          )
+        }
       </div>
     );
   }
 
+  updatePipelineChain() {
+    var previous = null;
+    this.steps.forEach(step => {
+      if (previous) {
+        previous.setNext(step);
+      }
+      previous = step;
+    });
+  }
+
   inputChange(input) {
-    console.log('new input: ' + input);
+    // Pass new input to first step in pipeline. It will pass its output down the chain.
+    console.log('input change', input);
+    this.steps[0].setInput(input);
     this.setState({ input: input });
+  }
+
+  // Called from any step in the pipeline when an option has been changed in the step that
+  // requires a recalculation of later steps.
+  stepChange() {
+    this.setState({});
   }
 }
 

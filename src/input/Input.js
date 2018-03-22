@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StepTail from '../Common'
+import { StepTail } from '../Common'
 
 class Input extends Component {
 
@@ -38,7 +38,7 @@ class Input extends Component {
 
   handleChange(e) {
     var value = e.target.value;
-    this.props.inputChange(value);
+    this.props.inputChange({ type: 'String', data: value });
     this.setState({ input: value });
   }
 
