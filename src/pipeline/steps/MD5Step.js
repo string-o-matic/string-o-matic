@@ -3,6 +3,8 @@ import Step from './Step'
 
 class MD5Step extends Step {
 
+  md5 = forge.md5.create();
+
   title() {
     return 'MD5';
   }
@@ -20,9 +22,9 @@ class MD5Step extends Step {
     if (input == null || input.data == null) {
       return { type: 'ByteStringBuffer', data: null };
     }
-    var md5 = forge.md5.create();
-    md5.update(input.data);
-    return { type: 'ByteStringBuffer', data: md5.digest() };
+    this.md5.start();
+    this.md5.update(input.data);
+    return { type: 'ByteStringBuffer', data: this.md5.digest() };
   }
 
 }
