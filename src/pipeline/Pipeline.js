@@ -4,12 +4,13 @@ import StepComponent from './StepComponent';
 import MD5Step from './steps/MD5Step';
 import HexStep from './steps/HexStep';
 import StringReverseStep from './steps/StringReverseStep';
+import UpperCase from './steps/string/UpperCase';
 import IdentityStep from './steps/IdentityStep';
 
 class Pipeline extends Component {
 
   initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
-  steps = [ new MD5Step(), new HexStep(), new StringReverseStep(), new IdentityStep() ];
+  steps = [ new MD5Step(), new HexStep(), new StringReverseStep(), new IdentityStep(), new UpperCase() ];
 
   constructor(props) {
     super(props);
