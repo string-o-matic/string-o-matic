@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Pipeline from './Pipeline'
+import Pipeline from './pipeline/Pipeline'
 
 class App extends Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Input from './input/Input';
-import StepComponent from './steps/StepComponent';
+import Input from '../input/Input';
+import StepComponent from './StepComponent';
 import MD5Step from './steps/MD5Step';
 import HexStep from './steps/HexStep';
 import StringReverseStep from './steps/StringReverseStep';
