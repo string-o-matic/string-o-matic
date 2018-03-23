@@ -167,6 +167,13 @@ textarea.code:focus {
     font-size: 10px;
 }
 
+.step-body .data {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    resize: vertical;
+    font-size: 16px;
+    color: #666;
+}
+
 .step-tail {
     position: absolute;
     z-index: 100;

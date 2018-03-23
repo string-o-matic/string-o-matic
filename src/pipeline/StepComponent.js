@@ -10,7 +10,7 @@ class StepComponent extends Component {
     var meta = 'Unknown type';
     if (output == null || output.data == null) {
       view = 'NULL';
-      meta = null;
+      meta = 'null';
     } else if (output.type === 'ByteStringBuffer') {
       view = 'No preview available for byte array';
       console.log(output.data);
@@ -28,7 +28,7 @@ class StepComponent extends Component {
           <h4>{this.props.step.constructor.title}</h4>
         </div>
         <div className="step-body">
-          <code className="output">{view}</code>
+          <div className="data">{view}</div>
           <div className="meta">{meta}</div>
         </div>
         <StepTail/>
