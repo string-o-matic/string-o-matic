@@ -146,6 +146,26 @@ textarea.code:focus {
     text-shadow: 1px 1px 1px #004D40;
 }
 
+.step-header .delete {
+    background: none;
+    border: none;
+    border-top-right-radius: 6px;
+    font-size: 22px;
+    padding: 1px 12px 1px 12px;
+    color: rgba(255, 255, 255, 0.5);
+    -webkit-transition: background, color;
+    -o-transition: background, color;
+    transition: background, color;
+    -webkit-transition-duration: 0.2s;
+    -o-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+}
+.step-header .delete:hover, .step-header .delete:active, .step-header .delete:focus {
+    color: #fff;
+    background: #e53935;
+    outline: none;
+}
+
 
 .step-body {
     padding: 20px 20px 10px 20px;

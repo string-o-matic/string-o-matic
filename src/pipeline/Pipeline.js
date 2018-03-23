@@ -14,6 +14,7 @@ class Pipeline extends Component {
     this.inputChange = this.inputChange.bind(this);
     this.stepChange = this.stepChange.bind(this);
     this.addStep = this.addStep.bind(this);
+    this.deleteStep = this.deleteStep.bind(this);
     // console.log('pipeline construct update pipeline');
     // this.updatePipelineChain();
     // console.log('pipeline construct set initial');
@@ -26,7 +27,7 @@ class Pipeline extends Component {
         <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
         {
           this.steps.map((step, i) =>
-            <StepComponent key={i} step={step} stepChange={this.stepChange}/>
+            <StepComponent key={i} step={step} deleteStep={this.deleteStep} stepChange={this.stepChange}/>
           )
         }
         <StepSelector addStep={this.addStep}/>
@@ -66,6 +67,22 @@ class Pipeline extends Component {
       step.setInput(this.state.input);
     }
     this.steps.push(step);
+    this.setState({});
+  }
+
+  deleteStep(deleteStep) {
+    var steps = [ ];
+    this.steps.forEach(step => {
+      if (step !== deleteStep) {
+        if (steps.length > 0) {
+          steps[steps.length - 1].setNext(step);
+        } else {
+          step.setInput(this.state.input)
+        }
+        steps.push(step);
+      }
+    });
+    this.steps = steps;
     this.setState({});
   }
 }

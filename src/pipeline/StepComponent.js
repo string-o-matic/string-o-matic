@@ -3,6 +3,16 @@ import { StepTail, StepTop } from '../Common';
 
 class StepComponent extends Component {
 
+  constructor(props) {
+    super(props);
+    this.deleteStep = this.deleteStep.bind(this);
+  }
+
+  deleteStep() {
+    console.log(this.props.step);
+    this.props.deleteStep(this.props.step);
+  }
+
   render() {
     var step = this.props.step;
     var output = step.getOutput();
@@ -26,7 +36,8 @@ class StepComponent extends Component {
       <div className="step step-transform">
         <StepTop/>
         <div className="step-header">
-          <h4>{this.props.step.constructor.title}</h4>
+          <h4 className="pull-left">{this.props.step.constructor.title}</h4>
+          <button className="pull-right delete" onClick={this.deleteStep}><span className="ion-md-close"/></button>
         </div>
         <div className="step-body">
           {message}
