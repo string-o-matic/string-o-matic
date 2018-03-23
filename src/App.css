@@ -87,7 +87,7 @@ textarea.code:focus {
 }
 
 .step-selector .step-body {
-    padding: 20px;
+    padding: 20px 30px 20px 30px;
 }
 
 .step-header {
@@ -221,6 +221,11 @@ textarea.code:focus {
     width: 30px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+}
+
+.step-selector .category {
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 .step-selector .category h4 {

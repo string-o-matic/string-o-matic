@@ -1,8 +1,6 @@
 class Step {
 
   static title = 'Identity';
-  static consumes = ['*'];
-  static produces = { '*': '*' };
 
   output = null;
 

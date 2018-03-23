@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import MD5Step from './steps/MD5Step';
-import HexStep from './steps/HexStep';
+import MD5 from './steps/hash/MD5';
+import Hex from './steps/encode/Hex';
+import Reverse from './steps/string/Reverse';
+import UpperCase from './steps/string/UpperCase';
 import { StepTop } from '../Common';
 
 class StepSelector extends Component {
 
+  categories = {
+    string: [ UpperCase, Reverse ],
+    encode: [ Hex ],
+    hash: [ MD5 ],
+    encrypt: [ ]
+  };
+
   render() {
-    // TODO Add category static field and build automatically
-    var encodeSteps = [ HexStep ];
-    var hashSteps = [ MD5Step ];
 
     return (
       <div className="step-selector">
@@ -16,28 +22,19 @@ class StepSelector extends Component {
         <div className="step-body">
           <div className="container-fluid">
             <div className="row">
-              <div className="col-md-3 category">
-                <h4>ENCODE</h4>
-                {
-                  encodeSteps.map((step, i) =>
-                    <button key={i} className="btn btn-inverse btn-block" onClick={this.addStep.bind(this, step)}>{step.title}</button>
-                  )
-                }
-              </div>
-              <div className="col-md-3 category">
-                <h4>STRING</h4>
-              </div>
-              <div className="col-md-3 category">
-                <h4>HASH</h4>
-                {
-                  hashSteps.map((step, i) =>
-                    <button key={i} className="btn btn-inverse btn-block" onClick={this.addStep.bind(this, step)}>{step.title}</button>
-                  )
-                }
-              </div>
-              <div className="col-md-3 category">
-                <h4>ENCRYPT</h4>
-              </div>
+              {
+                Object.keys(this.categories).map((name) => {
+                  return (<div key={name} className="col-md-3 category">
+                    <h4>{name.toUpperCase()}</h4>
+                    {
+                      this.categories[name].map((step, i) =>
+                        <button key={i} className="btn btn-inverse btn-block btn-sm"
+                                onClick={this.addStep.bind(this, step)}>{step.title}</button>
+                      )
+                    }
+                  </div>)
+                })
+              }
             </div>
           </div>
         </div>

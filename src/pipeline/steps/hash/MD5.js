@@ -1,11 +1,9 @@
 import * as forge from 'node-forge'
-import Step from './Step'
+import Step from '../Step'
 
-class MD5Step extends Step {
+class MD5 extends Step {
 
   static title = 'MD5';
-  static consumes = ['String'];
-  static produces = { 'String': 'ByteStringBuffer' };
 
   md5 = forge.md5.create();
 
@@ -21,4 +19,4 @@ class MD5Step extends Step {
 
 }
 
-export default MD5Step;
+export default MD5;
