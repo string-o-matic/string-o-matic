@@ -26,7 +26,16 @@ class Step {
 
   getOutput() {
     if (!this.output && this.input) {
-      this.output = this.calculate(this.input);
+      if (this.input.type === 'error' || this.input.type === 'interrupt') {
+        this.output = { type: 'interrupt' }
+      } else {
+        try {
+          this.output = this.calculate(this.input);
+        } catch (e) {
+          console.error(this.constructor.name + ' calculation failed', {input: this.input, error: e});
+          this.output = {type: 'error', error: "Whoops! This value couldn't be calculated. You've found a bug."}
+        }
+      }
     }
     console.log(this.constructor.name + ": getOutput", { input: this.input, output: this.output });
     return this.output;

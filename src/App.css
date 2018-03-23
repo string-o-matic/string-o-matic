@@ -1,4 +1,5 @@
 body {
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     background: #424242;
 }
 
@@ -36,18 +37,16 @@ header h2 {
     text-shadow: 1px 1px 1px #004D40;
 }
 
-h3, h4 {
+h3 {
     font-family: 'Roboto Slab', Lato, sans-serif;
     font-weight: 300;
-}
-
-h3 {
     font-size: 24px;
     text-transform: uppercase;
 }
 
 h4 {
-
+    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+    font-weight: 400;
 }
 
 
@@ -90,6 +89,14 @@ textarea.code:focus {
     padding: 20px 30px 20px 30px;
 }
 
+.step.error .step-header {
+    background: #e53935;
+}
+
+.step.interrupt .step-header {
+    background: #757575;
+}
+
 .step-header {
     background: #00796B;
     border-top-left-radius: 6px;
@@ -119,7 +126,6 @@ textarea.code:focus {
 }
 .step-header .btn-group .btn-primary {
     padding: 10px 13px 11px 13px;
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     text-transform: uppercase;
     background: #00796B;
     color: #80CBC4;
@@ -136,7 +142,6 @@ textarea.code:focus {
 }
 
 .step-header h4 {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     color: #fff;
     font-weight: 400;
     margin: 0;
@@ -144,6 +149,13 @@ textarea.code:focus {
     font-size: 18px;
     text-transform: uppercase;
     text-shadow: 1px 1px 1px #004D40;
+}
+
+.step.error .step-header h4 {
+    text-shadow: 1px 1px 1px #731212;
+}
+.step.interrupt .step-header h4 {
+    text-shadow: 1px 1px 1px #212121;
 }
 
 .step-header .delete {
@@ -168,15 +180,14 @@ textarea.code:focus {
 
 
 .step-body {
-    padding: 20px 20px 10px 20px;
+    padding: 20px;
 }
 
 .step-input .step-body {
-    padding: 0 0 10px 0;
+    padding: 0 0 20px 0;
 }
 
 .step-body .message {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     color: #00897B;
     border-bottom: 1px dashed #eee;
     bottom: 10px;
@@ -187,18 +198,33 @@ textarea.code:focus {
 }
 
 .step-body .meta {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     text-align: center;
     color: #999;
     border-top: 1px dashed #eee;
     margin-top: 10px;
+    margin-bottom: -10px;
     padding-top: 5px;
     text-transform: uppercase;
     font-size: 10px;
 }
 
+.step-body .error {
+    text-align: center;
+    font-size: 14px;
+    color: #c62828;
+}
+
+.step-body .interrupt {
+    text-align: center;
+    font-size: 14px;
+    color: #757575;
+}
+
+.step-body .error span.ionicon {
+    font-size: 30px;
+}
+
 .step-body .data {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     resize: vertical;
     font-size: 16px;
     color: #666;
@@ -260,13 +286,21 @@ textarea.code:focus {
     border-top-right-radius: 30px;
 }
 
+.step.error .step-top-1 {
+    background: #e53935;
+    border: 1px solid #e53935;
+}
+.step.interrupt .step-top-1 {
+    background: #757575;
+    border: 1px solid #757575;
+}
+
 .step-selector .category {
     padding-left: 3px;
     padding-right: 3px;
 }
 
 .step-selector .category h4 {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     font-size: 16px;
     color: #bbb;
     margin: 0 0 10px 0;
@@ -280,6 +314,5 @@ textarea.code:focus {
 }
 
 .step-selector .btn-inverse {
-    font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
     background: #424242;
 }

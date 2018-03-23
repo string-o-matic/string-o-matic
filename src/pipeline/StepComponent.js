@@ -19,9 +19,21 @@ class StepComponent extends Component {
     var message = null;
     var view = 'No preview available';
     var meta = 'Unknown type';
-    if (output == null || output.data == null) {
+    var clazz = 'normal';
+    var error = null;
+    var interrupt = null;
+    if (output == null) {
+      clazz = 'error';
+      error = "Something's gone wrong, this step didn't receive any input."
+    } else if (output.type === 'error') {
+      clazz = 'error';
+      error = output.error;
+    } else if (output.type === 'interrupt') {
+      clazz = 'interrupt';
+      interrupt = "The pipe is broken somewhere above.";
+    } else if (!output.data) {
       view = 'NULL';
-      meta = 'null';
+      meta = null;
     } else if (output.type === 'ByteStringBuffer') {
       message = <div className="message"><span className="ion-md-information-circle"/> Showing byte array as hex (no separator, lower case) - add an encode step to see another representation</div>;
       view = output.data.toHex();
@@ -31,9 +43,22 @@ class StepComponent extends Component {
       meta = 'String, ' + output.data.length + ' characters';
     }
 
+    clazz += ' step step-transform';
+    var dataElement = null;
+    var metaElement = null;
+    var errorElement = null;
+    var interruptElement = null;
+    if (!error && !interrupt) {
+      dataElement = <div className="data">{view}</div>;
+      metaElement = <div className="meta">{meta}</div>;
+    } else if (error) {
+      errorElement = <div className="error"><span><span className="ionicon ion-ios-bug"/><br/>{error}</span></div>
+    } else if (interrupt) {
+      interruptElement = <div className="interrupt">{interrupt}</div>
+    }
 
     return (
-      <div className="step step-transform">
+      <div className={clazz}>
         <StepTop/>
         <div className="step-header">
           <h4 className="pull-left">{this.props.step.constructor.title}</h4>
@@ -41,8 +66,10 @@ class StepComponent extends Component {
         </div>
         <div className="step-body">
           {message}
-          <div className="data">{view}</div>
-          <div className="meta">{meta}</div>
+          {dataElement}
+          {errorElement}
+          {interruptElement}
+          {metaElement}
         </div>
         <StepTail/>
       </div>
