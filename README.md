@@ -13,6 +13,8 @@ This site will also be easy to run locally for developers who want to test encry
 entering passwords and secret keys on a website. As there are no server round trips and no analytics or other
 libraries included from other sites, this site should be safe for use with sensitive data.
 
+![Preview](docs/preview.png)
+
 ### Current status
 
 This project was started in March 2018 and hasn't reached MVP yet. Once it has a basic feature set, pull requests
