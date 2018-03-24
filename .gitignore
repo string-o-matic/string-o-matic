@@ -20,3 +20,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Compiled CSS
+src/*.css
+src/**/*.css
+sass-lint.html
