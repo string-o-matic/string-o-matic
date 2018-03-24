@@ -1,0 +1,55 @@
+@import '../css/colors';
+@import '../css/variables';
+
+.step-selector {
+  background: $selector;
+  margin-bottom: $grid-margin;
+  border-radius: $border-radius;
+  position: relative;
+
+  .body {
+    padding: $step-padding ($step-padding * .85);
+
+    &::after {
+      content: '';
+      clear: both;
+      display: block;
+    }
+
+    .category {
+      float: left;
+      width: 25%;
+
+      .category-body {
+        padding: ($step-padding * .15);
+      }
+
+      h4 {
+        font-size: $heading-size;
+        color: lighten($selector, 50%);
+        text-shadow: 1px 1px 2px darken($selector, 10%);
+        margin: 0 0 $step-padding;
+        padding: 0;
+        text-align: center;
+      }
+
+      .btn {
+        background: $background;
+        color: #FFF;
+        outline: none;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background: lighten($background, 5%);
+        }
+      }
+    }
+  }
+
+  .step-top-1 {
+    background: $selector;
+    border: 1px solid $selector;
+  }
+
+}

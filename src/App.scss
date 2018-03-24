@@ -1,4 +1,5 @@
-@import 'css/_colors.scss';
+@import 'css/colors';
+@import 'css/variables';
 
 body {
   font-family: $body-font;
@@ -8,7 +9,7 @@ body {
 header {
   padding: 30px;
   background: $primary;
-  margin-bottom: 20px;
+  margin-bottom: $grid-margin;
 }
 
 header h1 {
@@ -62,21 +63,9 @@ textarea.code:focus {
 .step {
   background: #fff;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: $grid-margin;
   box-shadow: 1px 1px 10px darken($background, 10%);
-  border-radius: 6px;
-}
-
-.step-selector {
-  background: $selector;
-  position: relative;
-  margin-bottom: 20px;
-  box-shadow: none;
-  border-radius: 6px;
-}
-
-.step-selector .step-body {
-  padding: 20px 30px 20px 30px;
+  border-radius: $border-radius;
 }
 
 .step.error .step-header {
@@ -89,8 +78,8 @@ textarea.code:focus {
 
 .step-header {
   background: $primary;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
   color: #fff;
 }
 
@@ -272,31 +261,4 @@ textarea.code:focus {
 .step.interrupt .step-top-1 {
   background: $broken-pipe;
   border: 1px solid $broken-pipe;
-}
-
-.step-selector .category {
-  padding-left: 3px;
-  padding-right: 3px;
-}
-
-.step-selector .category h4 {
-  font-size: $heading-size;
-  color: lighten($selector, 60%);
-  text-shadow: 1px 1px 2px darken($selector, 10%);
-  margin: 0 0 10px 0;
-  padding: 0;
-  text-align: center;
-}
-
-.step-selector .step-top-1 {
-  background: $selector;
-  border: 1px solid $selector;
-}
-
-.step-selector .btn-inverse {
-  background: $background;
-  outline: none;
-}
-.step-selector .btn-inverse:hover, .step-selector .btn-inverse:focus, .step-selector .btn-inverse:active {
-  background: lighten($background, 5%);
 }
