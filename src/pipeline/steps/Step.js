@@ -1,3 +1,5 @@
+import Data from '../Data';
+
 class Step {
 
   static title = 'Identity';
@@ -26,14 +28,14 @@ class Step {
 
   getOutput() {
     if (!this.output && this.input) {
-      if (this.input.type === 'error' || this.input.type === 'interrupt') {
-        this.output = { type: 'interrupt' }
+      if (this.input.status !== 'valid') {
+        this.output = Data.brokenPipe();
       } else {
         try {
           this.output = this.calculate(this.input);
         } catch (e) {
           console.error(this.constructor.name + ' calculation failed', {input: this.input, error: e});
-          this.output = {type: 'error', error: "Whoops! This value couldn't be calculated. You've found a bug."}
+          this.output = Data.bug();
         }
       }
     }

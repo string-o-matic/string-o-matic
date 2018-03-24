@@ -1,4 +1,5 @@
 import Step from '../Step';
+import Data from '../../Data';
 
 class Reverse extends Step {
 
@@ -6,9 +7,9 @@ class Reverse extends Step {
 
   calculate(input) {
     if (input == null || input.data == null) {
-      return { type: 'String', data: null };
+      return Data.nul();
     } else {
-      return { type: 'String', data: input.data.split("").reverse().join("") };
+      return Data.string(input.data.split("").reverse().join(""));
     }
   }
 

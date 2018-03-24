@@ -72,7 +72,7 @@ textarea.code:focus {
   background: $error;
 }
 
-.step.interrupt .step-header {
+.step.broken-pipe .step-header {
   background: $broken-pipe;
 }
 
@@ -133,7 +133,7 @@ textarea.code:focus {
 .step.error .step-header h4 {
   text-shadow: 1px 1px 1px darken($error, 20%);
 }
-.step.interrupt .step-header h4 {
+.step.broken-pipe .step-header h4 {
   text-shadow: 1px 1px 1px darken($broken-pipe, 20%);
 }
 
@@ -177,7 +177,6 @@ textarea.code:focus {
 }
 
 .step-body .meta {
-  text-align: center;
   color: #999;
   border-top: 1px dashed #eee;
   margin-top: 10px;
@@ -193,7 +192,7 @@ textarea.code:focus {
   color: darken($error, 10%);
 }
 
-.step-body .interrupt {
+.step-body .broken-pipe {
   text-align: center;
   font-size: $alert-size;
   color: darken($broken-pipe, 10%);
@@ -258,7 +257,7 @@ textarea.code:focus {
   background: $error;
   border: 1px solid $error;
 }
-.step.interrupt .step-top-1 {
+.step.broken-pipe .step-top-1 {
   background: $broken-pipe;
   border: 1px solid $broken-pipe;
 }

@@ -1,4 +1,5 @@
-import Step from '../Step'
+import Step from '../Step';
+import Data from '../../Data';
 
 class Hex extends Step {
 
@@ -8,9 +9,9 @@ class Hex extends Step {
     // TODO Support directly hashing a string
     // TODO Check input type, this only supports a forge ByteStringBuffer
     if (input == null || input.data == null) {
-      return { type: 'String', data: null };
+      return Data.nul();
     }
-    return { type: 'String', data: input.data.toHex() };
+    return Data.string(input.data.toHex());
   }
 
 }

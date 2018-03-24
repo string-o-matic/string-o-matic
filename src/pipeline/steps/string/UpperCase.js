@@ -1,4 +1,5 @@
 import Step from '../Step';
+import Data from '../../Data';
 
 class UpperCase extends Step {
 
@@ -6,9 +7,9 @@ class UpperCase extends Step {
 
   calculate(input) {
     if (input == null || input.data == null) {
-      return { type: 'String', data: null };
+      return Data.nul();
     } else {
-      return { type: 'String', data: input.data.toUpperCase() };
+      return Data.string(input.data.toUpperCase());
     }
   }
 

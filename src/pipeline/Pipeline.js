@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Input from '../input/Input';
 import StepComponent from './StepComponent';
 import StepSelector from './StepSelector';
+import Data from './Data';
 
 class Pipeline extends Component {
 
@@ -10,7 +11,7 @@ class Pipeline extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { input: { type: 'String', data: this.initialInput } };
+    this.state = { input: Data.string(this.initialInput) };
     this.inputChange = this.inputChange.bind(this);
     this.stepChange = this.stepChange.bind(this);
     this.addStep = this.addStep.bind(this);
