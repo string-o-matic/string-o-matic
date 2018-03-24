@@ -1,23 +1,25 @@
+@import 'css/_colors.scss';
+
 body {
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  background: #424242;
+  font-family: $body-font;
+  background: $background;
 }
 
 header {
-  padding: 50px;
-  background: #00796B;
+  padding: 30px;
+  background: $primary;
   margin-bottom: 20px;
 }
 
 header h1 {
-  font-family: 'Roboto Slab', Lato, sans-serif;
+  font-family: $header-font;
   color: #fff;
   font-weight: 300;
-  font-size: 60px;
+  font-size: $title-size;
   text-align: center;
   margin: 0;
   padding: 0;
-  text-shadow: 2px 2px 4px #004D40;
+  text-shadow: 2px 2px 4px darken($primary, 7%);
 }
 
 header h1 span {
@@ -26,36 +28,29 @@ header h1 span {
 }
 
 header h2 {
-  font-family: 'Roboto Slab', Lato, sans-serif;
-  color: #80CBC4;
+  font-family: $header-font;
+  color: $primary-light;
   font-weight: 400;
-  font-size: 20px;
+  font-size: $subtitle-size;
   text-align: center;
   margin: 8px 0;
   padding: 0;
   text-transform: lowercase;
-  text-shadow: 1px 1px 1px #004D40;
-}
-
-h3 {
-  font-family: 'Roboto Slab', Lato, sans-serif;
-  font-weight: 300;
-  font-size: 24px;
-  text-transform: uppercase;
+  text-shadow: 1px 1px 1px darken($primary, 7%);
 }
 
 h4 {
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-family: $body-font;
   font-weight: 400;
 }
 
 
 textarea.code {
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  font-family: $body-font;
   width: 100%;
   resize: vertical;
-  font-size: 16px;
-  color: #666;
+  font-size: $body-size;
+  color: $data;
   border: none;
   padding: 20px 20px 10px 20px;
 }
@@ -64,21 +59,16 @@ textarea.code:focus {
   outline: none;
 }
 
-.result-info {
-  color: #777;
-  font-size: 12px;
-}
-
 .step {
   background: #fff;
   position: relative;
   margin-bottom: 20px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 1px 1px 10px darken($background, 10%);
   border-radius: 6px;
 }
 
 .step-selector {
-  background: #595959;
+  background: $selector;
   position: relative;
   margin-bottom: 20px;
   box-shadow: none;
@@ -90,15 +80,15 @@ textarea.code:focus {
 }
 
 .step.error .step-header {
-  background: #e53935;
+  background: $error;
 }
 
 .step.interrupt .step-header {
-  background: #757575;
+  background: $broken-pipe;
 }
 
 .step-header {
-  background: #00796B;
+  background: $primary;
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
   color: #fff;
@@ -127,17 +117,17 @@ textarea.code:focus {
 .step-header .btn-group .btn-primary {
   padding: 10px 13px 11px 13px;
   text-transform: uppercase;
-  background: #00796B;
-  color: #80CBC4;
-  text-shadow: 1px 1px 1px #004D40;
+  background: $primary;
+  color: $primary-light;
+  text-shadow: 1px 1px 1px darken($primary, 5%);
 }
 .step-header .btn-group .btn-primary:hover,
 .step-header .btn-group .btn-primary:focus {
-  background: #00897B;
+  background: lighten($primary, 3%);
 }
 
 .step-header .btn-group .btn-primary.active {
-  background: #009688;
+  background: lighten($primary, 6%);
   color: #fff;
 }
 
@@ -146,16 +136,16 @@ textarea.code:focus {
   font-weight: 400;
   margin: 0;
   padding: 10px;
-  font-size: 18px;
+  font-size: $heading-size;
   text-transform: uppercase;
-  text-shadow: 1px 1px 1px #004D40;
+  text-shadow: 1px 1px 1px darken($primary, 10%);
 }
 
 .step.error .step-header h4 {
-  text-shadow: 1px 1px 1px #731212;
+  text-shadow: 1px 1px 1px darken($error, 20%);
 }
 .step.interrupt .step-header h4 {
-  text-shadow: 1px 1px 1px #212121;
+  text-shadow: 1px 1px 1px darken($broken-pipe, 20%);
 }
 
 .step-header .delete {
@@ -194,7 +184,7 @@ textarea.code:focus {
   padding-bottom: 5px;
   margin-bottom: 10px;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: $note-size;
 }
 
 .step-body .meta {
@@ -205,19 +195,19 @@ textarea.code:focus {
   margin-bottom: -10px;
   padding-top: 5px;
   text-transform: uppercase;
-  font-size: 10px;
+  font-size: $note-size;
 }
 
 .step-body .error {
   text-align: center;
-  font-size: 14px;
-  color: #c62828;
+  font-size: $alert-size;
+  color: darken($error, 10%);
 }
 
 .step-body .interrupt {
   text-align: center;
-  font-size: 14px;
-  color: #757575;
+  font-size: $alert-size;
+  color: darken($broken-pipe, 10%);
 }
 
 .step-body .error span.ionicon {
@@ -226,8 +216,8 @@ textarea.code:focus {
 
 .step-body .data {
   resize: vertical;
-  font-size: 16px;
-  color: #666;
+  font-size: $body-size;
+  color: $data;
 }
 
 .step-tail {
@@ -238,25 +228,14 @@ textarea.code:focus {
   right: 30px;
 }
 
-.step-tail-1 {
-  /*position:absolute;*/
-  /*bottom:-40px;*/
-  /*left:50%;*/
-  /*width:0;height:0;*/
-  /*border-color:#26A69A transparent transparent transparent;*/
-  /*border-width:20px;*/
-  /*border-style:solid;*/
-
-}
-
 .step-tail-2 {
-  position:absolute;
-  bottom:-28px;
-  left:50%;
-  width:0;height:0;
-  border-color:#fff transparent transparent transparent;
-  border-width:15px;
-  border-style:solid;
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border: 15px solid transparent;
+  border-top-color: #fff;
 
 }
 .step:last-child .step-tail {
@@ -275,10 +254,10 @@ textarea.code:focus {
   position: absolute;
   top: -15px;
   left: 50%;
-  background: #00796B;
+  background: $primary;
   display: inline-block;
   margin: 0 1em 1em 0;
-  border: 1px solid #00796B;
+  border: 1px solid $primary;
   border-bottom: none;
   height: 15px;
   width: 30px;
@@ -287,12 +266,12 @@ textarea.code:focus {
 }
 
 .step.error .step-top-1 {
-  background: #e53935;
-  border: 1px solid #e53935;
+  background: $error;
+  border: 1px solid $error;
 }
 .step.interrupt .step-top-1 {
-  background: #757575;
-  border: 1px solid #757575;
+  background: $broken-pipe;
+  border: 1px solid $broken-pipe;
 }
 
 .step-selector .category {
@@ -301,18 +280,23 @@ textarea.code:focus {
 }
 
 .step-selector .category h4 {
-  font-size: 16px;
-  color: #bbb;
+  font-size: $heading-size;
+  color: lighten($selector, 60%);
+  text-shadow: 1px 1px 2px darken($selector, 10%);
   margin: 0 0 10px 0;
   padding: 0;
   text-align: center;
 }
 
 .step-selector .step-top-1 {
-  background: #595959;
-  border: 1px solid #595959;
+  background: $selector;
+  border: 1px solid $selector;
 }
 
 .step-selector .btn-inverse {
-  background: #424242;
+  background: $background;
+  outline: none;
+}
+.step-selector .btn-inverse:hover, .step-selector .btn-inverse:focus, .step-selector .btn-inverse:active {
+  background: lighten($background, 5%);
 }
