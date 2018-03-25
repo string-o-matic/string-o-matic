@@ -16,10 +16,6 @@ class Pipeline extends Component {
     this.stepChange = this.stepChange.bind(this);
     this.addStep = this.addStep.bind(this);
     this.deleteStep = this.deleteStep.bind(this);
-    // console.log('pipeline construct update pipeline');
-    // this.updatePipelineChain();
-    // console.log('pipeline construct set initial');
-    // this.steps[0].setInput({ type: 'String', data: this.initialInput });
   }
 
   render() {
@@ -35,16 +31,6 @@ class Pipeline extends Component {
       </div>
     );
   }
-
-  // updatePipelineChain() {
-  //   var previous = null;
-  //   this.steps.forEach(step => {
-  //     if (previous) {
-  //       previous.setNext(step);
-  //     }
-  //     previous = step;
-  //   });
-  // }
 
   inputChange(input) {
     // Pass new input to first step in pipeline. It will pass its output down the chain.
