@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Input from './Input';
-import Data from '../pipeline/Data';
+import Data from '../Data';
 
 it('renders without crashing', () => {
   var initialInput = Data.string('wobbly wombat');

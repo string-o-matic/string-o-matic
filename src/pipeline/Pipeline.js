@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Input from '../input/Input';
+import Input from './input/Input';
 import StepComponent from './StepComponent';
 import StepSelector from './StepSelector';
 import Data from './Data';

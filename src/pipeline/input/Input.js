@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StepTail } from '../Common';
-import Data from '../pipeline/Data';
+import { StepTail } from '../../Common';
+import Data from '../Data';
 import './Input.css'
 
 class Input extends Component {
