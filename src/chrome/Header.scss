@@ -1,0 +1,36 @@
+@import '../css/colors';
+@import '../css/variables';
+
+header {
+  padding: 30px;
+  background: $primary;
+  margin-bottom: $grid-margin;
+
+  h1 {
+    font-family: $header-font;
+    color: #FFF;
+    font-weight: 300;
+    font-size: $title-size;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    text-shadow: 2px 2px 4px darken($primary, 7%);
+
+    span {
+      position: relative;
+      top: 7px;
+    }
+  }
+
+  h2 {
+    font-family: $header-font;
+    color: $primary-light;
+    font-weight: 400;
+    font-size: $subtitle-size;
+    text-align: center;
+    margin: 8px 0;
+    padding: 0;
+    text-transform: lowercase;
+    text-shadow: 1px 1px 1px darken($primary, 7%);
+  }
+}

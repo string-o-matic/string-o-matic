@@ -1,0 +1,43 @@
+@import 'css/colors';
+@import 'css/variables';
+
+.step-tail {
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  bottom: 0;
+  right: 30px;
+
+  .step-tail-1 {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    border-top-color: #FFF;
+  }
+}
+
+.step-top {
+  position: absolute;
+  z-index: 99;
+  left: 0;
+  top: 0;
+  right: 30px;
+
+  .step-top-1 {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    background: $primary;
+    display: inline-block;
+    margin: 0 1em 1em 0;
+    border: 1px solid $primary;
+    border-bottom: 0;
+    height: 15px;
+    width: 30px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  }
+}

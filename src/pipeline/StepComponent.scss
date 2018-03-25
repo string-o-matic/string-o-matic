@@ -1,0 +1,150 @@
+@import '../css/colors';
+@import '../css/variables';
+
+.step {
+  background: #FFF;
+  position: relative;
+  margin-bottom: $grid-margin;
+  box-shadow: 1px 1px 10px darken($background, 10%);
+  border-radius: $border-radius;
+
+  .step-header {
+    background: $primary;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    color: #FFF;
+
+    &::after {
+      clear: both;
+      display: table;
+      content: ' ';
+    }
+
+    h4 {
+      font-family: $body-font;
+      font-weight: 400;
+      font-size: $heading-size;
+      color: #FFF;
+      margin: 0;
+      padding: 10px;
+      text-transform: uppercase;
+      text-shadow: 1px 1px 1px darken($primary, 10%);
+    }
+
+    .delete {
+      background: none;
+      border: 0;
+      border-top-right-radius: 6px;
+      font-size: 22px;
+      padding: 1px 12px;
+      color: rgba(255, 255, 255, .5);
+      transition: background, color;
+      transition-duration: .2s;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: #FFF;
+        background: #E53935;
+        outline: none;
+      }
+    }
+
+    .btn-group {
+      .btn {
+        padding: 10px 13px 11px;
+        text-transform: uppercase;
+        background: $primary;
+        color: $primary-light;
+        text-shadow: 1px 1px 1px darken($primary, 5%);
+
+        &:hover,
+        &:active,
+        &:focus {
+          background: lighten($primary, 3%);
+        }
+
+        &.active {
+          background: lighten($primary, 6%);
+          color: #FFF;
+        }
+      }
+    }
+  }
+
+  &.error {
+    .step-header {
+      background: $error;
+
+      h4 {
+        text-shadow: 1px 1px 1px darken($error, 20%);
+      }
+    }
+
+    .step-top-1 {
+      background: $error;
+      border: 1px solid $error;
+    }
+  }
+
+  &.broken-pipe {
+    .step-header {
+      background: $broken-pipe;
+
+      h4 {
+        text-shadow: 1px 1px 1px darken($broken-pipe, 20%);
+      }
+    }
+
+    .step-top-1 {
+      background: $broken-pipe;
+      border: 1px solid $broken-pipe;
+    }
+  }
+
+  .step-body {
+    padding: $step-padding;
+
+    .data {
+      font-size: $body-size;
+      color: $data;
+    }
+
+    .meta {
+      color: #999;
+      border-top: 1px dashed #EEE;
+      margin-top: 10px;
+      margin-bottom: -($step-padding / 2);
+      padding-top: 5px;
+      text-transform: uppercase;
+      font-size: $note-size;
+    }
+
+    .error {
+      text-align: center;
+      font-size: $alert-size;
+      color: darken($error, 10%);
+
+      .ionicon {
+        font-size: 30px;
+      }
+    }
+
+    .broken-pipe {
+      text-align: center;
+      font-size: $alert-size;
+      color: darken($broken-pipe, 10%);
+    }
+  }
+
+  &.step-input {
+    .step-body {
+      padding: 0 0 20px;
+
+      .meta {
+        margin: 0 $step-padding ($step-padding / -2);
+      }
+    }
+  }
+
+}

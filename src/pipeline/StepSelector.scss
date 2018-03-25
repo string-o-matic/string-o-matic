@@ -25,6 +25,8 @@
       }
 
       h4 {
+        font-family: $body-font;
+        font-weight: 400;
         font-size: $heading-size;
         color: lighten($selector, 50%);
         text-shadow: 1px 1px 2px darken($selector, 10%);

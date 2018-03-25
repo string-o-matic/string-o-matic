@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StepTail, StepTop } from '../Common';
+import './StepComponent.css';
 
 class StepComponent extends Component {
 
@@ -9,7 +10,6 @@ class StepComponent extends Component {
   }
 
   deleteStep() {
-    console.log(this.props.step);
     this.props.deleteStep(this.props.step);
   }
 

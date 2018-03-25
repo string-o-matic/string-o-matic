@@ -6,7 +6,6 @@ class StepTail extends Component {
     return (
       <div className="step-tail">
         <div className="step-tail-1"></div>
-        <div className="step-tail-2"></div>
       </div>
     );
   }

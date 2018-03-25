@@ -1,0 +1,20 @@
+@import '../css/colors';
+@import '../css/variables';
+// Inherits style from StepComponent.scss
+
+textarea {
+  &.code {
+    font-family: $body-font;
+    font-size: $body-size;
+    color: $data;
+    width: 100%;
+    resize: vertical;
+    border: 0;
+    padding: $step-padding $step-padding ($step-padding / 2);
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
