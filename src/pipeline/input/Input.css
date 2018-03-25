@@ -12,3 +12,38 @@ textarea.code {
       font-size: 12px; } }
   textarea.code:focus {
     outline: none; }
+
+.dropzone {
+  font-size: 16px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #555;
+  padding: 20px 20px 10px;
+  line-height: 22.4px;
+  cursor: pointer; }
+  .dropzone .ionicon {
+    font-size: 30px;
+    line-height: 38.4px; }
+  .dropzone small {
+    color: #6f6f6f;
+    line-height: 22.4px; }
+  @media (max-width: 800px) {
+    .dropzone {
+      padding: 10px 10px 5px;
+      font-size: 12px; } }
+  .dropzone.active {
+    background: #E0F2F1; }
+  .dropzone.reject {
+    background: #FFEBEE; }
+
+.file-success {
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #2E7D32; }
+
+.file-error {
+  font-size: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #b61b17; }

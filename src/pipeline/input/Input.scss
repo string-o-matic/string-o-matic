@@ -23,3 +23,50 @@ textarea {
   }
 }
 
+.dropzone {
+  font-size: $body-size;
+  text-align: center;
+  text-transform: uppercase;
+  color: $data;
+  padding: $step-padding $step-padding ($step-padding / 2);
+  line-height: ($body-size * 1.4);
+  cursor: pointer;
+
+  .ionicon {
+    font-size: 30px;
+    line-height: ($body-size * 2.4);
+  }
+
+  small {
+    color: lighten($data, 10%);
+    line-height: ($body-size * 1.4);
+  }
+
+  @media (max-width: $width-mobile) {
+    padding: ($step-padding / 2) ($step-padding / 2) ($step-padding / 4);
+    font-size: ($body-size * .75);
+  }
+
+  &.active {
+    background: #E0F2F1;
+  }
+
+  &.reject {
+    background: #FFEBEE;
+  }
+}
+
+.file-success {
+  font-size: $alert-size;
+  text-align: center;
+  text-transform: uppercase;
+  color: $success;
+}
+
+.file-error {
+  font-size: $alert-size;
+  text-align: center;
+  text-transform: uppercase;
+  color: $error-text;
+}
+

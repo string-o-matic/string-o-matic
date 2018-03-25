@@ -48,7 +48,6 @@ class Pipeline extends Component {
 
   inputChange(input) {
     // Pass new input to first step in pipeline. It will pass its output down the chain.
-    console.log('input change', input);
     if (this.steps.length > 0) {
       this.steps[0].setInput(input);
     }

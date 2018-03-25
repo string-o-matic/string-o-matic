@@ -40,7 +40,7 @@
       text-shadow: 1px 1px 1px darken($primary, 10%);
 
       @media (max-width: $width-mobile) {
-        padding: ($step-padding / 2) ($step-padding / 2);
+        padding: ($step-padding / 2);
       }
     }
 
@@ -144,7 +144,7 @@
     .error {
       text-align: center;
       font-size: $alert-size;
-      color: darken($error, 10%);
+      color: $error-text;
 
       .ionicon {
         font-size: 30px;

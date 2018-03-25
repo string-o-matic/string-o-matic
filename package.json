@@ -7,6 +7,7 @@
     "node-forge": "^0.7.4",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-dropzone": "^4.2.9",
     "react-scripts": "1.1.1"
   },
   "scripts": {

@@ -4,7 +4,9 @@ $selector:      #595959;
 $primary:       #00796B;
 $primary-light: #B2DFDB;
 
+$success:       #2E7D32;
 $error:         #E53935;
+$error-text:    darken($error, 15%);
 $broken-pipe:   #757575;
 
 $data:          #555;
