@@ -125,6 +125,8 @@
     .data {
       font-size: $body-size;
       color: $data;
+      padding: 0;
+      border: 0;
 
       @media (max-width: $width-mobile) {
         font-size: ($body-size * .75);

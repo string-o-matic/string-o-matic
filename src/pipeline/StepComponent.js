@@ -61,7 +61,7 @@ class StepComponent extends Component {
   }
 
   data(content) {
-    return <div key="data" className="data">{content}</div>
+    return <pre key="data" className="data">{content}</pre>
   }
 
   meta(content) {
