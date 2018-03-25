@@ -6,6 +6,10 @@ header {
   background: $primary;
   margin-bottom: $grid-margin;
 
+  @media (max-width: $width-mobile) {
+    padding: 15px;
+  }
+
   h1 {
     font-family: $header-font;
     color: #FFF;
@@ -16,9 +20,21 @@ header {
     padding: 0;
     text-shadow: 2px 2px 4px darken($primary, 7%);
 
+    @media (max-width: $width-mobile) {
+      font-size: ($title-size * .7);
+    }
+
+    @media (max-width: $width-tiny) {
+      font-size: ($title-size * .5);
+    }
+
     span {
       position: relative;
       top: 7px;
+
+      @media (max-width: $width-mobile) {
+        top: 3px;
+      }
     }
   }
 
@@ -32,5 +48,9 @@ header {
     padding: 0;
     text-transform: lowercase;
     text-shadow: 1px 1px 1px darken($primary, 7%);
+
+    @media (max-width: $width-mobile) {
+      font-size: ($subtitle-size * .7);
+    }
   }
 }

@@ -5,3 +5,11 @@ body {
   font-family: $body-font;
   background: $background;
 }
+
+.container {
+  @media (max-width: $width-mobile) {
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
+}

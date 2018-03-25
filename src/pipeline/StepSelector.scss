@@ -10,6 +10,10 @@
   .body {
     padding: $step-padding ($step-padding * .85);
 
+    @media (max-width: $width-mobile) {
+      padding: ($step-padding * .5) ($step-padding * .45);
+    }
+
     &::after {
       content: '';
       clear: both;
@@ -19,6 +23,15 @@
     .category {
       float: left;
       width: 25%;
+
+      @media (max-width: $width-mobile) {
+        width: 50%;
+      }
+
+      @media (max-width: $width-tiny) {
+        float: none;
+        width: 100%;
+      }
 
       .category-body {
         padding: ($step-padding * .15);

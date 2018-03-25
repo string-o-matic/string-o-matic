@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Common.css'
 
 class StepTail extends Component {
 

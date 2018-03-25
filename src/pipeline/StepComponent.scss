@@ -8,11 +8,20 @@
   box-shadow: 1px 1px 10px darken($background, 10%);
   border-radius: $border-radius;
 
+  @media (max-width: $width-mobile) {
+    border-radius: 0;
+  }
+
   .step-header {
     background: $primary;
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     color: #FFF;
+
+    @media (max-width: $width-mobile) {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
 
     &::after {
       clear: both;
@@ -26,9 +35,13 @@
       font-size: $heading-size;
       color: #FFF;
       margin: 0;
-      padding: 10px;
+      padding: ($step-padding / 2) $step-padding;
       text-transform: uppercase;
       text-shadow: 1px 1px 1px darken($primary, 10%);
+
+      @media (max-width: $width-mobile) {
+        padding: ($step-padding / 2) ($step-padding / 2);
+      }
     }
 
     .delete {
@@ -105,9 +118,17 @@
   .step-body {
     padding: $step-padding;
 
+    @media (max-width: $width-mobile) {
+      padding: ($step-padding / 2);
+    }
+
     .data {
       font-size: $body-size;
       color: $data;
+
+      @media (max-width: $width-mobile) {
+        font-size: ($body-size * .75);
+      }
     }
 
     .meta {
@@ -139,10 +160,18 @@
 
   &.step-input {
     .step-body {
-      padding: 0 0 20px;
+      padding: 0 0 $step-padding;
+
+      @media (max-width: $width-mobile) {
+        padding: 0 0 ($step-padding / 2);
+      }
 
       .meta {
         margin: 0 $step-padding ($step-padding / -2);
+
+        @media (max-width: $width-mobile) {
+          margin: 0 ($step-padding / 2) ($step-padding / -4);
+        }
       }
     }
   }

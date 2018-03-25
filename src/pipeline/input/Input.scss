@@ -1,5 +1,5 @@
-@import '../css/colors';
-@import '../css/variables';
+@import '../../css/colors';
+@import '../../css/variables';
 // Inherits style from StepComponent.scss
 
 textarea {
@@ -11,6 +11,11 @@ textarea {
     resize: vertical;
     border: 0;
     padding: $step-padding $step-padding ($step-padding / 2);
+
+    @media (max-width: $width-mobile) {
+      padding: ($step-padding / 2) ($step-padding / 2) ($step-padding / 4);
+      font-size: ($body-size * .75);
+    }
 
     &:focus {
       outline: none;
