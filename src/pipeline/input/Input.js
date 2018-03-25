@@ -10,6 +10,7 @@ class Input extends Component {
     super(props);
     this.state = { textAreaInput: this.props.initialInput, fileInput: '', type: 'textArea' };
     this.handleChange = this.handleChange.bind(this);
+    this.clear = this.clear.bind(this);
   }
 
   render() {
@@ -66,7 +67,8 @@ class Input extends Component {
         <div className="step-header">
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
-            <button className={"btn btn-sm btn-primary" + (this.state.type === 'textArea' ? ' active' : '')} onClick={this.setType.bind(this, 'textArea')}>String</button>
+            <button className="btn btn-sm btn-primary btn-clear" onClick={this.clear}><span className="ion-md-close-circle"/> Clear</button>
+            <button className={"btn btn-sm btn-primary" + (this.state.type === 'textArea' ? ' active' : '')} onClick={this.setType.bind(this, 'textArea')}>Type</button>
             {/*<button className="btn btn-sm btn-primary" disabled="disabled">Number</button>*/}
             <button className={"btn btn-sm btn-primary" + (this.state.type === 'file' ? ' active' : '')} onClick={this.setType.bind(this, 'file')}>File</button>
             {/*<button className="btn btn-sm btn-primary" disabled="disabled">Random</button>*/}
@@ -121,6 +123,12 @@ class Input extends Component {
     } else {
       this.setState({fileInput: value});
     }
+  }
+
+  clear() {
+    console.log('clear');
+    this.setState({ textAreaInput: '', fileInput: '', fileError: null, file: null });
+    this.props.inputChange(Data.string(''));
   }
 
 }
