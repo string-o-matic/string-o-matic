@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Input from './Input';
+import FileInput from './FileInput';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
   var inputChange = function() { };
-  ReactDOM.render(<Input initialInput="wobbly wombat" inputChange={inputChange}/>, div);
+  ReactDOM.render(<FileInput inputChange={inputChange}/>, div);
 });
