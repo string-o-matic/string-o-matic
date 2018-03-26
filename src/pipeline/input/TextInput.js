@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Data from '../Data';
+import ResizingTextArea from '../ResizingTextArea';
 import './Input.css'
 
 class TextInput extends Component {
@@ -7,40 +8,23 @@ class TextInput extends Component {
   constructor(props) {
     super(props);
     this.state = { input: this.props.initialInput };
-    this.handleChange = this.handleChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   render() {
     return (
       <div>
-        <textarea
-          className="data"
-          type="text"
-          value={this.state.input}
-          onChange={this.handleChange}
-          rows="1"
-          autoComplete="off"
-          autoCorrect="off"
-          autoCapitalize="off"
-          spellCheck="false"
-          ref="textarea">
-        </textarea>
+        <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input}/>
         <div className="meta">String, {this.state.input.length} characters</div>
       </div>
     );
   }
 
   componentDidMount() {
-    this.adjustTextArea();
     this.props.inputChange(Data.string(this.state.input + ''));
   }
 
-  componentDidUpdate() {
-    this.adjustTextArea();
-  }
-
-  handleChange(e) {
-    var value = e.target.value;
+  onChange(value) {
     this.props.inputChange(Data.string(value));
     this.setState({ input: value });
   }
@@ -48,13 +32,6 @@ class TextInput extends Component {
   clear() {
     this.setState({ input: '' });
     this.props.inputChange(Data.string(''));
-  }
-
-  adjustTextArea() {
-    if (this.refs.textarea) {
-      this.refs.textarea.style.height = 'auto';
-      this.refs.textarea.style.height = Math.min(600, this.refs.textarea.scrollHeight) + 'px';
-    }
   }
 
 }
