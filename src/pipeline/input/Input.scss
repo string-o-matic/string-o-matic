@@ -25,35 +25,16 @@
   }
 }
 
-textarea {
-  &.code {
-    font-family: $body-font;
-    font-size: $body-size;
-    color: $data;
-    width: 100%;
-    resize: vertical;
-    border: 0;
-    padding: $step-padding $step-padding ($step-padding / 2);
-
-    @media (max-width: $width-mobile) {
-      padding: ($step-padding / 2) ($step-padding / 2) ($step-padding / 4);
-      font-size: ($body-size * .75);
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-}
-
 .dropzone {
   font-size: $body-size;
   text-align: center;
   text-transform: uppercase;
   color: $data;
-  padding: $step-padding $step-padding ($step-padding / 2);
+  padding: $step-padding;
   line-height: ($body-size * 1.4);
   cursor: pointer;
+  border-bottom-left-radius: $border-radius;
+  border-bottom-right-radius: $border-radius;
 
   .ionicon {
     font-size: 30px;
@@ -77,19 +58,20 @@ textarea {
   &.reject {
     background: #FFEBEE;
   }
-}
 
-.file-success {
-  font-size: $alert-size;
-  text-align: center;
-  text-transform: uppercase;
-  color: $success;
-}
+  .file-success {
+    font-size: $alert-size;
+    text-align: center;
+    text-transform: uppercase;
+    color: $success;
+    padding-top: ($step-padding / 2);
+  }
 
-.file-error {
-  font-size: $alert-size;
-  text-align: center;
-  text-transform: uppercase;
-  color: $error-text;
+  .file-error {
+    font-size: $alert-size;
+    text-align: center;
+    text-transform: uppercase;
+    color: $error-text;
+    padding-top: ($step-padding / 2);
+  }
 }
-

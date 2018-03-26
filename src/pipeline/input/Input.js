@@ -17,11 +17,16 @@ class Input extends Component {
     var content = (
       <div>
         <textarea
-          className="code"
+          className="data"
           type="text"
           value={this.state.textAreaInput}
           onChange={this.handleChange}
-          rows="4">
+          rows="1"
+          autoComplete="off"
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck="false"
+          ref="textarea1">
         </textarea>
         <div className="meta">String, {this.getLength()} characters</div>
       </div>
@@ -29,16 +34,24 @@ class Input extends Component {
     if (this.state.type === 'file') {
       var style = { };
       var status = null;
+      var textarea = null;
       if (this.state.file) {
         status = (
+          <div className="file-success"><span className="ion-md-checkmark-circle"/> Imported {this.state.file.name}</div>
+        );
+        textarea = (
           <div>
-            <div className="file-success"><span className="ion-md-checkmark-circle"/> Imported {this.state.file.name}</div>
             <textarea
-              className="code"
+              className="data"
               type="text"
               value={this.state.fileInput}
               onChange={this.handleChange}
-              rows="4">
+              rows="1"
+              autoComplete="off"
+              autoCorrect="off"
+              autoCapitalize="off"
+              spellCheck="false"
+              ref="textarea2">
             </textarea>
             <div className="meta">String, {this.getLength()} characters</div>
           </div>
@@ -56,8 +69,9 @@ class Input extends Component {
             <small>or click to select a file</small>
             <br/>
             <small>Max size 1Mb</small>
+            {status}
           </Dropzone>
-          {status}
+          {textarea}
         </div>
       );
     }
@@ -68,7 +82,7 @@ class Input extends Component {
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
             <button className="btn btn-sm btn-primary btn-clear" onClick={this.clear}><span className="ion-md-close-circle"/> Clear</button>
-            <button className={"btn btn-sm btn-primary" + (this.state.type === 'textArea' ? ' active' : '')} onClick={this.setType.bind(this, 'textArea')}>Type</button>
+            <button className={"btn btn-sm btn-primary" + (this.state.type === 'textArea' ? ' active' : '')} onClick={this.setType.bind(this, 'textArea')}>Text</button>
             {/*<button className="btn btn-sm btn-primary" disabled="disabled">Number</button>*/}
             <button className={"btn btn-sm btn-primary" + (this.state.type === 'file' ? ' active' : '')} onClick={this.setType.bind(this, 'file')}>File</button>
             {/*<button className="btn btn-sm btn-primary" disabled="disabled">Random</button>*/}
@@ -80,6 +94,14 @@ class Input extends Component {
         <StepTail/>
       </div>
     );
+  }
+
+  componentDidMount() {
+    this.adjustTextArea();
+  }
+
+  componentDidUpdate() {
+    this.adjustTextArea();
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -126,9 +148,19 @@ class Input extends Component {
   }
 
   clear() {
-    console.log('clear');
     this.setState({ textAreaInput: '', fileInput: '', fileError: null, file: null });
     this.props.inputChange(Data.string(''));
+  }
+
+  adjustTextArea() {
+    if (this.refs.textarea1) {
+      this.refs.textarea1.style.height = 'auto';
+      this.refs.textarea1.style.height = Math.min(600, this.refs.textarea1.scrollHeight) + 'px';
+    }
+    if (this.refs.textarea2) {
+      this.refs.textarea2.style.height = 'auto';
+      this.refs.textarea2.style.height = Math.min(600, this.refs.textarea2.scrollHeight) + 'px';
+    }
   }
 
 }

@@ -11,29 +11,16 @@
 .step-input .step-header .btn-group .active {
   box-shadow: 0px -2px 0px #FFF inset; }
 
-textarea.code {
-  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
-  font-size: 16px;
-  color: #555;
-  width: 100%;
-  resize: vertical;
-  border: 0;
-  padding: 20px 20px 10px; }
-  @media (max-width: 800px) {
-    textarea.code {
-      padding: 10px 10px 5px;
-      font-size: 12px; } }
-  textarea.code:focus {
-    outline: none; }
-
 .dropzone {
   font-size: 16px;
   text-align: center;
   text-transform: uppercase;
   color: #555;
-  padding: 20px 20px 10px;
+  padding: 20px;
   line-height: 22.4px;
-  cursor: pointer; }
+  cursor: pointer;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px; }
   .dropzone .ionicon {
     font-size: 30px;
     line-height: 38.4px; }
@@ -48,15 +35,15 @@ textarea.code {
     background: #E0F2F1; }
   .dropzone.reject {
     background: #FFEBEE; }
-
-.file-success {
-  font-size: 12px;
-  text-align: center;
-  text-transform: uppercase;
-  color: #2E7D32; }
-
-.file-error {
-  font-size: 12px;
-  text-align: center;
-  text-transform: uppercase;
-  color: #b61b17; }
+  .dropzone .file-success {
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #2E7D32;
+    padding-top: 10px; }
+  .dropzone .file-error {
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #b61b17;
+    padding-top: 10px; }

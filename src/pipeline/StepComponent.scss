@@ -116,19 +116,18 @@
   }
 
   .step-body {
-    padding: $step-padding;
-
-    @media (max-width: $width-mobile) {
-      padding: ($step-padding / 2);
-    }
+    padding: 0;
 
     .data {
       font-size: $body-size;
       color: $data;
-      padding: 0;
       border: 0;
+      width: 100%;
+      outline: none;
+      padding: $step-padding;
 
       @media (max-width: $width-mobile) {
+        padding: ($step-padding / 2);
         font-size: ($body-size * .75);
       }
     }
@@ -136,17 +135,22 @@
     .meta {
       color: #999;
       border-top: 1px dashed #EEE;
-      margin-top: 10px;
-      margin-bottom: -($step-padding / 2);
       padding-top: 5px;
       text-transform: uppercase;
       font-size: $note-size;
+      margin: 0 $step-padding;
+      padding-bottom: ($step-padding / 2);
+
+      @media (max-width: $width-mobile) {
+        margin: 0 ($step-padding / 2) ($step-padding / -4);
+      }
     }
 
     .error {
       text-align: center;
       font-size: $alert-size;
       color: $error-text;
+      padding: $step-padding;
 
       .ionicon {
         font-size: 30px;
@@ -157,24 +161,7 @@
       text-align: center;
       font-size: $alert-size;
       color: darken($broken-pipe, 10%);
-    }
-  }
-
-  &.step-input {
-    .step-body {
-      padding: 0 0 $step-padding;
-
-      @media (max-width: $width-mobile) {
-        padding: 0 0 ($step-padding / 2);
-      }
-
-      .meta {
-        margin: 0 $step-padding ($step-padding / -2);
-
-        @media (max-width: $width-mobile) {
-          margin: 0 ($step-padding / 2) ($step-padding / -4);
-        }
-      }
+      padding: $step-padding;
     }
   }
 

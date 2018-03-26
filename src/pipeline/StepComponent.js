@@ -7,6 +7,7 @@ class StepComponent extends Component {
   constructor(props) {
     super(props);
     this.deleteStep = this.deleteStep.bind(this);
+    this.adjustTextArea = this.adjustTextArea.bind(this);
   }
 
   deleteStep() {
@@ -60,8 +61,27 @@ class StepComponent extends Component {
     );
   }
 
+  componentDidMount() {
+    this.adjustTextArea();
+  }
+
+  componentDidUpdate() {
+    this.adjustTextArea();
+  }
+
   data(content) {
-    return <pre key="data" className="data">{content}</pre>
+    return <textarea
+      key="data"
+      ref="textarea"
+      className="data"
+      value={content}
+      readOnly="readOnly"
+      onChange={this.adjustTextArea}
+      rows="1"
+      autoComplete="off"
+      autoCorrect="off"
+      autoCapitalize="off"
+      spellCheck="false"/>
   }
 
   meta(content) {
@@ -78,6 +98,13 @@ class StepComponent extends Component {
 
   brokenPipe() {
     return <div key="broken-pipe" className="broken-pipe">Can't show this step due to errors above</div>;
+  }
+
+  adjustTextArea() {
+    if (this.refs.textarea) {
+      this.refs.textarea.style.height = 'auto';
+      this.refs.textarea.style.height = Math.min(600, this.refs.textarea.scrollHeight) + 'px';
+    }
   }
 
 }
