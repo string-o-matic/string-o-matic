@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StepTail, StepTop } from '../Common';
+import ResizingTextArea from './ResizingTextArea';
 import './StepComponent.css';
 
 class StepComponent extends Component {
@@ -7,7 +8,6 @@ class StepComponent extends Component {
   constructor(props) {
     super(props);
     this.deleteStep = this.deleteStep.bind(this);
-    this.adjustTextArea = this.adjustTextArea.bind(this);
   }
 
   deleteStep() {
@@ -61,27 +61,8 @@ class StepComponent extends Component {
     );
   }
 
-  componentDidMount() {
-    this.adjustTextArea();
-  }
-
-  componentDidUpdate() {
-    this.adjustTextArea();
-  }
-
   data(content) {
-    return <textarea
-      key="data"
-      ref="textarea"
-      className="data"
-      value={content}
-      readOnly="readOnly"
-      onChange={this.adjustTextArea}
-      rows="1"
-      autoComplete="off"
-      autoCorrect="off"
-      autoCapitalize="off"
-      spellCheck="false"/>
+    return <ResizingTextArea readOnly={true} value={content}/>;
   }
 
   meta(content) {
@@ -98,13 +79,6 @@ class StepComponent extends Component {
 
   brokenPipe() {
     return <div key="broken-pipe" className="broken-pipe">Can't show this step due to errors above</div>;
-  }
-
-  adjustTextArea() {
-    if (this.refs.textarea) {
-      this.refs.textarea.style.height = 'auto';
-      this.refs.textarea.style.height = Math.min(600, this.refs.textarea.scrollHeight) + 'px';
-    }
   }
 
 }
