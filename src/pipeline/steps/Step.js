@@ -1,4 +1,5 @@
 import Data from '../Data';
+import {NullType} from '../Types';
 
 class Step {
 
@@ -26,10 +27,18 @@ class Step {
     return input;
   }
 
+  getInput() {
+    return this.input;
+  }
+
   getOutput() {
     if (!this.output && this.input) {
       if (this.input.status !== 'valid') {
         this.output = Data.brokenPipe();
+      } else if (this.input.type == null || this.input.type == NullType || this.input.data == null) {
+        this.output = Data.nul();
+      } else if (this.constructor.supports.indexOf(this.input.type) < 0) {
+        this.output = Data.unsupported();
       } else {
         try {
           this.output = this.calculate(this.input);

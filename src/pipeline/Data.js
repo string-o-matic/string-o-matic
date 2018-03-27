@@ -1,3 +1,5 @@
+import {NullType, StringType, ByteStringBufferType} from './Types';
+
 class Data {
 
   status = null;
@@ -11,19 +13,19 @@ class Data {
   }
 
   static string(data) {
-    return new Data('valid', 'String', data);
+    return new Data('valid', StringType, data);
   }
 
   static byteStringBuffer(data) {
-    return new Data('valid', 'ByteStringBuffer', data);
-  }
-
-  static valid(type, data) {
-    return new Data('valid', type, data);
+    return new Data('valid', ByteStringBufferType, data);
   }
 
   static nul() {
-    return new Data('valid', 'null', null);
+    return new Data('valid', NullType, null);
+  }
+
+  static unsupported() {
+    return new Data('unsupported', null, null);
   }
 
   static bug() {

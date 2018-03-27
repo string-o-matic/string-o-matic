@@ -1,16 +1,14 @@
 import Step from '../Step';
 import Data from '../../Data';
+import {ByteStringBufferType} from '../../Types';
 
 class Hex extends Step {
 
   static title = 'Hex';
+  static supports = [ ByteStringBufferType ];
 
   calculate(input) {
     // TODO Support directly hashing a string
-    // TODO Check input type, this only supports a forge ByteStringBuffer
-    if (input == null || input.data == null) {
-      return Data.nul();
-    }
     return Data.string(input.data.toHex());
   }
 

@@ -148,7 +148,7 @@
 
     .error {
       text-align: center;
-      font-size: $alert-size;
+      font-size: $message-size;
       color: $error-text;
       padding: $step-padding;
 
@@ -159,7 +159,7 @@
 
     .broken-pipe {
       text-align: center;
-      font-size: $alert-size;
+      font-size: $message-size;
       color: darken($broken-pipe, 10%);
       padding: $step-padding;
     }
