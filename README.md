@@ -36,7 +36,7 @@ steps. The .com was available, and that settled the debate.
 - [ ] HMAC
 - [ ] Encryption
 - [ ] Decryption
-- [ ] UPPER CASE
+- [x] UPPER CASE
 - [ ] lower case
 - [ ] Title Case
 - [ ] snake_case
@@ -45,7 +45,7 @@ steps. The .com was available, and that settled the debate.
 - [ ] kebab-case
 - [ ] Train-Case
 - [ ] iNVERSE cASE
-- [ ] Reverse
+- [x] esreveR
 - [ ] Repeat
 - [ ] Whitespace trim
 - [ ] Line length
@@ -67,29 +67,34 @@ steps. The .com was available, and that settled the debate.
 
 ### To do: Features
 
-- [ ] Make steps collapsible - collapse all steps and show just the names
-- [ ] Step selector search
-- [ ] Step selector filter by supported step
-- [ ] Errors, send through chain
 - [x] Delete step
-- [ ] Reset text
+- [x] Reset text
+- [x] Upload file
+- [x] Catch exceptions and pass through the chain
+- [x] Catch unsupported input and show message
 - [ ] Reset all
-- [ ] Random input
+- [ ] Step selector search
+- [ ] Step selector filter by supported input
+- [ ] Random input with character group selectors or custom character set
 - [ ] Common recipes
-- [ ] Upload file
-- [ ] Random string with character group selectors or custom character set)
 - [ ] Export JSON
 - [ ] Export as code
 - [ ] Download text file
 - [ ] Better mobile design
-- [ ] Show lowercase hex as default representation of hash/encrypt and use this when next step requires a string
+- [ ] Default representation for byte array, supply this if next step requires it
+- [ ] Make steps collapsible - collapse all steps and show just the names
 - [ ] Suggested next step (e.g. byte[] -> base64, hex)
 - [ ] Copy to clipboard
 - [ ] Highlight whitespace as _, \r, \t etc.
 - [ ] Handle or reject control characters
+- [ ] Handle or reject RTL characters
 - [ ] Handle or reject emoji
 
 ### To do: Other
 
 - [ ] Thorough unit tests
+- [ ] Local fonts only
 - [ ] Confirm no cross-domain requests can be made by npm libraries
+- [ ] Favicons
+- [ ] GitHub link
+- [ ] Intro, help
