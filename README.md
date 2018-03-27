@@ -37,7 +37,7 @@ steps. The .com was available, and that settled the debate.
 - [ ] Encryption
 - [ ] Decryption
 - [x] UPPER CASE
-- [ ] lower case
+- [x] lower case
 - [ ] Title Case
 - [ ] snake_case
 - [ ] camelCase
@@ -93,8 +93,9 @@ steps. The .com was available, and that settled the debate.
 ### To do: Other
 
 - [ ] Thorough unit tests
-- [ ] Local fonts only
+- [x] Local fonts only
 - [ ] Confirm no cross-domain requests can be made by npm libraries
 - [ ] Favicons
 - [ ] GitHub link
 - [ ] Intro, help
+- [ ] Minimal icon font

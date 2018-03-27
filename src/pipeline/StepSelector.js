@@ -3,13 +3,14 @@ import MD5 from './steps/hash/MD5';
 import Hex from './steps/encode/Hex';
 import Reverse from './steps/string/Reverse';
 import UpperCase from './steps/string/UpperCase';
+import LowerCase from './steps/string/LowerCase';
 import { StepTop } from '../Common';
 import './StepSelector.css';
 
 class StepSelector extends Component {
 
   categories = {
-    string: [ UpperCase, Reverse ],
+    string: [ UpperCase, LowerCase, Reverse ],
     encode: [ Hex ],
     hash: [ MD5 ],
     encrypt: [ ]

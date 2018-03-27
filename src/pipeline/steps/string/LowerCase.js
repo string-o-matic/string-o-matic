@@ -2,15 +2,15 @@ import Step from '../Step';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
-class UpperCase extends Step {
+class LowerCase extends Step {
 
-  static title = 'Upper Case';
+  static title = 'Lower Case';
   static supports = [ StringType ];
 
   calculate(input) {
-    return Data.string(input.data.toUpperCase());
+    return Data.string(input.data.toLowerCase());
   }
 
 }
 
-export default UpperCase;
+export default LowerCase;
