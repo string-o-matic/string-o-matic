@@ -4,11 +4,16 @@
 .step {
   background: #FFF;
   position: relative;
-  margin-bottom: $grid-margin;
   box-shadow: 1px 1px 10px darken($background, 10%);
   border-radius: $border-radius;
+  max-width: $width-max;
+  margin: 0 auto $grid-margin;
 
   @media (max-width: $width-mobile) {
+    margin-bottom: ($grid-margin * .7);
+  }
+
+  @media (max-width: $width-max) {
     border-radius: 0;
   }
 
@@ -18,7 +23,7 @@
     border-top-right-radius: $border-radius;
     color: #FFF;
 
-    @media (max-width: $width-mobile) {
+    @media (max-width: $width-max) {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
     }
@@ -49,7 +54,7 @@
       border: 0;
       border-top-right-radius: 6px;
       font-size: 22px;
-      padding: 1px 12px;
+      padding: 0 12px;
       color: rgba(255, 255, 255, .5);
       transition: background, color;
       transition-duration: .2s;
@@ -65,7 +70,7 @@
 
     .btn-group {
       .btn {
-        padding: 10px 13px 11px;
+        padding: 10px 13px 9px;
         text-transform: uppercase;
         background: $primary;
         color: $primary-light;
@@ -119,12 +124,14 @@
     padding: 0;
 
     .data {
+      font-family: $body-font;
       font-size: $body-size;
       color: $data;
       border: 0;
       width: 100%;
       outline: none;
       padding: $step-padding;
+      box-sizing: border-box;
 
       @media (max-width: $width-mobile) {
         padding: ($step-padding / 2);
@@ -142,7 +149,7 @@
       padding-bottom: ($step-padding / 2);
 
       @media (max-width: $width-mobile) {
-        margin: 0 ($step-padding / 2) ($step-padding / -4);
+        margin: 0 ($step-padding / 2);
       }
     }
 

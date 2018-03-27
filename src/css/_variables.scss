@@ -1,4 +1,4 @@
-$header-font:   'Roboto Slab', Lato, sans-serif;
+$header-font:   'Roboto Slab', sans-serif;
 $body-font:     Monaco, Menlo, Consolas, 'Courier New', monospace;
 
 $border-radius: 6px;
@@ -7,11 +7,13 @@ $step-padding:  20px;
 
 $title-size:    60px;
 $subtitle-size: 20px;
-$heading-size:  18px;
+$heading-size:  16px;
 $body-size:     16px;
+$button-size:   14px;
 $message-size:  14px;
 $alert-size:    12px;
 $note-size:     10px;
 
+$width-max:     1024px;
 $width-tiny:    360px;
 $width-mobile:  800px

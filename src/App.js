@@ -9,13 +9,7 @@ class App extends Component {
     return (
       <div>
         <Header/>
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-12">
-              <Pipeline/>
-            </div>
-          </div>
-        </div>
+        <Pipeline/>
       </div>
     );
   }

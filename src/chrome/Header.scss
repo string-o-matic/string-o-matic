@@ -8,6 +8,7 @@ header {
 
   @media (max-width: $width-mobile) {
     padding: 15px;
+    margin-bottom: ($grid-margin * .7);
   }
 
   h1 {
@@ -41,7 +42,7 @@ header {
   h2 {
     font-family: $header-font;
     color: $primary-light;
-    font-weight: 400;
+    font-weight: 300;
     font-size: $subtitle-size;
     text-align: center;
     margin: 8px 0;

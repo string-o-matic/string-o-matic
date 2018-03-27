@@ -1,0 +1,39 @@
+/*@font-face {
+    font-family: 'Roboto Slab';
+    src: url('roboto-slab-thin.eot');
+    src: url('roboto-slab-thin.eot?#iefix') format('embedded-opentype'),
+        url('roboto-slab-thin.woff') format('woff'),
+        url('roboto-slab-thin.svg#roboto_slabthin') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}*/
+
+@font-face {
+    font-family: 'Roboto Slab';
+    src: url('roboto-slab-light.eot');
+    src: url('roboto-slab-light.eot?#iefix') format('embedded-opentype'),
+        url('roboto-slab-light.woff') format('woff'),
+        url('roboto-slab-light.svg#roboto_slabthin') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+/*@font-face {
+    font-family: 'Roboto Slab';
+    src: url('roboto-slab-regular.eot');
+    src: url('roboto-slab-regular.eot?#iefix') format('embedded-opentype'),
+        url('roboto-slab-regular.woff') format('woff'),
+        url('roboto-slab-regular.svg#roboto_slabthin') format('svg');
+    font-weight: 400;
+    font-style: normal;
+}*/
+
+/*@font-face {
+    font-family: 'Roboto Slab';
+    src: url('roboto-slab-bold.eot');
+    src: url('roboto-slab-bold.eot?#iefix') format('embedded-opentype'),
+        url('roboto-slab-bold.woff') format('woff'),
+        url('roboto-slab-bold.svg#roboto_slabthin') format('svg');
+    font-weight: 700;
+    font-style: normal;
+}*/

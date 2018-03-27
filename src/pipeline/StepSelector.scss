@@ -3,15 +3,20 @@
 
 .step-selector {
   background: $selector;
-  margin-bottom: $grid-margin;
   border-radius: $border-radius;
   position: relative;
+  max-width: $width-max;
+  margin: 0 auto $grid-margin;
+
+  @media (max-width: $width-max) {
+    border-radius: 0;
+  }
 
   .body {
     padding: $step-padding ($step-padding * .85);
 
     @media (max-width: $width-mobile) {
-      padding: ($step-padding * .5) ($step-padding * .45);
+      padding: ($step-padding * .5) ($step-padding * .35);
     }
 
     &::after {
@@ -26,6 +31,14 @@
 
       @media (max-width: $width-mobile) {
         width: 50%;
+
+        &:nth-child(2n-1) {
+          clear: left;
+        }
+
+        &:nth-child(n+3) {
+          margin-top: ($grid-margin / 2);
+        }
       }
 
       @media (max-width: $width-tiny) {
@@ -43,7 +56,7 @@
         font-size: $heading-size;
         color: lighten($selector, 50%);
         text-shadow: 1px 1px 2px darken($selector, 10%);
-        margin: 0 0 $step-padding;
+        margin: 0 0 ($step-padding / 2);
         padding: 0;
         text-align: center;
       }
