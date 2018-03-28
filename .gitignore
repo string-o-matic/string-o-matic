@@ -8,6 +8,8 @@
 
 # production
 /build
+/deployment/string-o-matic
+/deployment/string-o-matic.zip
 
 # misc
 .idea
