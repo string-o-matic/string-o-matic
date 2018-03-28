@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import MD5 from './steps/hash/MD5';
+import SHA1 from './steps/hash/SHA1';
+import SHA256 from './steps/hash/SHA256';
+import SHA384 from './steps/hash/SHA384';
+import SHA512 from './steps/hash/SHA512';
+import SHA512224 from './steps/hash/SHA512224';
+import SHA512256 from './steps/hash/SHA512256';
 import Hex from './steps/encode/Hex';
 import Reverse from './steps/string/Reverse';
 import UpperCase from './steps/string/UpperCase';
@@ -12,7 +18,7 @@ class StepSelector extends Component {
   categories = {
     string: [ UpperCase, LowerCase, Reverse ],
     encode: [ Hex ],
-    hash: [ MD5 ],
+    hash: [ MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
     encrypt: [ ]
   };
 

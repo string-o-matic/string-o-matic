@@ -29,8 +29,8 @@ steps. The .com was available, and that settled the debate.
 
 - [ ] Hex
 - [ ] Base 64: standard, URL safe, custom
-- [ ] MD5
-- [ ] SHA
+- [x] MD5
+- [x] SHA
 - [ ] BCrypt, verify
 - [ ] SCrypt, verify
 - [ ] HMAC
