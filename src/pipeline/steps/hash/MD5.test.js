@@ -12,6 +12,14 @@ function expectResult(input, output) {
   expect(result.data.toHex()).toBe(output);
 }
 
+test('name', () => {
+  expect(MD5.title).toBe('MD5');
+});
+
+test('supports', () => {
+  expect(MD5.supports.length).toBe(1);
+});
+
 test('example1', () => {
   expectResult('The quick brown fox jumps over the lazy dog', '9e107d9d372bb6826bd81d3542a419d6');
 });

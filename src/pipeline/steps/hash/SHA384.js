@@ -1,19 +1,12 @@
 import * as forge from 'node-forge'
-import Step from '../Step'
-import Data from '../../Data';
-import {StringType} from '../../Types';
+import Hash from './Hash';
 
-class SHA384 extends Step {
+class SHA384 extends Hash {
 
   static title = 'SHA-384';
-  static supports = [ StringType ];
 
-  sha384 = forge.md.sha384.create();
-
-  calculate(input) {
-    this.sha384.start();
-    this.sha384.update(input.data);
-    return Data.byteStringBuffer(this.sha384.digest());
+  constructor() {
+    super(forge.md.sha384.create());
   }
 
 }

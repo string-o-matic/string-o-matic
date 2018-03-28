@@ -1,19 +1,12 @@
 import * as forge from 'node-forge'
-import Step from '../Step'
-import Data from '../../Data';
-import {StringType} from '../../Types';
+import Hash from './Hash';
 
-class SHA512256 extends Step {
+class SHA512256 extends Hash {
 
   static title = 'SHA-512/256';
-  static supports = [ StringType ];
 
-  sha512 = forge.md.sha512.sha256.create();
-
-  calculate(input) {
-    this.sha512.start();
-    this.sha512.update(input.data);
-    return Data.byteStringBuffer(this.sha512.digest());
+  constructor() {
+    super(forge.md.sha512.sha256.create());
   }
 
 }
