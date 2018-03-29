@@ -1,8 +1,16 @@
-import Pipeline from '../Pipeline';
 import Data from '../Data';
 import {NullType} from '../Types';
 
 import '../StepComponent.css';
+
+class StepCounter {
+  /**
+   * This is used to give each step an incrementing key, although if steps are deleted or reordered their count
+   * gets out of sync. Mainly helps development.
+   * @type {number}
+   */
+  static count = 1;
+}
 
 // TODO fix out-of-order promise resolution
 class Step {
@@ -10,7 +18,7 @@ class Step {
   static title = 'Identity';
 
   constructor() {
-    this.key = this.constructor.name + '-' + (Pipeline.stepCount++);
+    this.key = this.constructor.name + '-' + (StepCounter.count++);
   }
 
   log(message, object) {

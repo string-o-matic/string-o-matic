@@ -6,13 +6,6 @@ import Data from './Data';
 
 class Pipeline extends Component {
 
-  /**
-   * This is used to give each step an incrementing key, although if steps are deleted or reordered their count
-   * gets our of sync. Mainly helps development.
-   * @type {number}
-   */
-  static stepCount = 1;
-
   initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
   steps = [ ];
 
