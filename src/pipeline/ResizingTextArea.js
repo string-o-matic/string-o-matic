@@ -8,9 +8,13 @@ class ResizingTextArea extends Component {
   }
 
   render() {
+    var className = "data";
+    if (this.props.className) {
+      className += ' ' + this.props.className;
+    }
     return (
       <textarea
-        className="data"
+        className={className}
         type="text"
         value={this.props.value}
         onChange={this.onChange}

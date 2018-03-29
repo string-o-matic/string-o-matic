@@ -3,14 +3,10 @@ import {NullType} from '../Types';
 
 import '../StepComponent.css';
 
-// this.input is always a Data object
-// this.output can be a Promise or a Data object. // TODO always use promises?
-// TODO include input in output object and discard it if it doesn't match current input, to avoid out-of-order promise resolution problems
+// TODO fix out-of-order promise resolution
 class Step {
 
   static title = 'Identity';
-
-  output = null;
 
   constructor() {
     this.key = this.constructor.name + '-' + (Math.floor(Math.random() * 900000) + 100000);
@@ -25,28 +21,21 @@ class Step {
 
   setInput(input) {
     if (input !== this.input) {
-      console.log(this.constructor.name + ": setInput", input);
-      this.input = input;
       this.output = null;
+      this.input = input;
       this.passInput();
+      if (input.then) {
+        console.log(this.constructor.name + ": setInput (Promise)");
+        input.then(result => {
+          console.log(this.constructor.name + ": setInput (Promise resolved)", result);
+          this.setInput(result)
+        });
+      } else {
+        console.log(this.constructor.name + ": setInput", input);
+      }
     } else {
       console.log(this.constructor.name + ": setInput *UNCHANGED*");
     }
-  }
-
-  passInput() {
-    if (this.next) {
-      var output = this.getOutput();
-      if (output.then) {
-        output.then(data => this.next.setInput(data));
-      } else {
-        this.next.setInput(this.getOutput());
-      }
-    }
-  }
-
-  calculate(input) {
-    return input;
   }
 
   getInput() {
@@ -55,7 +44,13 @@ class Step {
 
   getOutput() {
     if (!this.output && this.input) {
-      if (this.input.status !== 'valid') {
+      if (this.input.then) {
+        return new Promise(resolve => {
+          this.input.then(input => {
+            resolve(this.calculate(input));
+          });
+        });
+      } else if (this.input.status !== 'valid') {
         this.output = Data.brokenPipe();
       } else if (this.input.type == null || this.input.type === NullType || this.input.data == null) {
         this.output = Data.nul();
@@ -75,6 +70,29 @@ class Step {
     }
     console.log(this.constructor.name + ": getOutput", { input: this.input, output: this.output });
     return this.output;
+  }
+
+  /**
+   * Subclasses override this to do their actual calculation. Only a valid Data instance will be
+   * passed - no promises or errors. A promise may be returned for async calculations.
+   * @param {Data} input
+   * @returns {Data|Promise}
+   */
+  calculate(input) {
+    return input;
+  }
+
+  passInput() {
+    if (this.next) {
+      var output = this.getOutput();
+      if (output.then) {
+        this.next.setInput(new Promise(resolve => {
+          output.then(input => resolve(input));
+        }));
+      } else {
+        this.next.setInput(output);
+      }
+    }
   }
 
 }

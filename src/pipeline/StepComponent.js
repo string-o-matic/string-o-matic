@@ -3,7 +3,6 @@ import {StepTail, StepTop} from '../Common';
 import ResizingTextArea from './ResizingTextArea';
 import {StringType, NullType, ByteStringBufferType} from './Types';
 import './StepComponent.css';
-import StepForm from './steps/StepForm';
 
 class StepComponent extends Component {
 
@@ -26,8 +25,12 @@ class StepComponent extends Component {
       clazz = 'error';
       content.push(this.bug("Whoops! This step hasn't received any input. You've found a bug."));
     } else if (output.then) {
-      content.push(this.calculating());
-      output.then(_ => this.setState({}));
+      content.push(this.data('Calculating...', 'calculating'));
+      content.push(this.meta('Unknown'));
+      output.then(_ => {
+        console.log('Component ' + step.key + ' output promise resolved');
+        this.setState({});
+      });
     } else if (output.status === 'valid') {
       if (output.type === ByteStringBufferType) {
         content.push(this.data(output.data.toHex()));
@@ -68,8 +71,8 @@ class StepComponent extends Component {
     );
   }
 
-  data(content) {
-    return <ResizingTextArea key="data" readOnly={true} value={content}/>;
+  data(content, className) {
+    return <ResizingTextArea key="data" readOnly={true} value={content} className={className}/>;
   }
 
   meta(content) {
@@ -82,10 +85,6 @@ class StepComponent extends Component {
 
   bug(content) {
     return <div key="bug" className="error"><span className="ionicon ion-ios-bug"/><br/>{content}<br/><small>You might find the cause in your browser's console log.</small></div>;
-  }
-
-  calculating() {
-    return <div key="calculating" className="calculating"><span className="ionicon ion-md-timer"/> Calculating...</div>;
   }
 
   brokenPipe() {

@@ -133,6 +133,10 @@
       padding: $step-padding;
       box-sizing: border-box;
 
+      &.calculating {
+        color: lighten($data, 30%);
+      }
+
       @media (max-width: $width-mobile) {
         padding: ($step-padding / 2);
         font-size: ($body-size * .85);
@@ -171,12 +175,6 @@
       padding: $step-padding;
     }
 
-    .calculating {
-      text-align: center;
-      font-size: $body-size;
-      color: darken($broken-pipe, 10%);
-      padding: $step-padding;
-    }
   }
 
 }

@@ -32,7 +32,6 @@ steps. The .com was available, and that settled the debate.
 - [x] MD5
 - [x] SHA
 - [ ] BCrypt, verify
-- [ ] SCrypt, verify
 - [ ] HMAC
 - [ ] Encryption
 - [ ] Decryption
@@ -65,6 +64,10 @@ steps. The .com was available, and that settled the debate.
 - [ ] Binary (bit/little endian?)
 - [ ] ASCII safe check or convert
 
+### To do: Server side steps
+
+- [ ] SCrypt, verify
+
 ### To do: Features
 
 - [x] Delete step
@@ -72,6 +75,7 @@ steps. The .com was available, and that settled the debate.
 - [x] Upload file
 - [x] Catch exceptions and pass through the chain
 - [x] Catch unsupported input and show message
+- [x] Better mobile design
 - [ ] Reset all
 - [ ] Step selector search
 - [ ] Step selector filter by supported input
@@ -80,7 +84,6 @@ steps. The .com was available, and that settled the debate.
 - [ ] Export JSON
 - [ ] Export as code
 - [ ] Download text file
-- [ ] Better mobile design
 - [ ] Default representation for byte array, supply this if next step requires it
 - [ ] Make steps collapsible - collapse all steps and show just the names
 - [ ] Suggested next step (e.g. byte[] -> base64, hex)
@@ -89,6 +92,10 @@ steps. The .com was available, and that settled the debate.
 - [ ] Handle or reject control characters
 - [ ] Handle or reject RTL characters
 - [ ] Handle or reject emoji
+- [ ] Optional live/on submit toggle
+- [ ] Mandatory on submit for slow async steps (e.g. BCrypt)
+- [ ] Support for server-side steps (e.g. SCrypt, minification) with security warning
+- [ ] Link to references for encryption steps, encourage best practice
 
 ### To do: Other
 
