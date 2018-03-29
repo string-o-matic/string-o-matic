@@ -5,6 +5,12 @@ class NullType {
   static displayPlural = 'nulls';
 }
 
+class BoolType {
+  static ref = 'BOOL';
+  static display = 'boolean';
+  static displayPlural = 'booleans';
+}
+
 class StringType {
   static ref = 'STRING';
   static display = 'string';
@@ -17,4 +23,4 @@ class ByteStringBufferType {
   static displayPlural = 'byte arrays';
 }
 
-export { NullType, StringType, ByteStringBufferType };
+export { NullType, BoolType, StringType, ByteStringBufferType };

@@ -1,4 +1,4 @@
-import {NullType, StringType, ByteStringBufferType} from './Types';
+import {NullType, BoolType, StringType, ByteStringBufferType} from './Types';
 
 class Data {
 
@@ -10,6 +10,10 @@ class Data {
     this.status = status;
     this.type = type;
     this.data = data;
+  }
+
+  static bool(data) {
+    return new Data('valid', BoolType, data);
   }
 
   static string(data) {
