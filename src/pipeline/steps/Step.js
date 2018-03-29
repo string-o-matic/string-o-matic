@@ -1,6 +1,11 @@
 import Data from '../Data';
 import {NullType} from '../Types';
 
+import '../StepComponent.css';
+
+// this.input is always a Data object
+// this.output can be a Promise or a Data object. // TODO always use promises?
+// TODO include input in output object and discard it if it doesn't match current input, to avoid out-of-order promise resolution problems
 class Step {
 
   static title = 'Identity';
@@ -9,17 +14,24 @@ class Step {
 
   setNext(step) {
     this.next = step;
-    if (this.next) {
-      this.next.setInput(this.getOutput());
-    }
+    this.passInput();
   }
 
   setInput(input) {
     console.log(this.constructor.name + ": setInput", input);
     this.input = input;
     this.output = null;
+    this.passInput();
+  }
+
+  passInput() {
     if (this.next) {
-      this.next.setInput(this.getOutput());
+      var output = this.getOutput();
+      if (output.then) {
+        output.then(data => this.next.setInput(data));
+      } else {
+        this.next.setInput(this.getOutput());
+      }
     }
   }
 
@@ -42,6 +54,9 @@ class Step {
       } else {
         try {
           this.output = this.calculate(this.input);
+          if (this.output.then) {
+            this.output.then(output => this.output = output);
+          }
         } catch (e) {
           console.error(this.constructor.name + ' calculation failed', {input: this.input, error: e});
           this.output = Data.bug();

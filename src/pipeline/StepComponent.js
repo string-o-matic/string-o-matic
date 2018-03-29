@@ -3,6 +3,7 @@ import {StepTail, StepTop} from '../Common';
 import ResizingTextArea from './ResizingTextArea';
 import {StringType, NullType, ByteStringBufferType} from './Types';
 import './StepComponent.css';
+import StepForm from './steps/StepForm';
 
 class StepComponent extends Component {
 
@@ -24,6 +25,9 @@ class StepComponent extends Component {
     if (output == null) {
       clazz = 'error';
       content.push(this.bug("Whoops! This step hasn't received any input. You've found a bug."));
+    } else if (output.then) {
+      content.push(this.calculating());
+      output.then(_ => this.setState({}));
     } else if (output.status === 'valid') {
       if (output.type === ByteStringBufferType) {
         content.push(this.data(output.data.toHex()));
@@ -78,6 +82,10 @@ class StepComponent extends Component {
 
   bug(content) {
     return <div key="bug" className="error"><span className="ionicon ion-ios-bug"/><br/>{content}<br/><small>You might find the cause in your browser's console log.</small></div>;
+  }
+
+  calculating() {
+    return <div key="calculating" className="calculating"><span className="ionicon ion-md-timer"/> Calculating...</div>;
   }
 
   brokenPipe() {

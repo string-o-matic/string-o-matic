@@ -170,6 +170,13 @@
       color: darken($broken-pipe, 10%);
       padding: $step-padding;
     }
+
+    .calculating {
+      text-align: center;
+      font-size: $body-size;
+      color: darken($broken-pipe, 10%);
+      padding: $step-padding;
+    }
   }
 
 }
