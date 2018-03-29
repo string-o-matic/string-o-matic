@@ -12,6 +12,10 @@ class Step {
 
   output = null;
 
+  constructor() {
+    this.key = this.constructor.name + '-' + (Math.floor(Math.random() * 900000) + 100000);
+  }
+
   setNext(step) {
     this.next = step;
     this.passInput();

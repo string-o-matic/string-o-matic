@@ -23,8 +23,8 @@ class Pipeline extends Component {
       <div>
         <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
         {
-          this.steps.map((step, i) =>
-            <StepComponent key={i} step={step} deleteStep={this.deleteStep} stepChange={this.stepChange}/>
+          this.steps.map(step =>
+            <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} stepChange={this.stepChange}/>
           )
         }
         <StepSelector addStep={this.addStep}/>
