@@ -62,28 +62,35 @@ class Step {
       if (this.input.then) {
         return new Promise(resolve => {
           this.input.then(input => {
-            resolve(this.calculate(input));
+            resolve(this._getOutputForData(input));
           });
         });
-      } else if (this.input.status !== 'valid') {
-        this.output = Data.brokenPipe();
-      } else if (this.input.type == null || this.input.type === NullType || this.input.data == null) {
-        this.output = Data.nul();
-      } else if (this.constructor.supports.indexOf(this.input.type) < 0) {
-        this.output = Data.unsupported();
       } else {
-        try {
-          this.output = this.calculate(this.input);
-          if (this.output.then) {
-            this.output.then(output => this.output = output);
-          }
-        } catch (e) {
-          this.error('Calculation failed', {input: this.input, error: e});
-          this.output = Data.bug();
-        }
+        this._getOutputForData(this.input);
       }
     }
     this.log('getOutput', { input: this.input, output: this.output });
+    return this.output;
+  }
+
+  _getOutputForData(input) {
+    if (input.status !== 'valid') {
+      this.output = Data.brokenPipe();
+    } else if (input.type == null || input.type === NullType || input.data == null) {
+      this.output = Data.nul();
+    } else if (this.constructor.supports.indexOf(input.type) < 0) {
+      this.output = Data.unsupported();
+    } else {
+      try {
+        this.output = this.calculate(input);
+        if (this.output.then) {
+          this.output.then(output => this.output = output);
+        }
+      } catch (e) {
+        this.error('Calculation failed', {input: input, error: e});
+        this.output = Data.bug();
+      }
+    }
     return this.output;
   }
 
