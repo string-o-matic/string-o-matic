@@ -16,16 +16,22 @@ class Step {
     this.key = this.constructor.name + '-' + (Math.floor(Math.random() * 900000) + 100000);
   }
 
-  setNext(step) {
-    this.next = step;
-    this.passInput();
+  setNext(next) {
+    if (next !== this.next) {
+      this.next = next;
+      this.passInput();
+    }
   }
 
   setInput(input) {
-    console.log(this.constructor.name + ": setInput", input);
-    this.input = input;
-    this.output = null;
-    this.passInput();
+    if (input !== this.input) {
+      console.log(this.constructor.name + ": setInput", input);
+      this.input = input;
+      this.output = null;
+      this.passInput();
+    } else {
+      console.log(this.constructor.name + ": setInput *UNCHANGED*");
+    }
   }
 
   passInput() {
