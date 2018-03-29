@@ -27,10 +27,7 @@ class StepComponent extends Component {
     } else if (output.then) {
       content.push(this.data('Calculating...', 'calculating'));
       content.push(this.meta('Unknown'));
-      output.then(_ => {
-        console.log('Component ' + step.key + ' output promise resolved');
-        this.setState({});
-      });
+      output.then(_ => this.setState({}));
     } else if (output.status === 'valid') {
       if (output.type === ByteStringBufferType) {
         content.push(this.data(output.data.toHex()));

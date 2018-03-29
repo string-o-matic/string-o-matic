@@ -1,3 +1,4 @@
+import Pipeline from '../Pipeline';
 import Data from '../Data';
 import {NullType} from '../Types';
 
@@ -9,7 +10,15 @@ class Step {
   static title = 'Identity';
 
   constructor() {
-    this.key = this.constructor.name + '-' + (Math.floor(Math.random() * 900000) + 100000);
+    this.key = this.constructor.name + '-' + (Pipeline.stepCount++);
+  }
+
+  log(message, object) {
+    console.log(this.key + ': ' + message, object);
+  }
+
+  error(message, object) {
+    console.error(this.key + ': ' + message, object);
   }
 
   setNext(next) {
@@ -25,16 +34,14 @@ class Step {
       this.input = input;
       this.passInput();
       if (input.then) {
-        console.log(this.constructor.name + ": setInput (Promise)");
+        this.log('setInput (Promise)');
         input.then(result => {
-          console.log(this.constructor.name + ": setInput (Promise resolved)", result);
+          this.log('setInput (Promise resolved)', result);
           this.setInput(result)
         });
       } else {
-        console.log(this.constructor.name + ": setInput", input);
+        this.log('setInput', input);
       }
-    } else {
-      console.log(this.constructor.name + ": setInput *UNCHANGED*");
     }
   }
 
@@ -63,12 +70,12 @@ class Step {
             this.output.then(output => this.output = output);
           }
         } catch (e) {
-          console.error(this.constructor.name + ' calculation failed', {input: this.input, error: e});
+          this.error('Calculation failed', {input: this.input, error: e});
           this.output = Data.bug();
         }
       }
     }
-    console.log(this.constructor.name + ": getOutput", { input: this.input, output: this.output });
+    this.log('getOutput', { input: this.input, output: this.output });
     return this.output;
   }
 
