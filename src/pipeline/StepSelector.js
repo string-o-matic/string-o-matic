@@ -11,13 +11,14 @@ import Hex from './steps/encode/Hex';
 import Reverse from './steps/string/Reverse';
 import UpperCase from './steps/string/UpperCase';
 import LowerCase from './steps/string/LowerCase';
+import AsyncTest from './steps/AsyncTest';
 import { StepTop } from '../Common';
 import './StepSelector.css';
 
 class StepSelector extends Component {
 
   categories = {
-    string: [ UpperCase, LowerCase, Reverse ],
+    string: [ UpperCase, LowerCase, Reverse, AsyncTest ],
     encode: [ Hex ],
     hash: [ BCryptHash, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
     encrypt: [ ]

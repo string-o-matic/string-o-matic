@@ -15,7 +15,7 @@ class BCryptHash extends Step {
 
   calculate(input) {
     const rounds = this.rounds;
-    return new Promise(function(resolve) {
+    return new Promise(resolve => {
       bcrypt.genSalt(rounds).then(salt => {
         bcrypt.hash(input.data, salt).then(hash => {
           resolve(Data.string(hash));
