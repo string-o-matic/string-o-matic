@@ -55,7 +55,7 @@ steps. The .com was available, and that settled the debate.
 - [ ] Crop/Substring
 - [ ] Split
 - [ ] Join
-- [ ] URL encode (minimum, all)
+- [x] URL encode (minimum, all)
 - [ ] HTML encode
 - [ ] JSON escape
 - [ ] Array reverse
