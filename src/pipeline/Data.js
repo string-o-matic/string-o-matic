@@ -5,6 +5,7 @@ class Data {
   status = null;
   type = null;
   data = null;
+  message = null;
   inputType = null;
 
   constructor(status, type, data) {
@@ -27,6 +28,12 @@ class Data {
 
   static nul() {
     return new Data('valid', NullType, null);
+  }
+
+  static invalid(message) {
+    const data = new Data('invalid', null, null);
+    data.message = message;
+    return data;
   }
 
   static unsupported(inputType) {

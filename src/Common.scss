@@ -33,11 +33,11 @@
     background: $primary;
     display: inline-block;
     margin: 0 1em 1em 0;
-    border: 1px solid $primary;
     border-bottom: 0;
     height: 15px;
     width: 30px;
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+    transition: background-color .2s linear, border-color .2s linear;
   }
 }

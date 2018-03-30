@@ -26,4 +26,5 @@ yarn-error.log*
 # Compiled CSS
 src/*.css
 src/**/*.css
+src/**/**/*.css
 sass-lint.html

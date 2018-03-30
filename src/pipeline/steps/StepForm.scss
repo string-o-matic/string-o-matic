@@ -1,0 +1,40 @@
+@import '../../css/variables';
+@import '../../css/colors';
+
+.step-form {
+  margin: $grid-margin $grid-margin 0;
+  padding-bottom: $grid-margin;
+  border-bottom: 1px dashed #EEE;
+
+  .help {
+    font-size: $alert-size;
+    color: $data;
+    margin-bottom: ($grid-margin / 4);
+  }
+
+  @media(max-width: $width-mobile) {
+    margin: ($grid-margin / 2) ($grid-margin / 2) 0;
+    padding-bottom: ($grid-margin / 2);
+  }
+
+  .input-group-addon {
+    border-width: 2px;
+    border-color: #BDC3C7;
+    transition: border .25s linear, color .25s linear, background-color .25s linear;
+  }
+
+  .has-error {
+    .input-group-addon {
+      border-color: #E74C3C;
+      color: $error-text;
+    }
+  }
+
+  .row {
+    &:last-child {
+      .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

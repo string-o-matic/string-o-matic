@@ -13,9 +13,9 @@ class Pipeline extends Component {
     super(props);
     this.state = { input: Data.string(this.initialInput) };
     this.inputChange = this.inputChange.bind(this);
-    this.stepChange = this.stepChange.bind(this);
     this.addStep = this.addStep.bind(this);
     this.deleteStep = this.deleteStep.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   render() {
@@ -24,7 +24,7 @@ class Pipeline extends Component {
         <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
         {
           this.steps.map(step =>
-            <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} stepChange={this.stepChange}/>
+            <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} refresh={this.refresh}/>
           )
         }
         <StepSelector addStep={this.addStep}/>
@@ -42,7 +42,7 @@ class Pipeline extends Component {
 
   // Called from any step in the pipeline when an option has been changed in the step that
   // requires a recalculation of later steps.
-  stepChange() {
+  refresh() {
     this.setState({});
   }
 

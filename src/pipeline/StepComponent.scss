@@ -22,6 +22,7 @@
     border-top-left-radius: $border-radius;
     border-top-right-radius: $border-radius;
     color: #FFF;
+    transition: background-color .2s linear;
 
     @media (max-width: $width-max) {
       border-top-left-radius: 0;
@@ -101,7 +102,6 @@
 
     .step-top-1 {
       background: $error;
-      border: 1px solid $error;
     }
   }
 
@@ -116,7 +116,6 @@
 
     .step-top-1 {
       background: $broken-pipe;
-      border: 1px solid $broken-pipe;
     }
   }
 

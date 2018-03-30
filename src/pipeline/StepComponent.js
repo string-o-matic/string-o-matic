@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {StepTail, StepTop} from '../Common';
+import StepForm from './steps/StepForm';
 import ResizingTextArea from './ResizingTextArea';
 import {StringType, NullType, ByteStringBufferType} from './Types';
 import './StepComponent.css';
@@ -20,6 +21,7 @@ class StepComponent extends Component {
     var output = step.getOutput();
     var clazz = 'normal';
     var content = [];
+    content.push(<StepForm key="form" step={step} refresh={this.props.refresh}/>);
     if (output == null) {
       clazz = 'error';
       content.push(this.bug("Whoops! This step hasn't received any input. You've found a bug."));
@@ -38,6 +40,9 @@ class StepComponent extends Component {
         content.push(this.data('NULL'));
         content.push(this.meta('NULL'));
       }
+    } else if (output.status === 'invalid') {
+      clazz = 'error';
+      content.push(this.error(output.message));
     } else if (output.status === 'bug') {
       clazz = 'error';
       content.push(this.bug("Whoops! This value couldn't be calculated. You've found a bug."));
