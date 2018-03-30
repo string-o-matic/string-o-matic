@@ -17,7 +17,6 @@ class StepComponent extends Component {
 
   render() {
     var step = this.props.step;
-    var input = step.getInput();
     var output = step.getOutput();
     var clazz = 'normal';
     var content = [];
@@ -45,7 +44,7 @@ class StepComponent extends Component {
     } else if (output.status === 'unsupported') {
       clazz = 'error';
       var supports = step.constructor.supports.map(s => s.display).join(', ');
-      content.push(this.error(<span>This step can't convert {input.type.displayPlural} - supported types are: {supports}<br/><small>Try adding a conversion step</small></span>));
+      content.push(this.error(<span>This step can't convert {output.inputType.displayPlural} - supported types are: {supports}<br/><small>Try adding a conversion step</small></span>));
     } else if (output.status === 'broken-pipe') {
       clazz = 'broken-pipe';
       content.push(this.brokenPipe());

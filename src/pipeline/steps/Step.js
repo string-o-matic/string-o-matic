@@ -71,15 +71,6 @@ class Step {
   }
 
   /**
-   * Returns this step's input. Used only to report the supplied input type when it's unsupported.
-   * TODO Type could be passed as an argument to {@link Data.unsupported}
-   * @returns {Data|Promise}
-   */
-  getInput() {
-    return this.input;
-  }
-
-  /**
    * Prompts recalculation of output when necessary and returns either the new calculated output or
    * a promise. If the input has not yet resolved, or the calculate function is async, a promise is
    * returned.
@@ -113,7 +104,7 @@ class Step {
     } else if (input.type == null || input.type === NullType || input.data == null) {
       this.output = Data.nul();
     } else if (this.constructor.supports.indexOf(input.type) < 0) {
-      this.output = Data.unsupported();
+      this.output = Data.unsupported(input.type);
     } else {
       try {
         this.log('Calculate', input);
