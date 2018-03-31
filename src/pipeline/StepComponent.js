@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {StepTail, StepTop} from '../Common';
 import StepForm from './steps/StepForm';
 import ResizingTextArea from './ResizingTextArea';
-import {StringType, NullType, ByteStringBufferType} from './Types';
+import {StringType, BoolType, NullType, ByteStringBufferType} from './Types';
 import './StepComponent.css';
 
 class StepComponent extends Component {
@@ -36,6 +36,9 @@ class StepComponent extends Component {
       } else if (output.type === StringType) {
         content.push(this.data(output.data));
         content.push(this.meta('String, ' + output.data.length + ' characters'));
+      } else if (output.type === BoolType) {
+        content.push(this.data(output.data ? 'TRUE' : 'FALSE', output.data ? 'true' : 'false'));
+        content.push(this.meta('Boolean'));
       } else if (output.type === NullType) {
         content.push(this.data('NULL'));
         content.push(this.meta('NULL'));

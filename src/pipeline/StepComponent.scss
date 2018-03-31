@@ -136,6 +136,29 @@
         color: lighten($data, 30%);
       }
 
+      &.true,
+      &.false {
+        font-weight: bold;
+        margin-top: -1px;
+        margin-bottom: -1px;
+        padding: ($step-padding + 1) $step-padding;
+
+        @media (max-width: $width-mobile) {
+          padding: (($step-padding / 2) + 1) ($step-padding / 2);
+          font-size: ($body-size * .85);
+        }
+      }
+
+      &.true {
+        color: #2E7D32;
+        background: #C8E6C9;
+      }
+
+      &.false {
+        color: #C62828;
+        background: #FFCDD2;
+      }
+
       @media (max-width: $width-mobile) {
         padding: ($step-padding / 2);
         font-size: ($body-size * .85);

@@ -7,6 +7,7 @@ import SHA512 from './steps/hash/SHA512';
 import SHA512224 from './steps/hash/SHA512224';
 import SHA512256 from './steps/hash/SHA512256';
 import BCryptHash from './steps/hash/BCryptHash';
+import BCryptVerify from './steps/hash/BCryptVerify';
 import Hex from './steps/encode/Hex';
 import URIEncode from './steps/encode/URIEncode';
 import URIDecode from './steps/encode/URIDecode';
@@ -22,7 +23,7 @@ class StepSelector extends Component {
   categories = {
     string: [ UpperCase, LowerCase, Reverse, AsyncTest ],
     encode: [ URIEncode, URIDecode, Hex ],
-    hash: [ BCryptHash, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
+    hash: [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
     encrypt: [ ]
   };
 

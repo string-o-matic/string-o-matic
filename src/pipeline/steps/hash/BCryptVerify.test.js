@@ -7,15 +7,17 @@ var step = new BCryptVerify();
 // TODO inject real passwords
 
 test('valid', async () => {
+  step.setPassword('P4ssW0Rd!');
   expect.assertions(2);
-  const result = await step.calculate(Data.string('$2a$10$QHZtk91vCk.n.zTKqvUx.ei6CIP9S2LZ9BDx0iiKFBiQV3o9UQgE6'));
+  const result = await step.calculate(Data.string('$2a$06$/qVvfs8H73yxENHxG4DZDev.oNi6UJhhQcYk6ZZu.TSBw6fy7xAxm'));
   expect(result.type).toBe(BoolType);
   expect(result.data).toBe(true);
 });
 
 test('invalid', async () => {
+  step.setPassword('incorrect');
   expect.assertions(2);
-  const result = await step.calculate(Data.string('$2a$04$qWL02JombNffokTbhtw5uubGAGo23QH.816nr7jXsQ8EHisjvwHOe'));
+  const result = await step.calculate(Data.string('$2a$06$/qVvfs8H73yxENHxG4DZDev.oNi6UJhhQcYk6ZZu.TSBw6fy7xAxm'));
   expect(result.type).toBe(BoolType);
   expect(result.data).toBe(false);
 });

@@ -14,7 +14,7 @@ class BCryptHash extends Step {
 
   cost = 12;
   costValid = true;
-  minCost = 1;
+  minCost = 4;
   maxCost = 16;
 
   setCost(cost) {

@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import {BCryptHashForm} from './hash/BCryptHash';
+import {BCryptVerifyForm} from './hash/BCryptVerify';
 import './StepForm.css';
 
 class StepForm extends Component {
 
   components = {
-    'BCryptHash': BCryptHashForm
+    'BCryptHash': BCryptHashForm,
+    'BCryptVerify': BCryptVerifyForm
   };
 
   render() {
