@@ -107,3 +107,6 @@ steps. The .com was available, and that settled the debate.
 - [ ] GitHub link
 - [ ] Intro, help
 - [ ] Minimal icon font
+- [ ] Set header Content-Type: text/html; charset=UTF-8
+- [ ] Implement a queue for each step so if input change multiple times during calculation, only the most recent input is calculated
+- [ ] Clarify what's UTF-8 and UTF-16, provide meta info

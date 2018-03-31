@@ -7,6 +7,7 @@ class Data {
   data = null;
   message = null;
   inputType = null;
+  warnings = [];
 
   constructor(status, type, data) {
     this.status = status;
@@ -48,6 +49,10 @@ class Data {
 
   static brokenPipe() {
     return new Data('broken-pipe', null, null);
+  }
+
+  addWarning(warning) {
+    this.warnings.push(warning);
   }
 
 }

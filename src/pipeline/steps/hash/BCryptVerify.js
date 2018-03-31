@@ -44,7 +44,7 @@ class BCryptVerifyForm extends Component {
         <div className="help col-xs-12">
           Enter a BCrypt hash as input, then enter a password to test against it here.
         </div>
-        <div className="form-group col-xs-12 col-sm-4 col-md-3">
+        <div className="form-group col-xs-12">
           <div className="input-group">
             <div className="input-group-addon">Password</div>
             <input type="text" className="form-control"  value={this.props.step.password} onChange={this.onChange}/>

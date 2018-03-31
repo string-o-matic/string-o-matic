@@ -4,8 +4,6 @@ import {BoolType} from '../../Types';
 
 var step = new BCryptVerify();
 
-// TODO inject real passwords
-
 test('valid', async () => {
   step.setPassword('P4ssW0Rd!');
   expect.assertions(2);

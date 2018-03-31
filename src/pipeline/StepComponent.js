@@ -27,22 +27,25 @@ class StepComponent extends Component {
       content.push(this.bug("Whoops! This step hasn't received any input. You've found a bug."));
     } else if (output.then) {
       content.push(this.data('Calculating...', 'calculating'));
-      content.push(this.meta('Unknown'));
+      content.push(this.meta(['Unknown']));
       output.then(_ => this.setState({}));
     } else if (output.status === 'valid') {
+      const meta = [];
       if (output.type === ByteStringBufferType) {
         content.push(this.data(output.data.toHex()));
-        content.push(this.meta(<span>Byte array, {output.data.length()} bytes<br/>Displayed as hex - for other options add an encode step</span>));
+        meta.push(<div><span>Byte array, {output.data.length()} bytes<br/>Displayed as hex - for other options add an encode step</span></div>);
       } else if (output.type === StringType) {
         content.push(this.data(output.data));
-        content.push(this.meta('String, ' + output.data.length + ' characters'));
+        meta.push(<div>String, {output.data.length} characters</div>);
       } else if (output.type === BoolType) {
         content.push(this.data(output.data ? 'TRUE' : 'FALSE', output.data ? 'true' : 'false'));
-        content.push(this.meta('Boolean'));
+        meta.push(<div>Boolean</div>);
       } else if (output.type === NullType) {
         content.push(this.data('NULL'));
-        content.push(this.meta('NULL'));
+        meta.push(<div>NULL</div>);
       }
+      output.warnings.forEach(w => meta.push(<div className="warning"><span className="ionicon ion-md-alert"/> {w}</div>));
+      content.push(this.meta(meta));
     } else if (output.status === 'invalid') {
       clazz = 'error';
       content.push(this.error(output.message));
@@ -80,7 +83,7 @@ class StepComponent extends Component {
   }
 
   meta(content) {
-    return <div key="meta" className="meta">{content}</div>;
+    return <div key="meta" className="meta">{content.map(c => c)}</div>;
   }
 
   error(content) {

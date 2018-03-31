@@ -1,3 +1,4 @@
+import * as forge from 'node-forge';
 import React, { Component } from 'react';
 import bcrypt from 'bcryptjs';
 import {StringType} from '../../Types';
@@ -5,7 +6,6 @@ import Data from '../../Data';
 import Step from '../Step'
 
 // https://github.com/dcodeIO/bcrypt.js/
-// TODO warn if input exceeds 72 BYTES (not characters)
 // TODO fail if crypto.getRandomValues is unavailable, later implement fallback
 class BCryptHash extends Step {
 
@@ -27,7 +27,7 @@ class BCryptHash extends Step {
   }
 
   calculate(input) {
-    var cost = parseInt(this.cost, 10);
+    const cost = parseInt(this.cost, 10);
     this.costValid = cost && cost >= this.minCost && cost <= this.maxCost;
     if (!this.costValid) {
       return Data.invalid('Please enter a cost between ' + this.minCost + ' and ' + this.maxCost);
@@ -35,7 +35,11 @@ class BCryptHash extends Step {
     return new Promise(resolve => {
       bcrypt.genSalt(cost).then(salt => {
         bcrypt.hash(input.data, salt).then(hash => {
-          resolve(Data.string(hash));
+          const result = Data.string(hash);
+          if (forge.util.encodeUtf8(input.data).length > 72) {
+            result.addWarning('Input exceeds 72 bytes. Only the first 72 bytes are hashed.');
+          }
+          resolve(result);
         }, error => {
           this.error('hash error', error);
           resolve(Data.bug());
