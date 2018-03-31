@@ -23,3 +23,7 @@ test('example2', () => {
 test('empty', () => {
   expectResult('', 'da39a3ee5e6b4b0d3255bfef95601890afd80709');
 });
+
+test('heart', () => {
+  expectResult('❤️', 'e12823a8cf9ab652e19c6181fae07470d633593d');
+});
