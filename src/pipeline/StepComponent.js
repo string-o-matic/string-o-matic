@@ -36,15 +36,15 @@ class StepComponent extends Component {
         meta.push(<div><span>Byte array, {output.data.length()} bytes<br/>Displayed as hex - for other options add an encode step</span></div>);
       } else if (output.type === StringType) {
         content.push(this.data(output.data));
-        meta.push(<div>String, {output.data.length} characters</div>);
+        meta.push(<div key="type">String, {output.data.length} characters</div>);
       } else if (output.type === BoolType) {
         content.push(this.data(output.data ? 'TRUE' : 'FALSE', output.data ? 'true' : 'false'));
-        meta.push(<div>Boolean</div>);
+        meta.push(<div key="type">Boolean</div>);
       } else if (output.type === NullType) {
         content.push(this.data('NULL'));
-        meta.push(<div>NULL</div>);
+        meta.push(<div key="type">NULL</div>);
       }
-      output.warnings.forEach(w => meta.push(<div className="warning"><span className="ionicon ion-md-alert"/> {w}</div>));
+      output.warnings.forEach((w, i) => meta.push(<div className="warning" key={"warning" + i}><span className="ionicon ion-md-alert"/> {w}</div>));
       content.push(this.meta(meta));
     } else if (output.status === 'invalid') {
       clazz = 'error';
