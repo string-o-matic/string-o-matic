@@ -2,10 +2,9 @@ import BCryptVerify from './BCryptVerify';
 import Data from '../../Data';
 import {BoolType} from '../../Types';
 import bcrypt from 'bcryptjs';
+import {randomBytes} from 'crypto';
 
-window.dcodeIO = {
-  bcrypt: bcrypt
-};
+bcrypt.setRandomFallback(randomBytes);
 
 var step = new BCryptVerify();
 

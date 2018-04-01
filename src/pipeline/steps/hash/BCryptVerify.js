@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import bcrypt from 'bcryptjs';
 import {StringType} from '../../Types';
 import Data from '../../Data';
 import Step from '../Step';
@@ -50,7 +51,7 @@ class BCryptVerify extends Step {
 
   calculate(input) {
     return new Promise(resolve => {
-      window.dcodeIO.bcrypt.compare(this.password, input.data).then(success => {
+      bcrypt.compare(this.password, input.data).then(success => {
         resolve(Data.bool(success))
       }, error => {
         this.error('compare error', error);

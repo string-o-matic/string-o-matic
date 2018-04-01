@@ -3,10 +3,9 @@ import BCryptVerify from './BCryptVerify';
 import Data from '../../Data';
 import {StringType,BoolType} from '../../Types';
 import bcrypt from 'bcryptjs';
+import {randomBytes} from 'crypto';
 
-window.dcodeIO = {
-  bcrypt: bcrypt
-};
+bcrypt.setRandomFallback(randomBytes);
 
 var hash = new BCryptHash();
 var verify = new BCryptVerify();
