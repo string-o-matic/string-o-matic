@@ -11,13 +11,19 @@ class HexDecode extends Step {
 
   calculate(input) {
     // FIXME decoding an MD5 sum causes an exception. Fix or catch.
-    if (Globals.ENCODING === 'UTF-8') {
-      const utf8 = forge.util.decodeUtf8(forge.util.hexToBytes(input.data));
-      return Data.string(utf8);
-    } else {
-      const utf16 = this.decodeUtf16(input.data);
-      return Data.string(utf16);
+    var result = '';
+    switch (Globals.ENCODING) {
+      case 'UTF-8':
+        result = forge.util.decodeUtf8(forge.util.hexToBytes(input.data));
+        break;
+      case 'UTF-16':
+        result = this.decodeUtf16(input.data);
+        break;
+      default:
+        result = forge.util.hexToBytes(input.data);
+        break;
     }
+    return Data.string(result);
   }
 
   decodeUtf16(data) {

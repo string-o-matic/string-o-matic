@@ -33,7 +33,7 @@ class StepComponent extends Component {
       const meta = [];
       if (output.type === ByteStringBufferType) {
         content.push(this.data(output.data.toHex()));
-        meta.push(<div><span>Byte array, {output.data.length()} bytes<br/>Displayed as hex - for other options add an encode step</span></div>);
+        meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes<br/>Displayed as hex - for other options add an encode step</span></div>);
       } else if (output.type === StringType) {
         content.push(this.data(output.data));
         meta.push(<div key="type">String, {output.data.length} characters</div>);

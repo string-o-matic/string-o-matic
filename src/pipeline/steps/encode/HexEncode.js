@@ -1,4 +1,5 @@
 import * as forge from 'node-forge';
+import React, { Component } from 'react';
 import Globals from '../../../Globals';
 import Step from '../Step';
 import Data from '../../Data';
@@ -9,16 +10,30 @@ class HexEncode extends Step {
   static title = 'Hex Encode';
   static supports = [ StringType, ByteStringBufferType ];
 
+  encoding = Globals.ENCODING;
+  showForm = false;
+
+  setEncoding(encoding) {
+    this.output = null;
+    this.encoding = encoding;
+    this.passInput();
+  }
+
   calculate(input) {
     if (input.type === StringType) {
-      if (Globals.ENCODING === 'UTF-8') {
-        const utf8Hex = forge.util.bytesToHex(forge.util.encodeUtf8(input.data));
-        return Data.string(utf8Hex);
-      } else {
-        const utf16Hex = this.encodeUtf16(input.data);
-        return Data.string(utf16Hex);
+      this.showForm = true;
+      var result = '';
+      switch (this.encoding) {
+        case 'UTF-16':
+          result = this.encodeUtf16(input.data);
+          break;
+        default:
+          result = forge.util.bytesToHex(forge.util.encodeUtf8(input.data));
+          break;
       }
+      return Data.string(result);
     } else {
+      this.showForm = false;
       return Data.string(input.data.toHex());
     }
   }
@@ -34,4 +49,35 @@ class HexEncode extends Step {
 
 }
 
+class HexEncodeForm extends Component {
+
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
+
+  render() {
+    return (
+      <form className="form-inline row">
+        <div className="form-group col-xs-12 col-sm-4 col-md-3">
+          <div className="input-group">
+            <div className="input-group-addon">Encoding</div>
+            <select onChange={this.onChange} className="form-control" value={this.props.step.encoding}>
+              <option value="UTF-8">UTF-8</option>
+              <option value="UTF-16">UTF-16</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    );
+  }
+
+  onChange(e) {
+    this.props.step.setEncoding(e.target.value);
+    this.props.refresh();
+  }
+
+}
+
+export {HexEncodeForm};
 export default HexEncode;
