@@ -3,33 +3,6 @@ import {StringType} from '../../Types';
 import Data from '../../Data';
 import Step from '../Step';
 
-// https://github.com/dcodeIO/bcrypt.js/
-class BCryptVerify extends Step {
-
-  static title = 'BCrypt Verify';
-  static supports = [ StringType ];
-
-  password = '';
-
-  setPassword(password) {
-    this.output = null;
-    this.password = password;
-    this.passInput();
-  }
-
-  calculate(input) {
-    return new Promise(resolve => {
-      window.dcodeIO.bcrypt.compare(this.password, input.data).then(success => {
-        resolve(Data.bool(success))
-      }, error => {
-        this.error('compare error', error);
-        resolve(Data.bug());
-      });
-    });
-  }
-
-}
-
 class BCryptVerifyForm extends Component {
 
   constructor(props) {
@@ -56,6 +29,34 @@ class BCryptVerifyForm extends Component {
   onChange(e) {
     this.props.step.setPassword(e.target.value);
     this.props.refresh();
+  }
+
+}
+
+// https://github.com/dcodeIO/bcrypt.js/
+class BCryptVerify extends Step {
+
+  static title = 'BCrypt Verify';
+  static supports = [ StringType ];
+
+  form = BCryptVerifyForm;
+  password = '';
+
+  setPassword(password) {
+    this.output = null;
+    this.password = password;
+    this.passInput();
+  }
+
+  calculate(input) {
+    return new Promise(resolve => {
+      window.dcodeIO.bcrypt.compare(this.password, input.data).then(success => {
+        resolve(Data.bool(success))
+      }, error => {
+        this.error('compare error', error);
+        resolve(Data.bug());
+      });
+    });
   }
 
 }
