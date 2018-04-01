@@ -1,6 +1,5 @@
 import * as forge from 'node-forge';
 import React, { Component } from 'react';
-import bcrypt from 'bcryptjs';
 import {StringType} from '../../Types';
 import Data from '../../Data';
 import Step from '../Step'
@@ -33,8 +32,8 @@ class BCryptHash extends Step {
       return Data.invalid('Please enter a cost between ' + this.minCost + ' and ' + this.maxCost);
     }
     return new Promise(resolve => {
-      bcrypt.genSalt(cost).then(salt => {
-        bcrypt.hash(input.data, salt).then(hash => {
+      window.dcodeIO.bcrypt.genSalt(cost).then(salt => {
+        window.dcodeIO.bcrypt.hash(input.data, salt).then(hash => {
           const result = Data.string(hash);
           if (forge.util.encodeUtf8(input.data).length > 72) {
             result.addWarning('Input exceeds 72 bytes. Only the first 72 bytes are hashed.');

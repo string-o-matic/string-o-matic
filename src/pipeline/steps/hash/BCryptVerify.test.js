@@ -1,6 +1,11 @@
 import BCryptVerify from './BCryptVerify';
 import Data from '../../Data';
 import {BoolType} from '../../Types';
+import bcrypt from 'bcryptjs';
+
+window.dcodeIO = {
+  bcrypt: bcrypt
+};
 
 var step = new BCryptVerify();
 

@@ -107,8 +107,7 @@ steps. The .com was available, and that settled the debate.
 
 ### Other
 
-- [ ] Try crypto-js as a replacement for forge
-- [ ] Forl bcryptjs and remove node module references
+- [ ] Fork bcryptjs and remove node module references
 - [ ] Run standard conversion tests in the user's browser to spot potential bugs
 - [ ] Thorough unit tests
 - [x] Local fonts only
@@ -120,3 +119,10 @@ steps. The .com was available, and that settled the debate.
 - [ ] Set header Content-Type: text/html; charset=UTF-8
 - [ ] Implement a queue for each step so if input change multiple times during calculation, only the most recent input is calculated
 - [ ] Clarify what's UTF-8 and UTF-16, provide meta info
+
+### Dependency notes
+
+**bcryptjs** has a reference to Node's Crypto module which won't resolve in a browser but causes webpack to include node
+polyfills or mocks totalling hundreds of kilobytes. The ideal solution is to fork bcryptjs and remove this reference.
+Another option is ejecting the project to modify webpack config. As a temporary measure, the minified script is in the
+public directory and the unit tests add it to the window object from node_modules.

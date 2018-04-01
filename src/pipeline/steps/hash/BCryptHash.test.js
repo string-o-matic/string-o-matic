@@ -2,6 +2,11 @@ import BCryptHash from './BCryptHash';
 import BCryptVerify from './BCryptVerify';
 import Data from '../../Data';
 import {StringType,BoolType} from '../../Types';
+import bcrypt from 'bcryptjs';
+
+window.dcodeIO = {
+  bcrypt: bcrypt
+};
 
 var hash = new BCryptHash();
 var verify = new BCryptVerify();
