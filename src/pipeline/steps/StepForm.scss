@@ -37,4 +37,49 @@
       }
     }
   }
+
+  .material-group {
+
+    margin-top: ($grid-margin / 4);
+
+    label {
+      font-size: $note-size;
+      color: $primary;
+      text-transform: uppercase;
+      display: block;
+      width: 100%;
+      margin-bottom: 0;
+    }
+
+    input,
+    select {
+      background: none;
+      border: 0;
+      border-bottom: 2px solid $field;
+      border-radius: 0;
+      display: block;
+      width: 100%;
+      outline: none;
+      color: $field;
+      font-size: $body-size;
+      transition: color linear .25s, border-color linear .25s;
+
+      @media (max-width: $width-mobile) {
+        font-size: ($body-size * .85);
+      }
+
+      &:focus,
+      &:active {
+        border-color: $primary;
+        color: $primary;
+      }
+    }
+
+    select {
+      // sass-lint:disable-block no-vendor-prefixes
+      -webkit-appearance: none;
+      padding: 1px 0;
+    }
+
+  }
 }

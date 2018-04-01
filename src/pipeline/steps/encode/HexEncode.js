@@ -9,27 +9,87 @@ class HexEncodeForm extends Component {
 
   constructor(props) {
     super(props);
-    this.onChange = this.onChange.bind(this);
+    this.onEncodingChange = this.onEncodingChange.bind(this);
+    this.onSeparatorChange = this.onSeparatorChange.bind(this);
+    this.onPrefixChange = this.onPrefixChange.bind(this);
+    this.onSuffixChange = this.onSuffixChange.bind(this);
+    this.onCaseChange = this.onCaseChange.bind(this);
+    this.onBytesPerLineChange = this.onBytesPerLineChange.bind(this);
   }
 
   render() {
+    var encoding = null;
+    if (this.props.step.showEncoding) {
+      encoding = (
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Encoding</label>
+          <select onChange={this.onEncodingChange} value={this.props.step.encoding}>
+            <option value="UTF-8">UTF-8</option>
+            <option value="UTF-16">UTF-16</option>
+          </select>
+        </div>
+      );
+    }
     return (
       <form className="form-inline row">
-        <div className="form-group col-xs-12 col-sm-4 col-md-3">
-          <div className="input-group">
-            <div className="input-group-addon">Encoding</div>
-            <select onChange={this.onChange} className="form-control" value={this.props.step.encoding}>
-              <option value="UTF-8">UTF-8</option>
-              <option value="UTF-16">UTF-16</option>
-            </select>
-          </div>
+        <div className="help col-xs-12">
+          Select hex options. See HTML Encode and URI Encode for specialized hex encoding.
         </div>
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Separator</label>
+          <input onChange={this.onSeparatorChange} type="text" maxLength="4" value={this.props.step.separator} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
+        </div>
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Prefix</label>
+          <input onChange={this.onPrefixChange} type="text" maxLength="4" value={this.props.step.prefix} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
+        </div>
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Suffix</label>
+          <input onChange={this.onSuffixChange} type="text" maxLength="4" value={this.props.step.suffix} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
+        </div>
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Bytes/Line</label>
+          <input onChange={this.onBytesPerLineChange} type="number" value={this.props.step.bytesPerLine} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
+        </div>
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Case</label>
+          <select onChange={this.onCaseChange} value={this.props.step.hexcase}>
+            <option value="lower">lower</option>
+            <option value="upper">UPPER</option>
+          </select>
+        </div>
+        {encoding}
       </form>
     );
   }
 
-  onChange(e) {
+  onEncodingChange(e) {
     this.props.step.setEncoding(e.target.value);
+    this.props.refresh();
+  }
+
+  onSeparatorChange(e) {
+    this.props.step.setSeparator(e.target.value);
+    this.props.refresh();
+  }
+
+  onPrefixChange(e) {
+    this.props.step.setPrefix(e.target.value);
+    this.props.refresh();
+  }
+
+  onSuffixChange(e) {
+    this.props.step.setSuffix(e.target.value);
+    this.props.refresh();
+  }
+
+  onCaseChange(e) {
+    this.props.step.setCase(e.target.value);
+    this.props.refresh();
+  }
+
+  onBytesPerLineChange(e) {
+    this.props.step.setBytesPerLine(e.target.value);
     this.props.refresh();
   }
 
@@ -41,7 +101,14 @@ class HexEncode extends Step {
   static supports = [ StringType, ByteStringBufferType ];
 
   form = HexEncodeForm;
+  showEncoding = false;
+
   encoding = Globals.ENCODING;
+  bytesPerLine = '';
+  separator = '';
+  prefix = '';
+  suffix = '';
+  hexcase = 'lower';
 
   setEncoding(encoding) {
     this.output = null;
@@ -49,10 +116,40 @@ class HexEncode extends Step {
     this.passInput();
   }
 
+  setSeparator(separator) {
+    this.output = null;
+    this.separator = separator;
+    this.passInput();
+  }
+
+  setPrefix(prefix) {
+    this.output = null;
+    this.prefix = prefix;
+    this.passInput();
+  }
+
+  setSuffix(suffix) {
+    this.output = null;
+    this.suffix = suffix;
+    this.passInput();
+  }
+
+  setCase(hexcase) {
+    this.output = null;
+    this.hexcase = hexcase;
+    this.passInput();
+  }
+
+  setBytesPerLine(bytesPerLine) {
+    this.output = null;
+    this.bytesPerLine = bytesPerLine;
+    this.passInput();
+  }
+
   calculate(input) {
+    var result = '';
     if (input.type === StringType) {
-      this.form = HexEncodeForm;
-      var result = '';
+      this.showEncoding = true;
       switch (this.encoding) {
         case 'UTF-16':
           result = this.encodeUtf16(input.data);
@@ -61,11 +158,36 @@ class HexEncode extends Step {
           result = util.bytesToHex(util.encodeUtf8(input.data));
           break;
       }
-      return Data.string(result);
+
     } else {
-      this.form = null;
-      return Data.string(input.data.toHex());
+      this.showEncoding = false;
+      result = input.data.toHex();
     }
+    if (this.hexcase === 'upper') {
+      result = result.toUpperCase();
+    }
+    var bytesPerLine = 0;
+    try {
+      bytesPerLine = parseInt(this.bytesPerLine, 10);
+    } catch (e) {
+      // TODO add error class to the field
+    }
+    if (this.separator || this.prefix || this.suffix || this.bytesPerLine) {
+      const pairs = result.match(/.{2}/g);
+      for (var i = 0; i < pairs.length; i++) {
+        var terminator = '';
+        if (i < pairs.length - 1) {
+          if (bytesPerLine && (i + 1) % bytesPerLine === 0) {
+            terminator = '\n';
+          } else {
+            terminator = this.separator;
+          }
+        }
+        pairs[i] = this.prefix + pairs[i] + this.suffix + terminator;
+      }
+      result = pairs.join('');
+    }
+    return Data.string(result);
   }
 
   encodeUtf16(data) {
