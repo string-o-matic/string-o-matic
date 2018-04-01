@@ -1,4 +1,4 @@
-import * as forge from 'node-forge';
+import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
 import Globals from '../../../Globals';
 import Step from '../Step';
@@ -28,7 +28,7 @@ class HexEncode extends Step {
           result = this.encodeUtf16(input.data);
           break;
         default:
-          result = forge.util.bytesToHex(forge.util.encodeUtf8(input.data));
+          result = util.bytesToHex(util.encodeUtf8(input.data));
           break;
       }
       return Data.string(result);

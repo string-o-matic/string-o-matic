@@ -1,4 +1,4 @@
-import * as forge from 'node-forge';
+import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
 import {StringType} from '../../Types';
 import Data from '../../Data';
@@ -35,7 +35,7 @@ class BCryptHash extends Step {
       window.dcodeIO.bcrypt.genSalt(cost).then(salt => {
         window.dcodeIO.bcrypt.hash(input.data, salt).then(hash => {
           const result = Data.string(hash);
-          if (forge.util.encodeUtf8(input.data).length > 72) {
+          if (util.encodeUtf8(input.data).length > 72) {
             result.addWarning('Input exceeds 72 bytes. Only the first 72 bytes are hashed.');
           }
           resolve(result);

@@ -1,11 +1,11 @@
-import * as forge from 'node-forge';
+import * as util from 'node-forge/lib/util';
 import Step from '../Step'
 import Data from '../../Data';
-import {StringType} from '../../Types';
+import {StringType,ByteStringBufferType} from '../../Types';
 
 class Hash extends Step {
 
-  static supports = [ StringType ];
+  static supports = [ StringType, ByteStringBufferType ];
 
   constructor(hash) {
     super();
@@ -14,7 +14,11 @@ class Hash extends Step {
 
   calculate(input) {
     this.hash.start();
-    this.hash.update(forge.util.encodeUtf8(input.data));
+    if (input.type === StringType) {
+      this.hash.update(util.encodeUtf8(input.data));
+    } else {
+      this.hash.update(util.createBuffer(input.data).getBytes());
+    }
     return Data.byteStringBuffer(this.hash.digest());
   }
 

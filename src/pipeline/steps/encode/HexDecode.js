@@ -1,4 +1,4 @@
-import * as forge from 'node-forge';
+import * as util from 'node-forge/lib/util';
 import Globals from '../../../Globals';
 import Step from '../Step';
 import Data from '../../Data';
@@ -14,13 +14,13 @@ class HexDecode extends Step {
     var result = '';
     switch (Globals.ENCODING) {
       case 'UTF-8':
-        result = forge.util.decodeUtf8(forge.util.hexToBytes(input.data));
+        result = util.decodeUtf8(util.hexToBytes(input.data));
         break;
       case 'UTF-16':
         result = this.decodeUtf16(input.data);
         break;
       default:
-        result = forge.util.hexToBytes(input.data);
+        result = util.hexToBytes(input.data);
         break;
     }
     return Data.string(result);

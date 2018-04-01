@@ -1,4 +1,4 @@
-import * as forge from 'node-forge'
+import * as sha1 from 'node-forge/lib/sha1';
 import Hash from './Hash';
 
 class SHA1 extends Hash {
@@ -6,7 +6,7 @@ class SHA1 extends Hash {
   static title = 'SHA-1';
 
   constructor() {
-    super(forge.md.sha1.create());
+    super(sha1.create());
   }
 
 }
