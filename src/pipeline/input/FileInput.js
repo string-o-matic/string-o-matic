@@ -1,14 +1,16 @@
+import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
+import {StringType} from '../Types';
 import Data from '../Data';
 import ResizingTextArea from '../ResizingTextArea';
-import './Input.css'
 import Dropzone from 'react-dropzone'
+import './Input.css'
 
 class FileInput extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { input: '' };
+    this.state = { input: Data.string('') };
     this.onChange = this.onChange.bind(this);
   }
 
@@ -20,12 +22,21 @@ class FileInput extends Component {
       status = (
         <div className="file-success"><span className="ion-md-checkmark-circle"/> Imported {this.state.file.name}</div>
       );
-      textarea = (
-        <div>
-          <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input}/>
-          <div className="meta">String, {this.state.input.length} characters</div>
-        </div>
-      );
+      if (this.state.input.type === StringType) {
+        textarea = (
+          <div>
+            <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input.data}/>
+            <div className="meta">String, {this.state.input.data.length} characters</div>
+          </div>
+        );
+      } else {
+        textarea = (
+          <div>
+            <div className="binary">This file can't be displayed or edited as text, so it's been imported as a byte array. You can encode, hash or encrypt it.</div>
+            <div className="meta">Byte array, {this.state.input.data.length()} bytes</div>
+          </div>
+        );
+      }
     } else if (this.state.error) {
       status = <div className="file-error"><span className="ion-md-alert"/> {this.state.error}</div>
     }
@@ -35,10 +46,10 @@ class FileInput extends Component {
           <span className="ionicon ion-md-document"/>
           <br/>
           Drop a file here
-          <br/>
-          <small>or click to select a file</small>
-          <br/>
-          <small>Max size 1Mb</small>
+          <small>
+            <br/>or click to select a file
+            <br/>Max size 1Mb
+          </small>
           {status}
         </Dropzone>
         {textarea}
@@ -47,33 +58,42 @@ class FileInput extends Component {
   }
 
   componentDidMount() {
-    this.props.inputChange(Data.string(this.state.input + ''));
+    this.props.inputChange(this.state.input);
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
     if (acceptedFiles && acceptedFiles.length > 0) {
       const reader = new FileReader();
       reader.onload = () => {
-        const fileAsString = reader.result;
-        this.props.inputChange(Data.string(fileAsString));
-        this.setState({ file: acceptedFiles[0], input: fileAsString});
+        const arrayBuffer = reader.result;
+        const byteStringBuffer = util.createBuffer(arrayBuffer);
+        var input = null;
+        try {
+          input = Data.string(byteStringBuffer.toString());
+        } catch (e) {
+          input = Data.byteStringBuffer(byteStringBuffer);
+        }
+        this.props.inputChange(input);
+        this.setState({ file: acceptedFiles[0], input: input });
       };
       reader.onabort = () => this.setState({ file: null, error: "Oops, couldn't read your file!"});
       reader.onerror = () => this.setState({ file: null, error: "Oops, couldn't read your file!"});
-      reader.readAsText(acceptedFiles[0]);
+      reader.readAsArrayBuffer(acceptedFiles[0]);
     } else if (rejectedFiles && rejectedFiles.length > 0) {
       this.setState({ file: null, error: 'File ' + rejectedFiles[0].name + ' is unsupported. Max size is 1Mb.'});
     }
   }
 
   onChange(value) {
-    this.props.inputChange(Data.string(value));
-    this.setState({ input: value });
+    const input = Data.string(value);
+    this.props.inputChange(input);
+    this.setState({ input: input });
   }
 
   clear() {
-    this.setState({ input: '', error: null, file: null });
-    this.props.inputChange(Data.string(''));
+    const input = Data.string('');
+    this.props.inputChange(input);
+    this.setState({ input: input, error: null, file: null });
   }
 
 }

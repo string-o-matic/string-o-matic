@@ -74,4 +74,20 @@
     color: $error-text;
     padding-top: ($step-padding / 2);
   }
+
+}
+
+.binary {
+  max-width: 500px;
+  padding: 0 $grid-margin;
+  margin: 0 auto $grid-margin;
+  font-size: $note-size;
+  text-transform: uppercase;
+  text-align: center;
+  color: $data;
+
+  @media (max-width: $width-mobile) {
+    padding: 0 ($grid-margin / 2);
+    margin: 0 auto ($grid-margin / 2);
+  }
 }
