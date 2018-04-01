@@ -25,51 +25,25 @@ adding new transformation steps will be very welcome.
 Okay, it's a silly name, but it describes the idea of building a machine that transforms a string in a series of
 steps. The .com was available, and that settled the debate.
 
-### To do: Steps
+### MVP Steps
 
-- [ ] Hex
-- [ ] Base 64: standard, URL safe, custom
+- [x] Hex encode/decode (basic)
+- [ ] Hex format - separators, line length, case
+- [ ] Base 64 encode/decode (standard)
+- [ ] Base 64 character set & line length
 - [x] MD5
-- [x] SHA
-- [ ] BCrypt, verify
-- [ ] HMAC
-- [ ] Encryption
-- [ ] Decryption
+- [x] SHA1, SHA256, SHA384, SHA512, SHA512/224, SHA512/256
+- [ ] BCrypt hash/verify
+- [ ] Encrypt/Decrypt (forge algorithms)
 - [x] UPPER CASE
 - [x] lower case
-- [ ] Title Case
-- [ ] snake_case
-- [ ] camelCase
-- [ ] PascalCase
-- [ ] kebab-case
-- [ ] Train-Case
-- [ ] iNVERSE cASE
 - [x] esreveR
-- [ ] Repeat
-- [ ] Whitespace trim
-- [ ] Line length
-- [ ] Remove lines
-- [ ] Append, prepend
-- [ ] Regex replace
-- [ ] Regex match array
-- [ ] Crop/Substring
-- [ ] Split
-- [ ] Join
-- [x] URI encode
-- [x] URI decode
-- [ ] HTML encode
-- [ ] JSON escape
-- [ ] Array reverse
-- [ ] For each in array
-- [ ] Bit shift
-- [ ] Binary (bit/little endian?)
-- [ ] ASCII safe check or convert
+- [x] URI encode/decode
+- [ ] HTML hex encode/decode
+- [ ] HTML decimal encode/decode
+- [ ] Java/Ruby/Python/C++/Go code
 
-### To do: Server side steps
-
-- [ ] SCrypt, verify
-
-### To do: Features
+### MVP Features
 
 - [x] Delete step
 - [x] Reset text
@@ -79,27 +53,63 @@ steps. The .com was available, and that settled the debate.
 - [x] Better mobile design
 - [ ] Reset all
 - [ ] Step selector search
+- [ ] Default representation for byte array, supply this if next step requires it
+- [ ] Handle or reject control characters
+- [ ] Handle or reject RTL characters
+- [ ] Handle or reject emoji
+
+### v2+ Steps
+
+- [ ] HMAC
+- [ ] Split
+- [ ] Join
+- [ ] Repeat
+- [ ] Whitespace trim
+- [ ] Line length
+- [ ] Title Case
+- [ ] snake_case
+- [ ] camelCase
+- [ ] PascalCase
+- [ ] kebab-case
+- [ ] Train-Case
+- [ ] iNVERSE cASE
+- [ ] Remove lines
+- [ ] Append, prepend
+- [ ] Regex replace
+- [ ] Regex match array
+- [ ] Crop/Substring
+- [ ] JSON escape
+- [ ] Array reverse
+- [ ] For each in array
+- [ ] Bit shift
+- [ ] Binary (UTF-8, UTF-16)
+
+### v2+ Server side steps
+
+- [ ] SCrypt, verify
+
+### v2+ Features
+
+- [ ] Optional live/on submit toggle
+- [ ] Mandatory on submit for slow async steps (e.g. BCrypt)
+- [ ] Make steps collapsible - collapse all steps and show just the names
+- [ ] Suggested next step (e.g. byte[] -> base64, hex)
+- [ ] Copy to clipboard
+- [ ] Highlight whitespace as _, \r, \t etc.
 - [ ] Step selector filter by supported input
 - [ ] Random input with character group selectors or custom character set
 - [ ] Common recipes
 - [ ] Export JSON
 - [ ] Export as code
 - [ ] Download text file
-- [ ] Default representation for byte array, supply this if next step requires it
-- [ ] Make steps collapsible - collapse all steps and show just the names
-- [ ] Suggested next step (e.g. byte[] -> base64, hex)
-- [ ] Copy to clipboard
-- [ ] Highlight whitespace as _, \r, \t etc.
-- [ ] Handle or reject control characters
-- [ ] Handle or reject RTL characters
-- [ ] Handle or reject emoji
-- [ ] Optional live/on submit toggle
-- [ ] Mandatory on submit for slow async steps (e.g. BCrypt)
 - [ ] Support for server-side steps (e.g. SCrypt, minification) with security warning
 - [ ] Link to references for encryption steps, encourage best practice
 
-### To do: Other
+### Other
 
+- [ ] Try crypto-js as a replacement for forge
+- [ ] Forl bcryptjs and remove node module references
+- [ ] Run standard conversion tests in the user's browser to spot potential bugs
 - [ ] Thorough unit tests
 - [x] Local fonts only
 - [ ] Confirm no cross-domain requests can be made by npm libraries
