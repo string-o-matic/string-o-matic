@@ -104,10 +104,13 @@ steps. The .com was available, and that settled the debate.
 - [ ] Download text file
 - [ ] Support for server-side steps (e.g. SCrypt, minification) with security warning
 - [ ] Link to references for encryption steps, encourage best practice
+- [ ] Allow >16 BCrypt rounds if live preview is off
 
 ### Other
 
-- [ ] Fork bcryptjs and remove node module references
+- [ ] Privacy policy, liability, terms, licence etc.
+- [ ] Grab console log and allow errors to be encoded as json and reported with or without input data
+- [x] Fork bcryptjs and remove node module references
 - [ ] Run standard conversion tests in the user's browser to spot potential bugs
 - [ ] Thorough unit tests
 - [x] Local fonts only

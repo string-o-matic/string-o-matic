@@ -2,21 +2,22 @@
 @import '../css/variables';
 
 .step-selector {
-  background: $selector;
+  background: #FFF;
   border-radius: $border-radius;
   position: relative;
   max-width: $width-max;
   margin: 0 auto $grid-margin;
+  border-top: 4px solid $selector;
 
   @media (max-width: $width-max) {
     border-radius: 0;
   }
 
   .body {
-    padding: $step-padding ($step-padding * .85);
+    padding: $step-padding;
 
     @media (max-width: $width-mobile) {
-      padding: ($step-padding * .5) ($step-padding * .35);
+      padding: ($step-padding / 2);
     }
 
     &::after {
@@ -26,50 +27,44 @@
     }
 
     .category {
-      float: left;
-      width: 25%;
+      padding: ($grid-margin / 2) 0;
+      border-bottom: 1px dashed #EEE;
 
-      @media (max-width: $width-mobile) {
-        width: 50%;
-
-        &:nth-child(2n-1) {
-          clear: left;
-        }
-
-        &:nth-child(n+3) {
-          margin-top: ($grid-margin / 2);
-        }
+      &:first-child {
+        padding-top: 0;
       }
 
-      @media (max-width: $width-tiny) {
-        float: none;
-        width: 100%;
-      }
-
-      .category-body {
-        padding: ($step-padding * .15);
+      &:last-child {
+        border-bottom: 0;
       }
 
       h4 {
-        font-family: $body-font;
+        font-family: Lato, Helvetica, Arial, sans-serif;
         font-weight: 400;
         font-size: $heading-size;
-        color: lighten($selector, 50%);
-        text-shadow: 1px 1px 2px darken($selector, 10%);
+        color: $selector;
         margin: 0 0 ($step-padding / 2);
-        padding: 0;
-        text-align: center;
+        padding: 3px 0;
+        text-align: left;
+
       }
 
       .btn {
-        background: $background;
-        color: #FFF;
+        font-family: Lato, Helvetica, Arial, sans-serif;
+        background: #F5F5F5;
+        color: #757575;
         outline: none;
+        padding: 7px 10px;
+        text-align: left;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 2px;
 
         &:hover,
         &:focus,
         &:active {
-          background: lighten($background, 5%);
+          background: #E0E0E0;
+          color: #616161;
         }
       }
     }

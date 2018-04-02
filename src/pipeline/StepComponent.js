@@ -91,7 +91,7 @@ class StepComponent extends Component {
   }
 
   bug(content) {
-    return <div key="bug" className="error"><span className="ionicon ion-ios-bug"/><br/>{content}<br/><small>You might find the cause in your browser's console log.</small></div>;
+    return <div key="bug" className="error"><span className="ionicon ion-ios-bug-outline"/><br/>{content}<br/><small>You might find the cause in your browser's console log.</small></div>;
   }
 
   brokenPipe() {

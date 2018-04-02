@@ -4,10 +4,12 @@
 .step {
   background: #FFF;
   position: relative;
-  box-shadow: 1px 1px 10px darken($background, 10%);
+  box-shadow: 0 0 5px darken($background, 5%);
   border-radius: $border-radius;
   max-width: $width-max;
   margin: 0 auto $grid-margin;
+  border-top: 4px solid $primary;
+  transition:  border-color .2s linear;
 
   @media (max-width: $width-mobile) {
     margin-bottom: ($grid-margin * .7);
@@ -18,16 +20,9 @@
   }
 
   .step-header {
-    background: $primary;
-    border-top-left-radius: $border-radius;
-    border-top-right-radius: $border-radius;
-    color: #FFF;
+    background: $primary-vlight;
+    color: $primary;
     transition: background-color .2s linear;
-
-    @media (max-width: $width-max) {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-    }
 
     &::after {
       clear: both;
@@ -36,14 +31,13 @@
     }
 
     h4 {
-      font-family: $body-font;
+      font-family: Lato, Helvetica, Arial, sans-serif;
       font-weight: 400;
       font-size: $heading-size;
-      color: #FFF;
+      color: $primary;
       margin: 0;
       padding: ($step-padding / 2) $step-padding;
-      text-transform: uppercase;
-      text-shadow: 1px 1px 1px darken($primary, 10%);
+      transition: color .2s linear;
 
       @media (max-width: $width-mobile) {
         padding: ($step-padding / 2);
@@ -53,10 +47,9 @@
     .delete {
       background: none;
       border: 0;
-      border-top-right-radius: 6px;
       font-size: 22px;
-      padding: 0 12px;
-      color: rgba(255, 255, 255, .5);
+      padding: 1px 12px;
+      color: transparentize($primary, .5);
       transition: background, color;
       transition-duration: .2s;
 
@@ -71,32 +64,44 @@
 
     .btn-group {
       .btn {
-        padding: 10px 13px 9px;
-        text-transform: uppercase;
-        background: $primary;
-        color: $primary-light;
-        text-shadow: 1px 1px 1px darken($primary, 5%);
+        padding: 11px 15px 9px;
+        color: $primary;
+        background: $primary-vlight;
+        border-radius: 0;
 
         &:hover,
         &:active,
         &:focus {
-          background: lighten($primary, 3%);
+          color: $primary;
+          box-shadow: 0 -2px 0 lighten($primary, 10%) inset;
         }
 
         &.active {
-          background: lighten($primary, 6%);
-          color: #FFF;
+          color: $primary;
+          box-shadow: 0 -2px 0 $primary inset;
         }
       }
     }
   }
 
   &.error {
+    border-color: $error;
+
     .step-header {
-      background: $error;
+      background: $error-vlight;
 
       h4 {
-        text-shadow: 1px 1px 1px darken($error, 20%);
+        color: $error-text;
+      }
+
+      .delete {
+        color: transparentize($error-text, .5);
+
+        &:hover,
+        &:active,
+        &:focus {
+          color: #FFF;
+        }
       }
     }
 
@@ -106,11 +111,23 @@
   }
 
   &.broken-pipe {
+    border-color: $broken-pipe;
+
     .step-header {
-      background: $broken-pipe;
+      background: $broken-pipe-vlight;
 
       h4 {
-        text-shadow: 1px 1px 1px darken($broken-pipe, 20%);
+        color: $broken-pipe;
+      }
+
+      .delete {
+        color: transparentize($broken-pipe, .5);
+
+        &:hover,
+        &:active,
+        &:focus {
+          color: #FFF;
+        }
       }
     }
 
@@ -123,9 +140,9 @@
     padding: 0;
 
     .data {
-      font-family: $body-font;
+      font-family: $mono-font;
       font-size: $body-size;
-      color: $data;
+      color: $mono-data;
       border: 0;
       width: 100%;
       outline: none;
@@ -169,7 +186,6 @@
       color: #999;
       border-top: 1px dashed #EEE;
       padding-top: 5px;
-      text-transform: uppercase;
       font-size: $note-size;
       margin: 0 $step-padding;
       padding-bottom: ($step-padding / 2);

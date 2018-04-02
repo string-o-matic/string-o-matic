@@ -48,7 +48,7 @@ class HexEncodeForm extends Component {
           <input onChange={this.onSuffixChange} type="text" maxLength="4" value={this.props.step.suffix} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
         </div>
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
-          <label>Bytes/Line</label>
+          <label>Bytes per line</label>
           <input onChange={this.onBytesPerLineChange} type="number" value={this.props.step.bytesPerLine} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
         </div>
         <div className="material-group col-xs-4 col-sm-3 col-md-2">

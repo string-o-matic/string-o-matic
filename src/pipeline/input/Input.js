@@ -26,9 +26,9 @@ class Input extends Component {
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
             <button className="btn btn-sm btn-primary btn-clear" onClick={this.clear}><span className="ion-md-close-circle"/> Clear</button>
-            <button className={"btn btn-sm btn-primary" + (this.state.type === 'text' ? ' active' : '')} onClick={this.setType.bind(this, 'text')}>Text</button>
+            <button className={"btn btn-sm btn-primary" + (this.state.type === 'text' ? ' active' : '')} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
             {/*<button className="btn btn-sm btn-primary" disabled="disabled">Number</button>*/}
-            <button className={"btn btn-sm btn-primary" + (this.state.type === 'file' ? ' active' : '')} onClick={this.setType.bind(this, 'file')}>File</button>
+            <button className={"btn btn-sm btn-primary" + (this.state.type === 'file' ? ' active' : '')} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
             {/*<button className="btn btn-sm btn-primary" disabled="disabled">Random</button>*/}
           </div>
         </div>

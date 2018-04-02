@@ -1,18 +1,19 @@
 $header-font:   'Roboto Slab', sans-serif;
-$body-font:     Monaco, Menlo, Consolas, 'Courier New', monospace;
+$sans-font:     'Lato', Arial, sans-serif;
+$mono-font:     Menlo, Monaco, Consolas, 'Courier New', monospace;
 
-$border-radius: 6px;
+$border-radius: 3px;
 $grid-margin:   20px;
 $step-padding:  20px;
 
-$title-size:    60px;
+$title-size:    50px;
 $subtitle-size: 20px;
-$heading-size:  16px;
-$body-size:     16px;
+$heading-size:  18px;
+$body-size:     14px;
 $button-size:   14px;
 $message-size:  14px;
-$alert-size:    12px;
-$note-size:     10px;
+$alert-size:    14px;
+$note-size:     12px;
 
 $width-max:     1024px;
 $width-tiny:    360px;

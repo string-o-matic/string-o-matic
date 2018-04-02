@@ -22,10 +22,11 @@ import './StepSelector.css';
 class StepSelector extends Component {
 
   categories = {
-    string: [ UpperCase, LowerCase, Reverse, AsyncTest ],
-    encode: [ URIEncode, URIDecode, HexEncode, HexDecode ],
-    hash: [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
-    encrypt: [ ]
+    'String Case': [ UpperCase, LowerCase ],
+    'String Transform': [ Reverse ],
+    'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode ],
+    'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
+    'Tests': [ AsyncTest ]
   };
 
   render() {
@@ -37,15 +38,13 @@ class StepSelector extends Component {
           {
             Object.keys(this.categories).map((name) => {
               return (<div key={name} className="category">
-                <div className="category-body">
-                  <h4>{name.toUpperCase()}</h4>
-                  {
-                    this.categories[name].map((step, i) =>
-                      <button key={i} className="btn btn-block btn-sm"
-                              onClick={this.addStep.bind(this, step)}>{step.title}</button>
-                    )
-                  }
-                </div>
+                <h4>{name}</h4>
+                {
+                  this.categories[name].map((step, i) =>
+                    <button key={i} className="btn btn-sm"
+                            onClick={this.addStep.bind(this, step)}>{step.title}</button>
+                  )
+                }
               </div>)
             })
           }

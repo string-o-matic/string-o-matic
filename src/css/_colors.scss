@@ -1,13 +1,17 @@
-$background:    #424242;
-$selector:      #595959;
+$background:        #F3F3F3;
+$selector:          #1976D2;
 
-$primary:       #00796B;
-$primary-light: #B2DFDB;
+$primary:           #00796B;
+$primary-light:     #B2DFDB;
+$primary-vlight:    #E0F2F1;
 
-$success:       #2E7D32;
-$error:         #E53935;
-$error-text:    darken($error, 15%);
-$broken-pipe:   #757575;
+$success:           #2E7D32;
+$error:             #E53935;
+$error-vlight:      #FFEBEE;
+$error-text:        darken($error, 15%);
+$broken-pipe:       #757575;
+$broken-pipe-vlight: #F5F5F5;
 
-$data:          #555;
-$field:         #AAA;
+$mono-data:         #333;
+$data:              #555;
+$field:             #888;

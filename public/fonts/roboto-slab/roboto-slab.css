@@ -18,7 +18,7 @@
     font-style: normal;
 }
 
-/*@font-face {
+@font-face {
     font-family: 'Roboto Slab';
     src: url('roboto-slab-regular.eot');
     src: url('roboto-slab-regular.eot?#iefix') format('embedded-opentype'),
@@ -26,7 +26,7 @@
         url('roboto-slab-regular.svg#roboto_slabthin') format('svg');
     font-weight: 400;
     font-style: normal;
-}*/
+}
 
 /*@font-face {
     font-family: 'Roboto Slab';

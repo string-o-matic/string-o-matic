@@ -43,7 +43,7 @@ class FileInput extends Component {
     return (
       <div>
         <Dropzone onDrop={this.onDrop.bind(this)} maxSize={1048576} disablePreview={true} multiple={false} style={style} className="dropzone" activeClassName="active" rejectClassName="reject">
-          <span className="ionicon ion-md-document"/>
+          <span className="ionicon ion-ios-folder-open-outline"/>
           <br/>
           Drop a file here
           <small>
