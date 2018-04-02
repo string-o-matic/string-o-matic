@@ -19,11 +19,9 @@ class BCryptHashForm extends Component {
         <div className="help col-xs-12">
           Enter a cost between {this.props.step.minCost} and {this.props.step.maxCost}. BCrypt supports up to 31, but this site is limited to {this.props.step.maxCost}.
         </div>
-        <div className={"form-group col-xs-12 col-sm-4 col-md-3" + formGroupClass}>
-          <div className="input-group">
-            <div className="input-group-addon">Cost</div>
-            <input type="number" min={this.props.step.minCost} max={this.props.step.maxCost} className="form-control"  value={this.props.step.cost} onChange={this.onChange}/>
-          </div>
+        <div className={"material-group col-xs-12 col-sm-3 col-md-2" + formGroupClass}>
+          <label>Cost</label>
+          <input type="number" min={this.props.step.minCost} max={this.props.step.maxCost} maxLength="2" value={this.props.step.cost} onChange={this.onChange}/>
         </div>
       </form>
     );
