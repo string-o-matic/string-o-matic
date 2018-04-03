@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Step from './Step';
 import './StepForm.css';
 
 class StepForm extends Component {
@@ -17,4 +19,10 @@ class StepForm extends Component {
   }
 
 }
+
+StepForm.propTypes = {
+  step: PropTypes.instanceOf(Step).isRequired,
+  refresh: PropTypes.func.isRequired
+};
+
 export default StepForm;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Common.css'
+import './Common.css';
 
 class StepTail extends Component {
 
@@ -20,7 +20,7 @@ class StepTop extends Component {
       <div className="step-top">
         <div className="step-top-1"></div>
       </div>
-    )
+    );
   }
 
 }

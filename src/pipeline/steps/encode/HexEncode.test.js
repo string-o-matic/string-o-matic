@@ -1,5 +1,4 @@
 import HexEncode from './HexEncode';
-import Globals from '../../../Globals';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
@@ -78,7 +77,7 @@ test('heavy black heart emoji utf16', () => {
   expectResult('\u2764', '2764');
 });
 
-test('red heart emoji utf8', () => {
+test('red heart emoji utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('\u2764\uFE0F', '2764fe0f');
 });

@@ -78,7 +78,7 @@ test('heavy black heart emoji utf16', () => {
   expectResult('2764', '\u2764');
 });
 
-test('red heart emoji utf8', () => {
+test('red heart emoji utf16', () => {
   Globals.ENCODING = 'UTF-16';
   expectResult('2764fe0f', '\u2764\uFE0F');
 });

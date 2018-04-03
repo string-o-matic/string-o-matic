@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import MD5 from './steps/hash/MD5';
 import SHA1 from './steps/hash/SHA1';
 import SHA256 from './steps/hash/SHA256';
@@ -41,11 +42,10 @@ class StepSelector extends Component {
                 <h4>{name}</h4>
                 {
                   this.categories[name].map((step, i) =>
-                    <button key={i} className="btn btn-sm"
-                            onClick={this.addStep.bind(this, step)}>{step.title}</button>
+                    <button key={i} className="btn btn-sm" onClick={this.addStep.bind(this, step)}>{step.title}</button>
                   )
                 }
-              </div>)
+              </div>);
             })
           }
         </div>
@@ -58,5 +58,9 @@ class StepSelector extends Component {
   }
 
 }
+
+StepSelector.propTypes = {
+  addStep: PropTypes.func.isRequired
+};
 
 export default StepSelector;

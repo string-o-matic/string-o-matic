@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs';
 import React, { Component } from 'react';
 import {StringType} from '../../Types';
 import Data from '../../Data';
-import Step from '../Step'
+import Step from '../Step';
 
 class BCryptHashForm extends Component {
 
@@ -19,7 +19,7 @@ class BCryptHashForm extends Component {
         <div className="help col-xs-12">
           Enter a cost between {this.props.step.minCost} and {this.props.step.maxCost}. BCrypt supports up to 31, but this site is limited to {this.props.step.maxCost}.
         </div>
-        <div className={"material-group col-xs-12 col-sm-3 col-md-2" + formGroupClass}>
+        <div className={'material-group col-xs-12 col-sm-3 col-md-2' + formGroupClass}>
           <label>Cost</label>
           <input type="number" min={this.props.step.minCost} max={this.props.step.maxCost} maxLength="2" value={this.props.step.cost} onChange={this.onChange}/>
         </div>
@@ -73,7 +73,7 @@ class BCryptHash extends Step {
         }, error => {
           this.error('hash error', error);
           resolve(Data.bug());
-        })
+        });
       }, error => {
         this.error('genSalt error', error);
         resolve(Data.bug());
@@ -82,6 +82,12 @@ class BCryptHash extends Step {
   }
 
 }
+
+BCryptHashForm.propTypes = {
+  step: BCryptHash.prototype.isRequired,
+  onChange: Function.prototype.isRequired,
+  refresh: Function.prototype.isRequired
+};
 
 export {BCryptHashForm};
 export default BCryptHash;

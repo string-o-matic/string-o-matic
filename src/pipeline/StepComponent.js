@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import Step from './steps/Step';
 import {StepTail, StepTop} from '../Common';
 import StepForm from './steps/StepForm';
 import ResizingTextArea from './ResizingTextArea';
@@ -24,7 +26,7 @@ class StepComponent extends Component {
     content.push(<StepForm key="form" step={step} refresh={this.props.refresh}/>);
     if (output == null) {
       clazz = 'error';
-      content.push(this.bug("Whoops! This step hasn't received any input. You've found a bug."));
+      content.push(this.bug('Whoops! This step hasn\'t received any input. You\'ve found a bug.'));
     } else if (output.then) {
       content.push(this.data('Calculating...', 'calculating'));
       content.push(this.meta(['Unknown']));
@@ -44,18 +46,18 @@ class StepComponent extends Component {
         content.push(this.data('NULL'));
         meta.push(<div key="type">NULL</div>);
       }
-      output.warnings.forEach((w, i) => meta.push(<div className="warning" key={"warning" + i}><span className="ionicon ion-md-alert"/> {w}</div>));
+      output.warnings.forEach((w, i) => meta.push(<div className="warning" key={'warning' + i}><span className="ionicon ion-md-alert"/> {w}</div>));
       content.push(this.meta(meta));
     } else if (output.status === 'invalid') {
       clazz = 'error';
       content.push(this.error(output.message));
     } else if (output.status === 'bug') {
       clazz = 'error';
-      content.push(this.bug("Whoops! This value couldn't be calculated. You've found a bug."));
+      content.push(this.bug('Whoops! This value couldn\'t be calculated. You\'ve found a bug.'));
     } else if (output.status === 'unsupported') {
       clazz = 'error';
       var supports = step.constructor.supports.map(s => s.display).join(', ');
-      content.push(this.error(<span>This step can't convert {output.inputType.displayPlural} - supported types are: {supports}<br/><small>Try adding a conversion step</small></span>));
+      content.push(this.error(<span>This step can&apos;t convert {output.inputType.displayPlural} - supported types are: {supports}<br/><small>Try adding a conversion step</small></span>));
     } else if (output.status === 'broken-pipe') {
       clazz = 'broken-pipe';
       content.push(this.brokenPipe());
@@ -91,13 +93,19 @@ class StepComponent extends Component {
   }
 
   bug(content) {
-    return <div key="bug" className="error"><span className="ionicon ion-ios-bug-outline"/><br/>{content}<br/><small>You might find the cause in your browser's console log.</small></div>;
+    return <div key="bug" className="error"><span className="ionicon ion-ios-bug-outline"/><br/>{content}<br/><small>You might find the cause in your browser&apos;s console log.</small></div>;
   }
 
   brokenPipe() {
-    return <div key="broken-pipe" className="broken-pipe">Can't show this step due to errors above</div>;
+    return <div key="broken-pipe" className="broken-pipe">Can&apos;t show this step due to errors above</div>;
   }
 
 }
+
+StepComponent.propTypes = {
+  deleteStep: PropTypes.func.isRequired,
+  refresh: PropTypes.func.isRequired,
+  step: PropTypes.instanceOf(Step).isRequired
+};
 
 export default StepComponent;

@@ -13,15 +13,15 @@ class HexDecode extends Step {
     // FIXME decoding an MD5 sum causes an exception. Fix or catch.
     var result = '';
     switch (Globals.ENCODING) {
-      case 'UTF-8':
-        result = util.decodeUtf8(util.hexToBytes(input.data));
-        break;
-      case 'UTF-16':
-        result = this.decodeUtf16(input.data);
-        break;
-      default:
-        result = util.hexToBytes(input.data);
-        break;
+    case 'UTF-8':
+      result = util.decodeUtf8(util.hexToBytes(input.data));
+      break;
+    case 'UTF-16':
+      result = this.decodeUtf16(input.data);
+      break;
+    default:
+      result = util.hexToBytes(input.data);
+      break;
     }
     return Data.string(result);
   }

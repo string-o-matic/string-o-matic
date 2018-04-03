@@ -1,4 +1,4 @@
-import * as sha256 from 'node-forge/lib/sha256'
+import * as sha256 from 'node-forge/lib/sha256';
 import Hash from './Hash';
 
 class SHA256 extends Hash {

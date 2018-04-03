@@ -1,10 +1,11 @@
 import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {StringType} from '../Types';
 import Data from '../Data';
 import ResizingTextArea from '../ResizingTextArea';
-import Dropzone from 'react-dropzone'
-import './Input.css'
+import Dropzone from 'react-dropzone';
+import './Input.css';
 
 class FileInput extends Component {
 
@@ -32,13 +33,13 @@ class FileInput extends Component {
       } else {
         textarea = (
           <div>
-            <div className="binary">This file can't be displayed or edited as text, so it's been imported as a byte array. You can encode, hash or encrypt it.</div>
+            <div className="binary">This file can&apos;t be displayed or edited as text, so it&apos;s been imported as a byte array. You can encode, hash or encrypt it.</div>
             <div className="meta">Byte array, {this.state.input.data.length()} bytes</div>
           </div>
         );
       }
     } else if (this.state.error) {
-      status = <div className="file-error"><span className="ion-md-alert"/> {this.state.error}</div>
+      status = <div className="file-error"><span className="ion-md-alert"/> {this.state.error}</div>;
     }
     return (
       <div>
@@ -76,8 +77,8 @@ class FileInput extends Component {
         this.props.inputChange(input);
         this.setState({ file: acceptedFiles[0], input: input });
       };
-      reader.onabort = () => this.setState({ file: null, error: "Oops, couldn't read your file!"});
-      reader.onerror = () => this.setState({ file: null, error: "Oops, couldn't read your file!"});
+      reader.onabort = () => this.setState({ file: null, error: 'Oops, couldn\'t read your file!'});
+      reader.onerror = () => this.setState({ file: null, error: 'Oops, couldn\'t read your file!'});
       reader.readAsArrayBuffer(acceptedFiles[0]);
     } else if (rejectedFiles && rejectedFiles.length > 0) {
       this.setState({ file: null, error: 'File ' + rejectedFiles[0].name + ' is unsupported. Max size is 1Mb.'});
@@ -97,5 +98,9 @@ class FileInput extends Component {
   }
 
 }
+
+FileInput.propTypes = {
+  inputChange: PropTypes.func.isRequired
+};
 
 export default FileInput;

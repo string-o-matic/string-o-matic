@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ResizingTextArea extends Component {
 
@@ -8,7 +9,7 @@ class ResizingTextArea extends Component {
   }
 
   render() {
-    var className = "data";
+    var className = 'data';
     if (this.props.className) {
       className += ' ' + this.props.className;
     }
@@ -50,5 +51,12 @@ class ResizingTextArea extends Component {
   }
 
 }
+
+ResizingTextArea.propTypes = {
+  readOnly: PropTypes.bool,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  className: PropTypes.string
+};
 
 export default ResizingTextArea;

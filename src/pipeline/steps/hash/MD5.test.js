@@ -17,7 +17,7 @@ test('name', () => {
 });
 
 test('supports', () => {
-  expect(MD5.supports.length).toBe(2);
+  expect(MD5.supports).toHaveLength(2);
 });
 
 test('example1', () => {

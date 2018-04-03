@@ -4,5 +4,6 @@ import StepSelector from './StepSelector';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<StepSelector/>, div);
+  var addStep = function() { };
+  ReactDOM.render(<StepSelector addStep={addStep}/>, div);
 });

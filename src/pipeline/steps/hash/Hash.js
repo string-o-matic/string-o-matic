@@ -1,5 +1,5 @@
 import * as util from 'node-forge/lib/util';
-import Step from '../Step'
+import Step from '../Step';
 import Data from '../../Data';
 import {StringType,ByteStringBufferType} from '../../Types';
 

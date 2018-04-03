@@ -151,12 +151,12 @@ class HexEncode extends Step {
     if (input.type === StringType) {
       this.showEncoding = true;
       switch (this.encoding) {
-        case 'UTF-16':
-          result = this.encodeUtf16(input.data);
-          break;
-        default:
-          result = util.bytesToHex(util.encodeUtf8(input.data));
-          break;
+      case 'UTF-16':
+        result = this.encodeUtf16(input.data);
+        break;
+      default:
+        result = util.bytesToHex(util.encodeUtf8(input.data));
+        break;
       }
 
     } else {
@@ -196,10 +196,16 @@ class HexEncode extends Step {
       var hex = data.charCodeAt(i).toString(16);
       result += ('000' + hex).slice(-4);
     }
-    return result
+    return result;
   }
 
 }
+
+HexEncodeForm.propTypes = {
+  step: HexEncode.prototype.isRequired,
+  onChange: Function.prototype.isRequired,
+  refresh: Function.prototype.isRequired
+};
 
 export {HexEncodeForm};
 export default HexEncode;

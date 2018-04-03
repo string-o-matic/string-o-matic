@@ -63,7 +63,7 @@ class Pipeline extends Component {
         if (steps.length > 0) {
           steps[steps.length - 1].setNext(step);
         } else {
-          step.setInput(this.state.input)
+          step.setInput(this.state.input);
         }
         steps.push(step);
       }

@@ -1,6 +1,6 @@
 import {StringType} from '../Types';
 import Data from '../Data';
-import Step from './Step'
+import Step from './Step';
 
 /**
  * A test step for async calculation. If the first character of the input string is a number, delays that

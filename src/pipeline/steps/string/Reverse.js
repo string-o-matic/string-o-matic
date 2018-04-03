@@ -8,7 +8,7 @@ class Reverse extends Step {
   static supports = [ StringType ];
 
   calculate(input) {
-    return Data.string(input.data.split("").reverse().join(""));
+    return Data.string(input.data.split('').reverse().join(''));
   }
 
 }

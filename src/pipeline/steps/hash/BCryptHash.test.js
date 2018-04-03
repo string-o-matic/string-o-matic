@@ -56,7 +56,7 @@ test('hash 80 bytes uses first 72', async () => {
   const hashResult = await hash.calculate(Data.string(str80));
   expect(hashResult.type).toBe(StringType);
   expect(hashResult.data.indexOf('$2a$04$')).toBe(0);
-  expect(hashResult.warnings.length).toBe(1);
+  expect(hashResult.warnings).toHaveLength(1);
   expect(hashResult.warnings[0]).toBe('Input exceeds 72 bytes. Only the first 72 bytes are hashed.');
 
   // Verify first 71 bytes do not match

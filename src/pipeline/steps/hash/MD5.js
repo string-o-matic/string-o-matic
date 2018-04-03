@@ -1,5 +1,5 @@
 import * as md5 from 'node-forge/lib/md5';
-import Hash from './Hash'
+import Hash from './Hash';
 
 class MD5 extends Hash {
 

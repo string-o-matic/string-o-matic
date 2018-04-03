@@ -50,7 +50,7 @@ class BCryptVerify extends Step {
   calculate(input) {
     return new Promise(resolve => {
       bcrypt.compare(this.password, input.data).then(success => {
-        resolve(Data.bool(success))
+        resolve(Data.bool(success));
       }, error => {
         this.error('compare error', error);
         resolve(Data.bug());
@@ -59,6 +59,12 @@ class BCryptVerify extends Step {
   }
 
 }
+
+BCryptVerifyForm.propTypes = {
+  step: BCryptVerify.prototype.isRequired,
+  onChange: Function.prototype.isRequired,
+  refresh: Function.prototype.isRequired
+};
 
 export {BCryptVerifyForm};
 export default BCryptVerify;

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Data from '../Data';
 import ResizingTextArea from '../ResizingTextArea';
-import './Input.css'
+import './Input.css';
 
 class TextInput extends Component {
 
@@ -35,5 +36,10 @@ class TextInput extends Component {
   }
 
 }
+
+TextInput.propTypes = {
+  initialInput: PropTypes.string.isRequired,
+  inputChange: PropTypes.func.isRequired
+};
 
 export default TextInput;
