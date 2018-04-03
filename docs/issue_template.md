@@ -1,5 +1,4 @@
-*If you're reporting a bug, please complete this template. To request a feature, please provide a detailed description
-with examples of how it should work. Thanks!*
+*If you're reporting a bug, please complete this template. To request a feature, please provide a detailed description with examples of how it should work. Thanks!*
 
 ### Expected behaviour
 
