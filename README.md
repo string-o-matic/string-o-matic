@@ -25,7 +25,7 @@ The features planned for MVP can be found on the [MVP project page](https://gith
 The [After MVP](https://github.com/davemorrissey/string-o-matic/projects/2) project lists planned future features. If
 you have a feature request that isn't on either project board, please open an issue!
 
-### How to run
+### Development setup
 
 This project is bootstrapped with [create-react-app](https://github.com/facebook/create-react-app) so all you need to
 run it is Node >= 8. Earlier versions may also work but haven't been tested.
@@ -54,6 +54,19 @@ Run webpack bundle analyzer:
 Run a production build including all tests:
 
     npm run build
+
+### Test production build
+
+To test the site with production nginx configuration and ensure that minification does not break anything, use Docker
+to wrap the production build. The following steps will compile the app, then build and launch an nginx Docker container
+that serves it with all the security and caching headers required. Self-signed certificates for localhost are provided.
+
+    npm run build
+    docker build --tag string-o-matic .
+    docker run --name string-o-matic --rm -p 8000:80 -p 8443:443 string-o-matic
+
+Now browse to https://localhost:8443/ and click through the security warning. If necessary, change the port mappings to
+avoid conflicts with other services you have running.
 
 ### License
 
