@@ -20,14 +20,43 @@ libraries included from other sites, this site should be safe for use with sensi
 This project was started in March 2018 and hasn't reached MVP yet. Once it has a basic feature set, pull requests
 adding new transformation steps will be very welcome.
 
-### Why name it string-o-matic?
+The features planned for MVP can be found on the [MVP project page](https://github.com/davemorrissey/string-o-matic/projects/1).
 
-It's whimsical, but it describes the idea of building a machine that transforms a string in a series of steps. Good
-.com domains are hard to find so this is what I ended up with.
+The [After MVP](https://github.com/davemorrissey/string-o-matic/projects/2) project lists planned future features. If
+you have a feature request that isn't on either project board, please open an issue!
 
-### Dependency notes
+### How to run
 
-**bcryptjs** has a reference to Node's Crypto module which won't resolve in a browser but causes webpack to include node
-polyfills or mocks totalling hundreds of kilobytes. The ideal solution is to fork bcryptjs and remove this reference.
-Another option is ejecting the project to modify webpack config. As a temporary measure, the minified script is in the
-public directory and the unit tests add it to the window object from node_modules.
+This project is bootstrapped with [create-react-app](https://github.com/facebook/create-react-app) so all you need to
+run it is Node >= 8. Earlier versions may also work but haven't been tested.
+
+Clone the project and run `npm install` then `npm start` to start developing locally. SCSS files are watched and
+compiled as you work, and new styles loaded by the browser without refreshing the page.
+
+Please refer to the documentation for create-react-app for more details.
+
+Run in development mode with live reload:
+
+    npm start
+
+Run tests:
+
+    npm test
+
+Run SASS-lint:
+
+    npm run lint-css
+
+Run webpack bundle analyzer:
+
+    npm run analyze
+
+Run a production build including all tests:
+
+    npm run build
+
+### License
+
+MIT
+
+Copyright (c) 2018 David Morrissey
