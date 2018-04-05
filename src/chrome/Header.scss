@@ -16,7 +16,7 @@ header {
     padding: 0;
     width: 325px;
     height: 55px;
-    background: url(/images/logo_header.png) top left no-repeat;
+    background: url('/images/logo_header.png') top left no-repeat;
     background-size: 100%;
 
     span {
@@ -47,6 +47,46 @@ header {
 
     @media (max-width: $width-mobile) {
       font-size: ($subtitle-size * .7);
+    }
+  }
+
+  .github-corner {
+    &:hover {
+      .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0deg);
+        }
+
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner {
+          &:hover {
+            .octo-arm {
+              animation: none;
+            }
+
+            .github-corner {
+              .octo-arm {
+                animation: octocat-wave 560ms ease-in-out;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
