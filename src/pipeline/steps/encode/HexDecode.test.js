@@ -81,3 +81,39 @@ test('red heart emoji utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('2764fe0f', '\u2764\uFE0F');
 });
+
+
+test('separate with spaces', () => {
+  step.setEncoding('UTF-16');
+  expectResult('27 64 fe 0f', '\u2764\uFE0F');
+});
+
+test('line length 2', () => {
+  step.setEncoding('UTF-16');
+  expectResult('2764\nfe0f', '\u2764\uFE0F');
+});
+
+test('x prefix', () => {
+  step.setEncoding('UTF-16');
+  expectResult('\\x27\\x64\\xfe\\x0f', '\u2764\uFE0F');
+});
+
+test('0x prefix', () => {
+  step.setEncoding('UTF-16');
+  expectResult('0x270x640xfe0x0f', '\u2764\uFE0F');
+});
+
+test('; suffix', () => {
+  step.setEncoding('UTF-16');
+  expectResult('27;64;fe;0f;', '\u2764\uFE0F');
+});
+
+test('uppercase', () => {
+  step.setEncoding('UTF-16');
+  expectResult('2764FE0F', '\u2764\uFE0F');
+});
+
+test('combined options', () => {
+  step.setEncoding('UTF-16');
+  expectResult('0x27;|0x64;\n0xFE;|0x0F;', '\u2764\uFE0F');
+});

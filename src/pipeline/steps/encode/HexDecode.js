@@ -54,20 +54,23 @@ class HexDecode extends Step {
   }
 
   calculate(input) {
-    // FIXME decoding an MD5 sum causes an exception. Fix or catch.
+    var data = input.data;
+    data = data.toLowerCase();
+    data = data.replace(/0x/g, '');
+    data = data.replace(/[^a-f0-9]/g, '');
     switch (this.encoding) {
     case 'UTF-8':
       try {
-        return Data.string(util.decodeUtf8(util.hexToBytes(input.data)));
+        return Data.string(util.decodeUtf8(util.hexToBytes(data)));
       } catch (e) {
         // TODO make encoding names links that set the encoding
         return Data.invalid('Input cannot be decoded as UTF-8. Try UTF-16 or ISO-8859-1.');
       }
     case 'UTF-16':
-      return this.decodeFixedWidth(input.data, 2);
+      return this.decodeFixedWidth(data, 2);
     case 'ISO-8859-1':
     default:
-      return this.decodeFixedWidth(input.data, 1);
+      return this.decodeFixedWidth(data, 1);
     }
   }
 

@@ -197,6 +197,8 @@
           font-size: ($note-size + 4);
           vertical-align: middle;
           line-height: $note-size;
+          position: relative;
+          top: -2px;
         }
       }
 
