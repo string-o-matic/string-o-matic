@@ -2,7 +2,11 @@ import HexEncode from './HexEncode';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
-var step = new HexEncode();
+var step;
+
+beforeEach(() => {
+  step = new HexEncode();
+});
 
 // No tests for null or unsupported types - superclass rejects them.
 
@@ -80,4 +84,44 @@ test('heavy black heart emoji utf16', () => {
 test('red heart emoji utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('\u2764\uFE0F', '2764fe0f');
+});
+
+test('separate with spaces', () => {
+  step.setEncoding('UTF-16');
+  step.setSeparator(' ');
+  expectResult('\u2764\uFE0F', '27 64 fe 0f');
+});
+
+test('line length 2', () => {
+  step.setEncoding('UTF-16');
+  step.setBytesPerLine(2);
+  expectResult('\u2764\uFE0F', '2764\nfe0f');
+});
+
+test('x prefix', () => {
+  step.setEncoding('UTF-16');
+  step.setPrefix('\\x');
+  expectResult('\u2764\uFE0F', '\\x27\\x64\\xfe\\x0f');
+});
+
+test('; suffix', () => {
+  step.setEncoding('UTF-16');
+  step.setSuffix(';');
+  expectResult('\u2764\uFE0F', '27;64;fe;0f;');
+});
+
+test('uppercase', () => {
+  step.setEncoding('UTF-16');
+  step.setCase('upper');
+  expectResult('\u2764\uFE0F', '2764FE0F');
+});
+
+test('combined options', () => {
+  step.setEncoding('UTF-16');
+  step.setPrefix('0x');
+  step.setSuffix(';');
+  step.setSeparator('|');
+  step.setBytesPerLine(2);
+  step.setCase('upper');
+  expectResult('\u2764\uFE0F', '0x27;|0x64;\n0xFE;|0x0F;');
 });

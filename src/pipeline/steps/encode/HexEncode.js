@@ -1,5 +1,6 @@
 import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Globals from '../../../Globals';
 import Step from '../Step';
 import Data from '../../Data';
@@ -202,9 +203,8 @@ class HexEncode extends Step {
 }
 
 HexEncodeForm.propTypes = {
-  step: HexEncode.prototype.isRequired,
-  onChange: Function.prototype.isRequired,
-  refresh: Function.prototype.isRequired
+  step: PropTypes.instanceOf(HexEncode).isRequired,
+  refresh: PropTypes.func.isRequired
 };
 
 export {HexEncodeForm};
