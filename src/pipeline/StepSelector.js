@@ -16,7 +16,8 @@ import URIDecode from './steps/encode/URIDecode';
 import Reverse from './steps/string/Reverse';
 import UpperCase from './steps/string/UpperCase';
 import LowerCase from './steps/string/LowerCase';
-import AsyncTest from './steps/AsyncTest';
+import AsyncTest from './steps/test/AsyncTest';
+import Iso88591Test from './steps/test/Iso88591Test';
 import { StepTop } from '../Common';
 import './StepSelector.css';
 
@@ -27,7 +28,7 @@ class StepSelector extends Component {
     'String Transform': [ Reverse ],
     'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode ],
     'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
-    'Tests': [ AsyncTest ]
+    'Tests': [ AsyncTest, Iso88591Test ]
   };
 
   render() {

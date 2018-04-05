@@ -1,6 +1,6 @@
 import AsyncTest from './AsyncTest';
-import Data from '../Data';
-import {StringType} from '../Types';
+import Data from '../../Data';
+import {StringType} from '../../Types';
 
 var step = new AsyncTest();
 
