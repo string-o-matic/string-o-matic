@@ -55,7 +55,7 @@ class ResizingTextArea extends Component {
 ResizingTextArea.propTypes = {
   readOnly: PropTypes.bool,
   value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   className: PropTypes.string
 };
 
