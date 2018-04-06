@@ -35,3 +35,7 @@ test('foo', () => {
 test('foobar', () => {
   expectResult('Zm9vYmFy', 'foobar');
 });
+
+test('lines ignored', () => {
+  expectResult('Z\nm9v\nYm\nFy', 'foobar');
+});
