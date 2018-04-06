@@ -35,3 +35,8 @@ test('foo', () => {
 test('foobar', () => {
   expectResult('foobar', 'Zm9vYmFy');
 });
+
+test('line length', () => {
+  step.setLineLength(2);
+  expectResult('foobar', 'Zm\n9v\nYm\nFy');
+});

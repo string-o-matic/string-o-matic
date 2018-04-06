@@ -3,6 +3,8 @@ import Input from './input/Input';
 import StepComponent from './StepComponent';
 import StepSelector from './StepSelector';
 import Data from './Data';
+import Base64Encode from './steps/encode/Base64Encode';
+import Base64Decode from './steps/encode/Base64Decode';
 
 class Pipeline extends Component {
 
@@ -16,6 +18,8 @@ class Pipeline extends Component {
     this.addStep = this.addStep.bind(this);
     this.deleteStep = this.deleteStep.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.addStep(new Base64Encode());
+    this.addStep(new Base64Decode());
   }
 
   render() {
