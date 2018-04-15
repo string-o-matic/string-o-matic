@@ -89,6 +89,7 @@ class Base64Encode extends Step {
       result = util.encode64(this.stringToUtf8BinaryString(input.data));
       break;
     case 'UTF-16':
+    default:
       result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
       break;
     }
