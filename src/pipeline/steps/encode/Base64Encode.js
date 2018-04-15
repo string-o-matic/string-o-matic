@@ -15,7 +15,7 @@ class Base64EncodeForm extends Component {
   }
 
   render() {
-    var encoding = null;
+    let encoding = null;
     if (this.props.step.showEncoding) {
       encoding = (
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
@@ -59,7 +59,7 @@ class Base64Encode extends Step {
   static supports = [ StringType ];
 
   form = Base64EncodeForm;
-  showEncoding = false;
+  showEncoding = true;
 
   encoding = Globals.ENCODING;
   lineLength = '';
@@ -77,20 +77,41 @@ class Base64Encode extends Step {
   }
 
   calculate(input) {
-    var lineLength = 0;
+    let lineLength = 0;
     try {
       lineLength = parseInt(this.lineLength, 10);
     } catch (e) {
       // TODO add error class to the field
     }
-    var result = util.encode64(util.encodeUtf8(input.data));
+    let result = '';
+    switch (this.encoding) {
+    case 'UTF-8':
+      result = util.encode64(this.stringToUtf8BinaryString(input.data));
+      break;
+    case 'UTF-16':
+      result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
+      break;
+    }
     if (lineLength > 0) {
-      var pattern = '.{1,' + lineLength + '}';
-      var regExp = new RegExp(pattern, 'g');
-      var lines = result.match(regExp) || [];
+      const pattern = '.{1,' + lineLength + '}';
+      const regExp = new RegExp(pattern, 'g');
+      const lines = result.match(regExp) || [];
       result = lines.join('\n');
     }
     return Data.string(result);
+  }
+
+  stringToUtf8BinaryString(string) {
+    return util.encodeUtf8(string);
+  }
+
+  stringToUtf16BEBinaryString(string) {
+    const buffer = new Uint8Array(string.length * 2);
+    const view = new DataView(buffer.buffer);
+    for (let i = 0; i < string.length; i++) {
+      view.setUint16(i * 2, string.charCodeAt(i));
+    }
+    return util.binary.raw.encode(buffer);
   }
 
 }
