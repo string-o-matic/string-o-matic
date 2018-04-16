@@ -71,6 +71,21 @@ test('pound utf16', () => {
   expectResult('\u00A3', '00a3');
 });
 
+test('abc utf16le', () => {
+  step.setEncoding('UTF-16LE');
+  expectResult('abc', '610062006300');
+});
+
+test('space utf16le', () => {
+  step.setEncoding('UTF-16LE');
+  expectResult(' ', '2000');
+});
+
+test('pound utf16le', () => {
+  step.setEncoding('UTF-16LE');
+  expectResult('\u00A3', 'a300');
+});
+
 test('dash emoji utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('\uD83D\uDCA8', 'd83ddca8');
@@ -84,6 +99,11 @@ test('heavy black heart emoji utf16', () => {
 test('red heart emoji utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('\u2764\uFE0F', '2764fe0f');
+});
+
+test('red heart emoji utf16le', () => {
+  step.setEncoding('UTF-16LE');
+  expectResult('\u2764\uFE0F', '64270ffe');
 });
 
 test('separate with spaces', () => {

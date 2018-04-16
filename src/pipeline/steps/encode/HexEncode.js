@@ -26,7 +26,8 @@ class HexEncodeForm extends Component {
           <label>Encoding</label>
           <select onChange={this.onEncodingChange} value={this.props.step.encoding}>
             <option value="UTF-8">UTF-8</option>
-            <option value="UTF-16">UTF-16</option>
+            <option value="UTF-16">UTF-16 big-endian</option>
+            <option value="UTF-16LE">UTF-16 little-endian</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
           </select>
         </div>
@@ -157,7 +158,10 @@ class HexEncode extends Step {
         result = util.bytesToHex(util.encodeUtf8(input.data));
         break;
       case 'UTF-16':
-        result = this.encodeUtf16(input.data);
+        result = this.encodeUtf16BE(input.data);
+        break;
+      case 'UTF-16LE':
+        result = this.encodeUtf16LE(input.data);
         break;
       case 'ISO-8859-1':
       default:
@@ -201,11 +205,19 @@ class HexEncode extends Step {
     return Data.string(result);
   }
 
-  encodeUtf16(data) {
-    var result = '';
-    for (var i = 0; i < data.length; i++) {
-      var hex = data.charCodeAt(i).toString(16);
-      result += ('000' + hex).slice(-4);
+  encodeUtf16BE(data) {
+    let result = '';
+    for (let i = 0; i < data.length; i++) {
+      result += ('000' + data.charCodeAt(i).toString(16)).slice(-4);
+    }
+    return result;
+  }
+
+  encodeUtf16LE(data) {
+    let result = '';
+    for (let i = 0; i < data.length; i++) {
+      const hex = ('000' + data.charCodeAt(i).toString(16)).slice(-4);
+      result += hex.substring(2) + hex.substring(0, 2);
     }
     return result;
   }
