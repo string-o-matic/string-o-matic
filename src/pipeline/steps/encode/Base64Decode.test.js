@@ -43,7 +43,7 @@ test('foobar utf8', () => {
 
 test('lines ignored utf8', () => {
   step.setEncoding('UTF-8');
-  expectResult('Z\nm9v\nYm\nFy', 'foobar');
+  expectResult('Z\nm9v\r\nYm\rFy', 'foobar');
 });
 
 test('empty utf16', () => {
@@ -73,5 +73,20 @@ test('foobar utf16', () => {
 
 test('lines ignored utf16', () => {
   step.setEncoding('UTF-16');
-  expectResult('AGY\nAbwBv\nAGIA\nYQBy', 'foobar');
+  expectResult('AGY\nAbwBv\r\nAGIA\rYQBy', 'foobar');
+});
+
+test('auto padding', () => {
+  step.setEncoding('UTF-8');
+  expectResult('Zg', 'f');
+});
+
+test('urlsafe1', () => {
+  expectResult('PD4_Pg', '<>?>');
+  expectResult('PD4/Pg==', '<>?>');
+});
+
+test('urlsafe2', () => {
+  expectResult('Ijo-PA', '":><');
+  expectResult('Ijo+PA==', '":><');
 });

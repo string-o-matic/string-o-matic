@@ -6,6 +6,7 @@ import Step from '../Step';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
+// TODO Show some information about auto padding and decoding of URL safe
 class Base64DecodeForm extends Component {
 
   constructor(props) {
@@ -53,17 +54,22 @@ class Base64Decode extends Step {
   }
 
   calculate(input) {
+    // Remove newlines and convert from URL safe to standard, then pad to multiple of 4
+    let data = input.data.replace(/[\r\n]/g, '').replace(/-/g, '+').replace(/_/g, '/');
+    while (data.length % 4 !== 0) {
+      data += '=';
+    }
     switch (this.encoding) {
     case 'UTF-8':
       try {
-        return Data.string(util.decodeUtf8(util.decode64(input.data)));
+        return Data.string(util.decodeUtf8(util.decode64(data)));
       } catch (e) {
         // TODO make encoding names links that set the encoding
         return Data.invalid('Input cannot be decoded as UTF-8. Try UTF-16 or ISO-8859-1.');
       }
     case 'UTF-16':
     default: {
-      const uint8Array = util.binary.raw.decode(util.decode64(input.data));
+      const uint8Array = util.binary.raw.decode(util.decode64(data));
       return Data.string(this.uint8ArrayToUtf16BE(uint8Array));
     }}
   }

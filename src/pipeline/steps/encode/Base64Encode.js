@@ -11,6 +11,7 @@ class Base64EncodeForm extends Component {
   constructor(props) {
     super(props);
     this.onEncodingChange = this.onEncodingChange.bind(this);
+    this.onVariantChange = this.onVariantChange.bind(this);
     this.onLineLengthChange = this.onLineLengthChange.bind(this);
   }
 
@@ -34,7 +35,14 @@ class Base64EncodeForm extends Component {
         </div>
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
           <label>Line length</label>
-          <input onChange={this.onLineLengthChange} type="number" value={this.props.step.onLineLengthChange} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
+          <input onChange={this.onLineLengthChange} type="number" value={this.props.step.lineLength} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
+        </div>
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Variant</label>
+          <select onChange={this.onVariantChange} value={this.props.step.variant}>
+            <option value="standard">Standard</option>
+            <option value="urlsafe">URL Safe</option>
+          </select>
         </div>
         {encoding}
       </form>
@@ -43,6 +51,11 @@ class Base64EncodeForm extends Component {
 
   onEncodingChange(e) {
     this.props.step.setEncoding(e.target.value);
+    this.props.refresh();
+  }
+
+  onVariantChange(e) {
+    this.props.step.setVariant(e.target.value);
     this.props.refresh();
   }
 
@@ -62,11 +75,18 @@ class Base64Encode extends Step {
   showEncoding = true;
 
   encoding = Globals.ENCODING;
+  variant = 'standard';
   lineLength = '';
 
   setEncoding(encoding) {
     this.output = null;
     this.encoding = encoding;
+    this.passInput();
+  }
+
+  setVariant(variant) {
+    this.output = null;
+    this.variant = variant;
     this.passInput();
   }
 
@@ -93,11 +113,14 @@ class Base64Encode extends Step {
       result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
       break;
     }
+    if (this.variant === 'urlsafe') {
+      result = result.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+    }
     if (lineLength > 0) {
       const pattern = '.{1,' + lineLength + '}';
       const regExp = new RegExp(pattern, 'g');
       const lines = result.match(regExp) || [];
-      result = lines.join('\n');
+      result = lines.join('\r\n');
     }
     return Data.string(result);
   }
