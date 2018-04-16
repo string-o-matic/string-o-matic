@@ -90,3 +90,7 @@ test('urlsafe2', () => {
   expectResult('Ijo-PA', '":><');
   expectResult('Ijo+PA==', '":><');
 });
+
+test('non b64 characters ignored', () => {
+  expectResult('I#$j%o^+P&A(][', '":><');
+});

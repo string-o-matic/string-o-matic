@@ -56,7 +56,7 @@ class Base64Decode extends Step {
 
   calculate(input) {
     // Remove newlines and convert from URL safe to standard, then pad to multiple of 4
-    let data = input.data.replace(/[\r\n]/g, '').replace(/-/g, '+').replace(/_/g, '/');
+    let data = input.data.replace(/[^A-Za-z0-9+/=\-_]/g, '').replace(/-/g, '+').replace(/_/g, '/');
     while (data.length % 4 !== 0) {
       data += '=';
     }

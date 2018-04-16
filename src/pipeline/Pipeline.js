@@ -8,7 +8,7 @@ import Base64Decode from './steps/encode/Base64Decode';
 
 class Pipeline extends Component {
 
-  initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
+  initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack \u2764\uFE0F';
   steps = [ ];
 
   constructor(props) {
