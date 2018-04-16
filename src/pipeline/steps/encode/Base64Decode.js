@@ -66,7 +66,7 @@ class Base64Decode extends Step {
         return Data.string(util.decodeUtf8(util.decode64(data)));
       } catch (e) {
         // TODO make encoding names links that set the encoding
-        return Data.invalid('Input cannot be decoded as UTF-8. Try UTF-16 or ISO-8859-1.');
+        return Data.invalid('Input cannot be decoded as UTF-8 - try UTF-16 or ISO-8859-1');
       }
     case 'UTF-16': {
       const uint8Array = util.binary.raw.decode(util.decode64(data));

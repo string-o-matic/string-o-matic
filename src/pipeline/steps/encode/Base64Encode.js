@@ -113,9 +113,14 @@ class Base64Encode extends Step {
       result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
       break;
     case 'ISO-8859-1':
-    default:
+    default: {
+      for (let i = 0; i < input.data.length; i++) {
+        if (input.data.charCodeAt(i) > 255) {
+          return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');
+        }
+      }
       result = util.encode64(input.data);
-    }
+    }}
     if (this.variant === 'urlsafe') {
       result = result.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
     }

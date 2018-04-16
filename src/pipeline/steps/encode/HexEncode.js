@@ -161,7 +161,11 @@ class HexEncode extends Step {
         break;
       case 'ISO-8859-1':
       default:
-        console.log(input.data.charCodeAt(0));
+        for (let i = 0; i < input.data.length; i++) {
+          if (input.data.charCodeAt(i) > 255) {
+            return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');
+          }
+        }
         result = util.bytesToHex(input.data);
         break;
       }
