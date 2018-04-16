@@ -60,33 +60,22 @@ class Base64Decode extends Step {
     while (data.length % 4 !== 0) {
       data += '=';
     }
-    let string = '';
     switch (this.encoding) {
     case 'UTF-8':
       try {
-        string = util.decodeUtf8(util.decode64(data));
-        break;
+        return Data.string(util.decodeUtf8(util.decode64(data)));
       } catch (e) {
         // TODO make encoding names links that set the encoding
         return Data.invalid('Input cannot be decoded as UTF-8. Try UTF-16 or ISO-8859-1.');
       }
     case 'UTF-16': {
       const uint8Array = util.binary.raw.decode(util.decode64(data));
-      string = this.uint8ArrayToUtf16BE(uint8Array);
-      break;
+      return Data.string(this.uint8ArrayToUtf16BE(uint8Array));
     }
     case 'ISO-8859-1':
     default:
-      string = util.decode64(data);
+      return Data.string(util.decode64(data));
     }
-    // FIXME to avoid breaking later steps this cleanup should be done by the StepComponent
-    // eslint-disable-next-line no-control-regex
-    const cleanString = string.replace(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g, '\ufffd');
-    const result = Data.string(cleanString);
-    if (cleanString !== string) {
-      result.addWarning('Some characters are not printable and are displayed as \ufffd.');
-    }
-    return result;
   }
 
   uint8ArrayToUtf16BE(uint8Array) {

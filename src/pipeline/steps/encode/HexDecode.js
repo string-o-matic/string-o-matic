@@ -54,7 +54,7 @@ class HexDecode extends Step {
   }
 
   calculate(input) {
-    var data = input.data;
+    let data = input.data;
     data = data.toLowerCase();
     data = data.replace(/0x/g, '');
     data = data.replace(/[^a-f0-9]/g, '');
@@ -75,25 +75,14 @@ class HexDecode extends Step {
   }
 
   decodeFixedWidth(data, width) {
-    var warning = false;
-    var pattern = '.{1,' + (width * 2) + '}';
-    var regExp = new RegExp(pattern, 'g');
-    var hexes = data.match(regExp) || [];
-    var string = '';
-    for (var i = 0; i < hexes.length; i++) {
-      const int = parseInt(hexes[i], 16);
-      if (int === 9 || int === 10 || int === 13 || (int >= 32 && int <= 126) || (int >= 160 && int <= 172) || int >= 174) {
-        string += String.fromCharCode(parseInt(hexes[i], 16));
-      } else {
-        warning = true;
-        string += '\ufffd';
-      }
+    const pattern = '.{1,' + (width * 2) + '}';
+    const regExp = new RegExp(pattern, 'g');
+    const hexes = data.match(regExp) || [];
+    let string = '';
+    for (let i = 0; i < hexes.length; i++) {
+      string += String.fromCharCode(parseInt(hexes[i], 16));
     }
-    const result = Data.string(string);
-    if (warning) {
-      result.addWarning('Some characters are not printable and are displayed as \ufffd.');
-    }
-    return result;
+    return Data.string(string);
   }
 
 }

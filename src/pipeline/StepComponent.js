@@ -19,10 +19,10 @@ class StepComponent extends Component {
   }
 
   render() {
-    var step = this.props.step;
-    var output = step.getOutput();
-    var clazz = 'normal';
-    var content = [];
+    const step = this.props.step;
+    const output = step.getOutput();
+    const content = [];
+    let clazz = 'normal';
     content.push(<StepForm key="form" step={step} refresh={this.props.refresh}/>);
     if (output == null) {
       clazz = 'error';
@@ -37,7 +37,12 @@ class StepComponent extends Component {
         content.push(this.data(output.data.toHex()));
         meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes<br/>Displayed as hex - for other options add an encode step</span></div>);
       } else if (output.type === StringType) {
-        content.push(this.data(output.data));
+        // eslint-disable-next-line no-control-regex
+        const cleanData = output.data.replace(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g, '\ufffd');
+        if (cleanData !== output.data) {
+          meta.push(<div className="warning" key="warningX"><span className="ionicon ion-md-alert"/> Some characters are not printable and are displayed as \ufffd.</div>);
+        }
+        content.push(this.data(cleanData));
         meta.push(<div key="type">String, {output.data.length} characters</div>);
       } else if (output.type === BoolType) {
         content.push(this.data(output.data ? 'TRUE' : 'FALSE', output.data ? 'true' : 'false'));
@@ -56,7 +61,7 @@ class StepComponent extends Component {
       content.push(this.bug('Whoops! This value couldn\'t be calculated. You\'ve found a bug.'));
     } else if (output.status === 'unsupported') {
       clazz = 'error';
-      var supports = step.constructor.supports.map(s => s.display).join(', ');
+      const supports = step.constructor.supports.map(s => s.display).join(', ');
       content.push(this.error(<span>This step can&apos;t convert {output.inputType.displayPlural} - supported types are: {supports}<br/><small>Try adding a conversion step</small></span>));
     } else if (output.status === 'broken-pipe') {
       clazz = 'broken-pipe';
