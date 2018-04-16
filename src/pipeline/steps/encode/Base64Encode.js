@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Globals from '../../../Globals';
 import Step from '../Step';
 import Data from '../../Data';
-import {StringType} from '../../Types';
+import {StringType,ByteStringBufferType} from '../../Types';
 
 class Base64EncodeForm extends Component {
 
@@ -70,10 +70,10 @@ class Base64EncodeForm extends Component {
 class Base64Encode extends Step {
 
   static title = 'Base64 Encode';
-  static supports = [ StringType ];
+  static supports = [ StringType, ByteStringBufferType ];
 
   form = Base64EncodeForm;
-  showEncoding = true;
+  showEncoding = false;
 
   encoding = Globals.ENCODING;
   variant = 'standard';
@@ -105,22 +105,28 @@ class Base64Encode extends Step {
       // TODO add error class to the field
     }
     let result = '';
-    switch (this.encoding) {
-    case 'UTF-8':
-      result = util.encode64(this.stringToUtf8BinaryString(input.data));
-      break;
-    case 'UTF-16':
-      result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
-      break;
-    case 'ISO-8859-1':
-    default: {
-      for (let i = 0; i < input.data.length; i++) {
-        if (input.data.charCodeAt(i) > 255) {
-          return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');
+    if (input.type === StringType) {
+      this.showEncoding = true;
+      switch (this.encoding) {
+      case 'UTF-8':
+        result = util.encode64(this.stringToUtf8BinaryString(input.data));
+        break;
+      case 'UTF-16':
+        result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
+        break;
+      case 'ISO-8859-1':
+      default: {
+        for (let i = 0; i < input.data.length; i++) {
+          if (input.data.charCodeAt(i) > 255) {
+            return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');
+          }
         }
-      }
-      result = util.encode64(input.data);
-    }}
+        result = util.encode64(input.data);
+      }}
+    } else {
+      this.showEncoding = false;
+      result = util.encode64(input.data.copy().getBytes());
+    }
     if (this.variant === 'urlsafe') {
       result = result.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
     }
