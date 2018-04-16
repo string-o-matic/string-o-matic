@@ -23,7 +23,8 @@ class HexDecodeForm extends Component {
           <label>Encoding</label>
           <select onChange={this.onEncodingChange} value={this.props.step.encoding}>
             <option value="UTF-8">UTF-8</option>
-            <option value="UTF-16">UTF-16</option>
+            <option value="UTF-16">UTF-16 big-endian</option>
+            <option value="UTF-16LE">UTF-16 little-endian</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
           </select>
         </div>
@@ -68,19 +69,25 @@ class HexDecode extends Step {
       }
     case 'UTF-16':
       return this.decodeFixedWidth(data, 2);
+    case 'UTF-16LE':
+      return this.decodeFixedWidth(data, 2, true);
     case 'ISO-8859-1':
     default:
       return this.decodeFixedWidth(data, 1);
     }
   }
 
-  decodeFixedWidth(data, width) {
+  decodeFixedWidth(data, width, littleEndian) {
     const pattern = '.{1,' + (width * 2) + '}';
     const regExp = new RegExp(pattern, 'g');
     const hexes = data.match(regExp) || [];
     let string = '';
     for (let i = 0; i < hexes.length; i++) {
-      string += String.fromCharCode(parseInt(hexes[i], 16));
+      let hex = hexes[i];
+      if (hex.length === 4 && littleEndian) {
+        hex = hex.substring(2) + hex.substring(0, 2);
+      }
+      string += String.fromCharCode(parseInt(hex, 16));
     }
     return Data.string(string);
   }
