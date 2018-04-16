@@ -27,6 +27,7 @@ class HexEncodeForm extends Component {
           <select onChange={this.onEncodingChange} value={this.props.step.encoding}>
             <option value="UTF-8">UTF-8</option>
             <option value="UTF-16">UTF-16</option>
+            <option value="ISO-8859-1">ISO-8859-1</option>
           </select>
         </div>
       );
@@ -152,11 +153,16 @@ class HexEncode extends Step {
     if (input.type === StringType) {
       this.showEncoding = true;
       switch (this.encoding) {
+      case 'UTF-8':
+        result = util.bytesToHex(util.encodeUtf8(input.data));
+        break;
       case 'UTF-16':
         result = this.encodeUtf16(input.data);
         break;
+      case 'ISO-8859-1':
       default:
-        result = util.bytesToHex(util.encodeUtf8(input.data));
+        console.log(input.data.charCodeAt(0));
+        result = util.bytesToHex(input.data);
         break;
       }
 

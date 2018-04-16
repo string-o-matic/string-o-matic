@@ -72,6 +72,16 @@ test('foobar utf16', () => {
   expectResult('foobar', 'AGYAbwBvAGIAYQBy');
 });
 
+test('foobar iso', () => {
+  step.setEncoding('ISO-8859-1');
+  expectResult('foobar', 'Zm9vYmFy');
+});
+
+test('ao iso', () => {
+  step.setEncoding('ISO-8859-1');
+  expectResult('ÅÖ', 'xdY=');
+});
+
 test('urlsafe1', () => {
   step.setVariant('urlsafe');
   expectResult('<>?>', 'PD4_Pg');

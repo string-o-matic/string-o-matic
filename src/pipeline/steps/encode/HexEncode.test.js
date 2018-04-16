@@ -125,3 +125,8 @@ test('combined options', () => {
   step.setCase('upper');
   expectResult('\u2764\uFE0F', '0x27;|0x64;\n0xFE;|0x0F;');
 });
+
+test('iso-8859-1', () => {
+  step.setEncoding('ISO-8859-1');
+  expectResult('ÅÖ', 'c5d6');
+});

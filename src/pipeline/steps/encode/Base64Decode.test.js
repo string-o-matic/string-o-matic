@@ -71,6 +71,16 @@ test('foobar utf16', () => {
   expectResult('AGYAbwBvAGIAYQBy', 'foobar');
 });
 
+test('foobar iso', () => {
+  step.setEncoding('ISO-8859-1');
+  expectResult('Zm9vYmFy', 'foobar');
+});
+
+test('ao iso', () => {
+  step.setEncoding('ISO-8859-1');
+  expectResult('xdY=', 'ÅÖ');
+});
+
 test('lines ignored utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('AGY\nAbwBv\r\nAGIA\rYQBy', 'foobar');

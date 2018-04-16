@@ -117,3 +117,8 @@ test('combined options', () => {
   step.setEncoding('UTF-16');
   expectResult('0x27;|0x64;\n0xFE;|0x0F;', '\u2764\uFE0F');
 });
+
+test('iso-8859-1', () => {
+  step.setEncoding('ISO-8859-1');
+  expectResult('c5d6', 'ÅÖ');
+});
