@@ -26,6 +26,7 @@ class Base64DecodeForm extends Component {
             <option value="UTF-8">UTF-8</option>
             <option value="UTF-16">UTF-16 big-endian</option>
             <option value="UTF-16LE">UTF-16 little-endian</option>
+            <option value="UTF-16AUTO">UTF-16 auto</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
           </select>
         </div>
@@ -71,11 +72,15 @@ class Base64Decode extends Step {
       }
     case 'UTF-16': {
       const uint8Array = util.binary.raw.decode(util.decode64(data));
-      return Data.string(this.uint8ArrayToUtf16BE(uint8Array));
+      return this.uint8ArrayToUtf16(uint8Array, 'big');
     }
     case 'UTF-16LE': {
       const uint8Array = util.binary.raw.decode(util.decode64(data));
-      return Data.string(this.uint8ArrayToUtf16LE(uint8Array));
+      return this.uint8ArrayToUtf16(uint8Array, 'little');
+    }
+    case 'UTF-16AUTO': {
+      const uint8Array = util.binary.raw.decode(util.decode64(data));
+      return this.uint8ArrayToUtf16(uint8Array, 'auto');
     }
     case 'ISO-8859-1':
     default:
@@ -83,20 +88,37 @@ class Base64Decode extends Step {
     }
   }
 
-  uint8ArrayToUtf16BE(uint8Array) {
-    let result = '';
-    for (let i = 0; i < uint8Array.length; i += 2) {
-      const charCode = (uint8Array[i] * 256) + uint8Array[i + 1];
-      result += String.fromCharCode(charCode);
+  uint8ArrayToUtf16(uint8Array, endian) {
+    let start = 0;
+    let info = '';
+    if (endian === 'auto') {
+      if (uint8Array[0] === 255 && uint8Array[1] === 254) {
+        start = 2;
+        endian = 'little';
+        info = 'Found little-endian byte order mark';
+      } else if (uint8Array[0] === 254 && uint8Array[1] === 255) {
+        start = 2;
+        endian = 'big';
+        info = 'Found big-endian byte order mark';
+      } else {
+        endian = 'big';
+        info = 'No byte order mark - assuming big-endian';
+      }
+    } else if (uint8Array[0] === 255 && uint8Array[1] === 254) {
+      start = 2;
+      info = 'Stripped little-endian byte order mark (0xFF 0xFE)';
+    } else if (uint8Array[0] === 254 && uint8Array[1] === 255) {
+      start = 2;
+      info = 'Stripped big-endian byte order mark (0xFE 0xFF)';
     }
-    return result;
-  }
-
-  uint8ArrayToUtf16LE(uint8Array) {
-    let result = '';
-    for (let i = 0; i < uint8Array.length; i += 2) {
-      const charCode = (uint8Array[i + 1] * 256) + uint8Array[i];
-      result += String.fromCharCode(charCode);
+    let string = '';
+    for (let i = start; i < uint8Array.length; i += 2) {
+      const charCode = endian === 'little' ? (uint8Array[i + 1] * 256) + uint8Array[i] : (uint8Array[i] * 256) + uint8Array[i + 1];
+      string += String.fromCharCode(charCode);
+    }
+    const result = Data.string(string);
+    if (info) {
+      result.addInfo(info);
     }
     return result;
   }
