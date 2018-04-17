@@ -23,7 +23,8 @@ class Base64EncodeForm extends Component {
           <label>Encoding</label>
           <select onChange={this.onEncodingChange} value={this.props.step.encoding}>
             <option value="UTF-8">UTF-8</option>
-            <option value="UTF-16">UTF-16</option>
+            <option value="UTF-16">UTF-16 big-endian</option>
+            <option value="UTF-16LE">UTF-16 little-endian</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
           </select>
         </div>
@@ -114,6 +115,9 @@ class Base64Encode extends Step {
       case 'UTF-16':
         result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
         break;
+      case 'UTF-16LE':
+        result = util.encode64(this.stringToUtf16LEBinaryString(input.data));
+        break;
       case 'ISO-8859-1':
       default: {
         for (let i = 0; i < input.data.length; i++) {
@@ -147,7 +151,16 @@ class Base64Encode extends Step {
     const buffer = new Uint8Array(string.length * 2);
     const view = new DataView(buffer.buffer);
     for (let i = 0; i < string.length; i++) {
-      view.setUint16(i * 2, string.charCodeAt(i));
+      view.setUint16(i * 2, string.charCodeAt(i), false);
+    }
+    return util.binary.raw.encode(buffer);
+  }
+
+  stringToUtf16LEBinaryString(string) {
+    const buffer = new Uint8Array(string.length * 2);
+    const view = new DataView(buffer.buffer);
+    for (let i = 0; i < string.length; i++) {
+      view.setUint16(i * 2, string.charCodeAt(i), true);
     }
     return util.binary.raw.encode(buffer);
   }

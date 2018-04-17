@@ -24,7 +24,8 @@ class Base64DecodeForm extends Component {
           <label>Encoding</label>
           <select onChange={this.onEncodingChange} value={this.props.step.encoding}>
             <option value="UTF-8">UTF-8</option>
-            <option value="UTF-16">UTF-16</option>
+            <option value="UTF-16">UTF-16 big-endian</option>
+            <option value="UTF-16LE">UTF-16 little-endian</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
           </select>
         </div>
@@ -72,6 +73,10 @@ class Base64Decode extends Step {
       const uint8Array = util.binary.raw.decode(util.decode64(data));
       return Data.string(this.uint8ArrayToUtf16BE(uint8Array));
     }
+    case 'UTF-16LE': {
+      const uint8Array = util.binary.raw.decode(util.decode64(data));
+      return Data.string(this.uint8ArrayToUtf16LE(uint8Array));
+    }
     case 'ISO-8859-1':
     default:
       return Data.string(util.decode64(data));
@@ -82,6 +87,15 @@ class Base64Decode extends Step {
     let result = '';
     for (let i = 0; i < uint8Array.length; i += 2) {
       const charCode = (uint8Array[i] * 256) + uint8Array[i + 1];
+      result += String.fromCharCode(charCode);
+    }
+    return result;
+  }
+
+  uint8ArrayToUtf16LE(uint8Array) {
+    let result = '';
+    for (let i = 0; i < uint8Array.length; i += 2) {
+      const charCode = (uint8Array[i + 1] * 256) + uint8Array[i];
       result += String.fromCharCode(charCode);
     }
     return result;
