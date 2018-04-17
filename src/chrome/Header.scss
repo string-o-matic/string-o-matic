@@ -35,6 +35,19 @@ header {
   }
 
   .github-corner {
+    .github-corner-svg {
+      fill: #002A23;
+      color: #00796B;
+      position: absolute;
+      top: 0;
+      border: 0;
+      right: 0;
+
+      .octo-arm {
+        transform-origin: 130px 106px;
+      }
+    }
+
     &:hover {
       .octo-arm {
         animation: octocat-wave 560ms ease-in-out;
