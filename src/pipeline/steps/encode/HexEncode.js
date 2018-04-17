@@ -11,6 +11,7 @@ class HexEncodeForm extends Component {
   constructor(props) {
     super(props);
     this.onEncodingChange = this.onEncodingChange.bind(this);
+    this.onBomChange = this.onBomChange.bind(this);
     this.onSeparatorChange = this.onSeparatorChange.bind(this);
     this.onPrefixChange = this.onPrefixChange.bind(this);
     this.onSuffixChange = this.onSuffixChange.bind(this);
@@ -19,7 +20,8 @@ class HexEncodeForm extends Component {
   }
 
   render() {
-    var encoding = null;
+    let encoding = null;
+    let bom = null;
     if (this.props.step.showEncoding) {
       encoding = (
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
@@ -29,6 +31,17 @@ class HexEncodeForm extends Component {
             <option value="UTF-16">UTF-16 big-endian</option>
             <option value="UTF-16LE">UTF-16 little-endian</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
+          </select>
+        </div>
+      );
+    }
+    if (this.props.step.showEncoding && (this.props.step.encoding === 'UTF-16' || this.props.step.encoding === 'UTF-16LE')) {
+      bom = (
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>UTF-16 BOM</label>
+          <select onChange={this.onBomChange} value={this.props.step.bom}>
+            <option value="0">Off</option>
+            <option value="1">On</option>
           </select>
         </div>
       );
@@ -62,12 +75,18 @@ class HexEncodeForm extends Component {
           </select>
         </div>
         {encoding}
+        {bom}
       </form>
     );
   }
 
   onEncodingChange(e) {
     this.props.step.setEncoding(e.target.value);
+    this.props.refresh();
+  }
+
+  onBomChange(e) {
+    this.props.step.setBom(e.target.value);
     this.props.refresh();
   }
 
@@ -107,6 +126,7 @@ class HexEncode extends Step {
   showEncoding = false;
 
   encoding = Globals.ENCODING;
+  bom = '0';
   bytesPerLine = '';
   separator = '';
   prefix = '';
@@ -116,6 +136,12 @@ class HexEncode extends Step {
   setEncoding(encoding) {
     this.output = null;
     this.encoding = encoding;
+    this.passInput();
+  }
+
+  setBom(bom) {
+    this.output = null;
+    this.bom = bom;
     this.passInput();
   }
 
@@ -150,7 +176,7 @@ class HexEncode extends Step {
   }
 
   calculate(input) {
-    var result = '';
+    let result = '';
     if (input.type === StringType) {
       this.showEncoding = true;
       switch (this.encoding) {
@@ -158,10 +184,10 @@ class HexEncode extends Step {
         result = util.bytesToHex(util.encodeUtf8(input.data));
         break;
       case 'UTF-16':
-        result = this.encodeUtf16BE(input.data);
+        result = this.encodeUtf16BE(input.data, this.bom === '1');
         break;
       case 'UTF-16LE':
-        result = this.encodeUtf16LE(input.data);
+        result = this.encodeUtf16LE(input.data, this.bom === '1');
         break;
       case 'ISO-8859-1':
       default:
@@ -181,7 +207,7 @@ class HexEncode extends Step {
     if (this.hexcase === 'upper') {
       result = result.toUpperCase();
     }
-    var bytesPerLine = 0;
+    let bytesPerLine = 0;
     try {
       bytesPerLine = parseInt(this.bytesPerLine, 10);
     } catch (e) {
@@ -189,8 +215,8 @@ class HexEncode extends Step {
     }
     if (this.separator || this.prefix || this.suffix || this.bytesPerLine) {
       const pairs = result.match(/.{2}/g);
-      for (var i = 0; i < pairs.length; i++) {
-        var terminator = '';
+      for (let i = 0; i < pairs.length; i++) {
+        let terminator = '';
         if (i < pairs.length - 1) {
           if (bytesPerLine && (i + 1) % bytesPerLine === 0) {
             terminator = '\n';
@@ -205,16 +231,16 @@ class HexEncode extends Step {
     return Data.string(result);
   }
 
-  encodeUtf16BE(data) {
-    let result = '';
+  encodeUtf16BE(data, bom) {
+    let result = bom ? 'feff' : '';
     for (let i = 0; i < data.length; i++) {
       result += ('000' + data.charCodeAt(i).toString(16)).slice(-4);
     }
     return result;
   }
 
-  encodeUtf16LE(data) {
-    let result = '';
+  encodeUtf16LE(data, bom) {
+    let result = bom ? 'fffe' : '';
     for (let i = 0; i < data.length; i++) {
       const hex = ('000' + data.charCodeAt(i).toString(16)).slice(-4);
       result += hex.substring(2) + hex.substring(0, 2);

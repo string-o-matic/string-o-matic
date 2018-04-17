@@ -40,7 +40,7 @@ class StepComponent extends Component {
         // eslint-disable-next-line no-control-regex
         const cleanData = output.data.replace(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g, '\ufffd');
         if (cleanData !== output.data) {
-          meta.push(<div className="warning" key="warningX"><span className="ionicon ion-md-alert"/> Some characters are not printable and are displayed as \ufffd.</div>);
+          meta.push(<div className="warning" key="warningX"><span className="ionicon ion-md-alert"/> Some characters are not printable and are displayed as &#xfffd;.</div>);
         }
         content.push(this.data(cleanData));
         meta.push(<div key="type">String, {output.data.length} characters</div>);
@@ -52,6 +52,7 @@ class StepComponent extends Component {
         meta.push(<div key="type">NULL</div>);
       }
       output.warnings.forEach((w, i) => meta.push(<div className="warning" key={'warning' + i}><span className="ionicon ion-md-alert"/> {w}</div>));
+      output.infos.forEach((m, i) => meta.push(<div className="info" key={'info' + i}><span className="ionicon ion-md-information-circle"/> {m}</div>));
       content.push(this.meta(meta));
     } else if (output.status === 'invalid') {
       clazz = 'error';

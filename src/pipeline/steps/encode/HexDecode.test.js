@@ -6,10 +6,13 @@ var step = new HexDecode();
 
 // No tests for null or unsupported types - superclass rejects them.
 
-function expectResult(input, output) {
-  var result = step.calculate(Data.string(input));
+function expectResult(input, output, info) {
+  const result = step.calculate(Data.string(input));
   expect(result.type).toBe(StringType);
   expect(result.data).toBe(output);
+  if (info) {
+    expect(result.infos[0]).toBe(info);
+  }
 }
 
 test('empty utf8', () => {
@@ -67,6 +70,16 @@ test('pound utf16', () => {
   expectResult('00a3', '\u00A3');
 });
 
+test('pound utf16 correct bom', () => {
+  step.setEncoding('UTF-16');
+  expectResult('feff00a3', '\u00A3', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+});
+
+test('pound utf16 incorrect bom', () => {
+  step.setEncoding('UTF-16');
+  expectResult('fffe00a3', '\u00A3', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+});
+
 test('abc utf16le', () => {
   step.setEncoding('UTF-16LE');
   expectResult('610062006300', 'abc');
@@ -80,6 +93,16 @@ test('space utf16le', () => {
 test('pound utf16le', () => {
   step.setEncoding('UTF-16LE');
   expectResult('a300', '\u00A3');
+});
+
+test('pound utf16le correct bom', () => {
+  step.setEncoding('UTF-16LE');
+  expectResult('fffea300', '\u00A3', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+});
+
+test('pound utf16le incorrect bom', () => {
+  step.setEncoding('UTF-16LE');
+  expectResult('feffa300', '\u00A3', 'Stripped big-endian byte order mark (0xFE 0xFF)');
 });
 
 test('dash emoji utf16', () => {
@@ -140,4 +163,19 @@ test('combined options', () => {
 test('iso-8859-1', () => {
   step.setEncoding('ISO-8859-1');
   expectResult('c5d6', 'ÅÖ');
+});
+
+test('pound utf16 be auto bom', () => {
+  step.setEncoding('UTF-16AUTO');
+  expectResult('feff00a3', '\u00A3', 'Found big-endian byte order mark');
+});
+
+test('pound utf16 le auto bom', () => {
+  step.setEncoding('UTF-16AUTO');
+  expectResult('fffea300', '\u00A3', 'Found little-endian byte order mark');
+});
+
+test('pound utf16 be auto no bom', () => {
+  step.setEncoding('UTF-16AUTO');
+  expectResult('00a3', '\u00A3', 'No byte order mark - assuming big-endian');
 });

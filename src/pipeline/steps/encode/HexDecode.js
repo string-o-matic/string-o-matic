@@ -25,6 +25,7 @@ class HexDecodeForm extends Component {
             <option value="UTF-8">UTF-8</option>
             <option value="UTF-16">UTF-16 big-endian</option>
             <option value="UTF-16LE">UTF-16 little-endian</option>
+            <option value="UTF-16AUTO">UTF-16 auto</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
           </select>
         </div>
@@ -68,28 +69,57 @@ class HexDecode extends Step {
         return Data.invalid('Input cannot be decoded as UTF-8 - try UTF-16 or ISO-8859-1');
       }
     case 'UTF-16':
-      return this.decodeFixedWidth(data, 2);
+      return this.decodeFixedWidth(data, 2, 'big');
     case 'UTF-16LE':
-      return this.decodeFixedWidth(data, 2, true);
+      return this.decodeFixedWidth(data, 2, 'little');
+    case 'UTF-16AUTO':
+      return this.decodeFixedWidth(data, 2, 'auto');
     case 'ISO-8859-1':
     default:
       return this.decodeFixedWidth(data, 1);
     }
   }
 
-  decodeFixedWidth(data, width, littleEndian) {
+  decodeFixedWidth(data, width, endian) {
+    let info = null;
+    if (width === 2) {
+      if (endian === 'auto') {
+        if (data.startsWith('fffe')) {
+          data = data.substring(4);
+          endian = 'little';
+          info = 'Found little-endian byte order mark';
+        } else if (data.startsWith('feff')) {
+          data = data.substring(4);
+          endian = 'big';
+          info = 'Found big-endian byte order mark';
+        } else {
+          endian = 'big';
+          info = 'No byte order mark - assuming big-endian';
+        }
+      } else if (data.startsWith('fffe')) {
+        data = data.substring(4);
+        info = 'Stripped little-endian byte order mark (0xFF 0xFE)';
+      } else if (data.startsWith('feff')) {
+        data = data.substring(4);
+        info = 'Stripped big-endian byte order mark (0xFE 0xFF)';
+      }
+    }
     const pattern = '.{1,' + (width * 2) + '}';
     const regExp = new RegExp(pattern, 'g');
     const hexes = data.match(regExp) || [];
     let string = '';
     for (let i = 0; i < hexes.length; i++) {
       let hex = hexes[i];
-      if (hex.length === 4 && littleEndian) {
+      if (hex.length === 4 && endian === 'little') {
         hex = hex.substring(2) + hex.substring(0, 2);
       }
       string += String.fromCharCode(parseInt(hex, 16));
     }
-    return Data.string(string);
+    const result = Data.string(string);
+    if (info) {
+      result.addInfo(info);
+    }
+    return result;
   }
 
 }

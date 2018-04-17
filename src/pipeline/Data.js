@@ -8,6 +8,7 @@ class Data {
   message = null;
   inputType = null;
   warnings = [];
+  infos = [];
 
   constructor(status, type, data) {
     this.status = status;
@@ -53,6 +54,10 @@ class Data {
 
   addWarning(warning) {
     this.warnings.push(warning);
+  }
+
+  addInfo(info) {
+    this.infos.push(info);
   }
 
 }

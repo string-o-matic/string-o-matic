@@ -71,6 +71,12 @@ test('pound utf16', () => {
   expectResult('\u00A3', '00a3');
 });
 
+test('pound utf16 bom', () => {
+  step.setEncoding('UTF-16');
+  step.setBom('1');
+  expectResult('\u00A3', 'feff00a3');
+});
+
 test('abc utf16le', () => {
   step.setEncoding('UTF-16LE');
   expectResult('abc', '610062006300');
@@ -84,6 +90,12 @@ test('space utf16le', () => {
 test('pound utf16le', () => {
   step.setEncoding('UTF-16LE');
   expectResult('\u00A3', 'a300');
+});
+
+test('pound utf16le bom', () => {
+  step.setEncoding('UTF-16LE');
+  step.setBom('1');
+  expectResult('\u00A3', 'fffea300');
 });
 
 test('dash emoji utf16', () => {
