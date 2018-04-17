@@ -15,8 +15,8 @@ header {
     margin: 0 auto;
     padding: 0;
     width: 325px;
-    height: 55px;
-    background: url('/images/logo_header.png') top left no-repeat;
+    height: 86px;
+    background: url('/images/logo_with_strap.png') top left no-repeat;
     background-size: 100%;
 
     span {
@@ -25,28 +25,12 @@ header {
 
     @media(max-width: $width-mobile) {
       width: 250px;
-      height: 42px;
+      height: 66px;
     }
 
     @media(max-width: $width-tiny) {
       width: 160px;
-      height: 27px;
-    }
-  }
-
-  h2 {
-    font-family: $header-font;
-    color: $primary-light;
-    font-weight: 300;
-    font-size: $subtitle-size;
-    text-align: center;
-    margin: 8px 0;
-    padding: 0;
-    text-transform: lowercase;
-    text-shadow: 1px 1px 1px darken($primary, 7%);
-
-    @media (max-width: $width-mobile) {
-      font-size: ($subtitle-size * .7);
+      height: 42px;
     }
   }
 

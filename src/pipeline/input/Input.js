@@ -14,7 +14,7 @@ class Input extends Component {
   }
 
   render() {
-    var content = null;
+    let content = null;
     if (this.state.type === 'text') {
       content = <TextInput initialInput={this.props.initialInput} inputChange={this.props.inputChange} ref="textInput"/>;
     } else if (this.state.type === 'file') {
@@ -26,11 +26,10 @@ class Input extends Component {
         <div className="step-header">
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
-            <button className="btn btn-sm btn-primary btn-clear" onClick={this.clear}><span className="ion-md-close-circle"/> Clear</button>
-            <button className={'btn btn-sm btn-primary' + (this.state.type === 'text' ? ' active' : '')} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
-            {/*<button className="btn btn-sm btn-primary" disabled="disabled">Number</button>*/}
-            <button className={'btn btn-sm btn-primary' + (this.state.type === 'file' ? ' active' : '')} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
-            {/*<button className="btn btn-sm btn-primary" disabled="disabled">Random</button>*/}
+            <button className="btn-clear" onClick={this.clear}><span className="ion-md-close-circle"/> Clear</button>
+            <button className={this.state.type === 'text' ? ' active' : ''} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
+            <button className={this.state.type === 'file' ? ' active' : ''} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
+            {/*<button className={this.state.type === 'rand' ? ' active' : ''} onClick={this.setType.bind(this, 'rand')}>Random</button>*/}
           </div>
         </div>
         <div className="step-body">
@@ -43,11 +42,6 @@ class Input extends Component {
 
   setType(type) {
     this.setState({type: type});
-    if (type === 'text') {
-      // this.props.inputChange(Data.string(this.state.textAreaInput));
-    } else if (type === 'file') {
-      // this.props.inputChange(Data.string(this.state.fileInput));
-    }
   }
 
   clear() {

@@ -12,3 +12,20 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  outline: none;
+  font-size: $body-size;
+  transition: .25s linear;
+  padding: 10px 20px;
+}

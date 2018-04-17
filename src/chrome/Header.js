@@ -21,7 +21,6 @@ class Header extends Component {
     return (
       <header>
         <h1 className="logo"><span>string-o-matic</span></h1>
-        <h2>do things with strings</h2>
         <a href="https://github.com/davemorrissey/string-o-matic" className="github-corner" aria-label="View source on Github" target="_blank" rel="noopener noreferrer">
           <svg width="80" height="80" viewBox="0 0 250 250" style={svgStyle} aria-hidden="true">
             <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/>

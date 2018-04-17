@@ -45,7 +45,7 @@ class StepSelector extends Component {
                 <h4>{name}</h4>
                 {
                   this.categories[name].map((step, i) =>
-                    <button key={i} className="btn btn-sm" onClick={this.addStep.bind(this, step)}>{step.title}</button>
+                    <button key={i} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>
                   )
                 }
               </div>);

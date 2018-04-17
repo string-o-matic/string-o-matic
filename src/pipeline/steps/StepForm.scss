@@ -9,7 +9,7 @@
   .help {
     font-size: $alert-size;
     color: $data;
-    margin-bottom: ($grid-margin / 4);
+    margin-bottom: ($grid-margin / 2);
   }
 
   @media(max-width: $width-mobile) {
@@ -49,6 +49,7 @@
       display: block;
       width: 100%;
       margin-bottom: 0;
+      line-height: 18px;
       transition: color linear .25s;
     }
 
@@ -64,6 +65,7 @@
       outline: none;
       color: $field;
       font-size: $body-size;
+      line-height: 24px;
       transition: color linear .25s, border-color linear .25s;
 
       @media (max-width: $width-mobile) {

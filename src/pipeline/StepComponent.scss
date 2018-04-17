@@ -36,7 +36,7 @@
       font-size: $heading-size;
       color: $primary;
       margin: 0;
-      padding: ($step-padding / 2) $step-padding;
+      padding: (($step-padding / 2) - 2) $step-padding;
       transition: color .2s linear;
 
       @media (max-width: $width-mobile) {
@@ -48,7 +48,7 @@
       background: none;
       border: 0;
       font-size: 22px;
-      padding: 1px 12px;
+      padding: 6px 12px;
       color: transparentize($primary, .5);
       transition: background, color;
       transition-duration: .2s;
@@ -63,8 +63,8 @@
     }
 
     .btn-group {
-      .btn {
-        padding: 11px 15px 9px;
+      button {
+        padding: 11px 15px 10px;
         color: $primary;
         background: $primary-vlight;
         border-radius: 0;
@@ -148,6 +148,8 @@
       outline: none;
       padding: $step-padding;
       box-sizing: border-box;
+      line-height: 1.7;
+      vertical-align: top;
 
       &.calculating {
         color: lighten($data, 30%);
@@ -189,6 +191,7 @@
       font-size: $note-size;
       margin: 0 $step-padding;
       padding-bottom: ($step-padding / 2);
+      line-height: 1.7;
 
       .warning {
         color: #E65100;
