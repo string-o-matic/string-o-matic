@@ -11,12 +11,14 @@ class Base64EncodeForm extends Component {
   constructor(props) {
     super(props);
     this.onEncodingChange = this.onEncodingChange.bind(this);
+    this.onBomChange = this.onBomChange.bind(this);
     this.onVariantChange = this.onVariantChange.bind(this);
     this.onLineLengthChange = this.onLineLengthChange.bind(this);
   }
 
   render() {
     let encoding = null;
+    let bom = null;
     if (this.props.step.showEncoding) {
       encoding = (
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
@@ -26,6 +28,17 @@ class Base64EncodeForm extends Component {
             <option value="UTF-16">UTF-16 big-endian</option>
             <option value="UTF-16LE">UTF-16 little-endian</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
+          </select>
+        </div>
+      );
+    }
+    if (this.props.step.showEncoding && (this.props.step.encoding === 'UTF-16' || this.props.step.encoding === 'UTF-16LE')) {
+      bom = (
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>UTF-16 BOM</label>
+          <select onChange={this.onBomChange} value={this.props.step.bom}>
+            <option value="0">Off</option>
+            <option value="1">On</option>
           </select>
         </div>
       );
@@ -47,12 +60,18 @@ class Base64EncodeForm extends Component {
           </select>
         </div>
         {encoding}
+        {bom}
       </form>
     );
   }
 
   onEncodingChange(e) {
     this.props.step.setEncoding(e.target.value);
+    this.props.refresh();
+  }
+
+  onBomChange(e) {
+    this.props.step.setBom(e.target.value);
     this.props.refresh();
   }
 
@@ -77,12 +96,19 @@ class Base64Encode extends Step {
   showEncoding = false;
 
   encoding = Globals.ENCODING;
+  bom = '0';
   variant = 'standard';
   lineLength = '';
 
   setEncoding(encoding) {
     this.output = null;
     this.encoding = encoding;
+    this.passInput();
+  }
+
+  setBom(bom) {
+    this.output = null;
+    this.bom = bom;
     this.passInput();
   }
 
@@ -113,10 +139,10 @@ class Base64Encode extends Step {
         result = util.encode64(this.stringToUtf8BinaryString(input.data));
         break;
       case 'UTF-16':
-        result = util.encode64(this.stringToUtf16BEBinaryString(input.data));
+        result = util.encode64(this.stringToUtf16BEBinaryString(input.data, this.bom === '1'));
         break;
       case 'UTF-16LE':
-        result = util.encode64(this.stringToUtf16LEBinaryString(input.data));
+        result = util.encode64(this.stringToUtf16LEBinaryString(input.data, this.bom === '1'));
         break;
       case 'ISO-8859-1':
       default: {
@@ -147,7 +173,10 @@ class Base64Encode extends Step {
     return util.encodeUtf8(string);
   }
 
-  stringToUtf16BEBinaryString(string) {
+  stringToUtf16BEBinaryString(string, bom) {
+    if (bom) {
+      string = '\ufeff' + string;
+    }
     const buffer = new Uint8Array(string.length * 2);
     const view = new DataView(buffer.buffer);
     for (let i = 0; i < string.length; i++) {
@@ -156,7 +185,10 @@ class Base64Encode extends Step {
     return util.binary.raw.encode(buffer);
   }
 
-  stringToUtf16LEBinaryString(string) {
+  stringToUtf16LEBinaryString(string, bom) {
+    if (bom) {
+      string = '\ufeff' + string;
+    }
     const buffer = new Uint8Array(string.length * 2);
     const view = new DataView(buffer.buffer);
     for (let i = 0; i < string.length; i++) {
