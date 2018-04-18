@@ -5,9 +5,10 @@ import './Footer.css';
 class Footer extends Component {
 
   render() {
-    let version = document.head.querySelector('[name=version]').content;
-    if (version.startsWith('%')) {
-      version = 'DEVELOPMENT BUILD';
+    let selector = document.head.querySelector('[name=version]');
+    let version = 'DEVELOPMENT BUILD';
+    if (selector && selector.content && !selector.content.startsWith('%')) {
+      version = selector.content;
     }
     return (
       <div className="footer">
