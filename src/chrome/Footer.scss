@@ -1,0 +1,41 @@
+@import '../css/colors';
+@import '../css/variables';
+
+.footer {
+  background: $footer-background;
+  color: #888;
+  font-size: $body-size;
+  line-height: 1.7;
+
+  h4 {
+    color: #AAA;
+    text-transform: uppercase;
+    margin: $grid-margin 0;
+  }
+
+  a {
+    color: #888;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: #AAA;
+    }
+  }
+
+  .container-fluid {
+    max-width: $width-max;
+    padding: ($grid-margin / 2) $grid-margin $grid-margin;
+    margin: 0 auto;
+
+    @media(max-width: $width-mobile) {
+      padding: ($grid-margin / 2);
+    }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
+}

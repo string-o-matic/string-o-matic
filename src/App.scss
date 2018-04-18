@@ -8,7 +8,7 @@ html {
 
 body {
   font-family: $sans-font;
-  background: $background;
+  background: $footer-background;
   margin: 0;
   padding: 0;
 }
@@ -40,6 +40,15 @@ button {
   font-size: $body-size;
   transition: .25s linear;
   padding: 10px 20px;
+}
+
+.content {
+  background: $background;
+  padding: $grid-margin 0;
+
+  @media (max-width: $width-mobile) {
+    padding: ($grid-margin * .7) 0;
+  }
 }
 
 .about {

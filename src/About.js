@@ -16,7 +16,7 @@ class About extends Component {
             {version}
           </div>
           <div className="author">
-            &copy;2018 <a href="http://www.davemorrissey.com/" rel="noopener noreferrer">Dave Morrissey</a>
+            &copy;2018 <a href="http://www.davemorrissey.com/" target="_blank" rel="noopener noreferrer">Dave Morrissey</a>
           </div>
           <div className="github">
             <a href="https://github.com/string-o-matic" target="_blank" rel="noopener noreferrer"><span className="ion-logo-github"/><br/>View source on GitHub</a>

@@ -4,11 +4,9 @@
 header {
   padding: 30px 30px 0;
   background: $primary;
-  margin-bottom: $grid-margin;
 
   @media (max-width: $width-mobile) {
     padding: 15px 15px 0;
-    margin-bottom: ($grid-margin * .7);
   }
 
   h1 {
