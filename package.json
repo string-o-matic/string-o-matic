@@ -14,6 +14,7 @@
     "react-scripts": "1.1.1"
   },
   "scripts": {
+    "env": "./env.sh",
     "build-css": "./node_modules/.bin/node-sass-chokidar src/ -o src/",
     "lint-css": "./node_modules/.bin/sass-lint -v -q",
     "lint-js": "./node_modules/.bin/eslint src",
@@ -21,7 +22,7 @@
     "start-js": "./node_modules/.bin/react-scripts start",
     "start": "./node_modules/.bin/npm-run-all -p watch-css start-js",
     "build-js": "./node_modules/.bin/react-scripts build",
-    "build": "./node_modules/.bin/npm-run-all build-css lint-css lint-js test build-js",
+    "build": "./node_modules/.bin/npm-run-all env build-css lint-css lint-js test build-js",
     "test": "CI=true ./node_modules/.bin/react-scripts test --env=jsdom",
     "eject": "./node_modules/.bin/react-scripts eject",
     "analyze": "node analyze.js"

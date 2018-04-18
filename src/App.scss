@@ -51,7 +51,7 @@ button {
   margin: 0 auto $grid-margin;
   font-size: $body-size;
   padding: $grid-margin;
-  color:#FFF;
+  color: #FFF;
   text-align: center;
 
   @media(max-width: $width-mobile) {
@@ -60,16 +60,17 @@ button {
 
   h1 {
     font-weight: normal;
-    margin: 0 0 $grid-margin;
+    margin: 0;
   }
 
   .version {
     padding: 5px 0;
+    margin-bottom: $grid-margin;
     color: $primary-light;
   }
 
   .author {
-    padding: 5px 0;
+    margin-bottom: ($grid-margin / 2);
   }
 
   .github {
@@ -91,7 +92,7 @@ button {
   }
 
   a {
-    color: #fff;
+    color: #FFF;
 
     &:active,
     &:hover,
@@ -120,9 +121,11 @@ button {
     border-radius: 0;
   }
 
-  ol.contents {
-    li {
-      padding: 5px 0;
+  ol {
+    &.contents {
+      li {
+        padding: 5px 0;
+      }
     }
   }
 

@@ -12,6 +12,7 @@
 /deployment/string-o-matic.zip
 
 # misc
+.env
 .idea
 .DS_Store
 .env.local

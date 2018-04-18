@@ -4,13 +4,17 @@ import { Link } from 'react-router-dom';
 class About extends Component {
 
   render() {
+    let version = document.head.querySelector('[name=version]').content;
+    if (version.startsWith('%')) {
+      version = 'DEVELOPMENT BUILD';
+    }
     return (
       <div>
         <div className="about">
           <h1>string-o-matic</h1>
-          {/*<div className="version">*/}
-          {/*[rev] / [date]*/}
-          {/*</div>*/}
+          <div className="version">
+            {version}
+          </div>
           <div className="author">
             &copy;2018 <a href="http://www.davemorrissey.com/" rel="noopener noreferrer">Dave Morrissey</a>
           </div>

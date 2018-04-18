@@ -6,15 +6,12 @@ class Guide extends Component {
     return (
       <div className="page">
         <ol className="contents">
-          <li><a href="#mission">Introduction</a></li>
-          <li><a href="#guide">Guide</a></li>
+          <li><a href="#intro">Introduction</a></li>
           <li><a href="#example">MD5 Example</a></li>
           <li><a href="#input">Input Methods</a></li>
           <li><a href="#security">Security</a></li>
         </ol>
-
-
-        <h4><span className="ion-ios-cog-outline"/> Guide<a name="guide"/></h4>
+        <h4><span className="ion-ios-cog-outline"/> <a name="intro">Introduction</a></h4>
         <div className="guide-section-content">
           <p>
             To transform some text, simply type it, paste it, or upload it using the Input box. Keep reading for more information
@@ -36,7 +33,7 @@ class Guide extends Component {
             how to fix the problem.
           </p>
         </div>
-        <h4><span className="ion-ios-cog-outline"/> Example<a name="example"/></h4>
+        <h4><span className="ion-ios-cog-outline"/> <a name="example">MD5 Example</a></h4>
         <div className="guide-section-content">
           <p>
             Let&apos;s say you want to generate the MD5 hash of a string. Enter the string in the Input box. Now select MD5
@@ -54,7 +51,7 @@ class Guide extends Component {
             <code>\x</code> in the prefix field. You&apos;ll now see something like <code>\xb4\xd9\x0c\x13</code>.
           </p>
         </div>
-        <h4><span className="ion-ios-cog-outline"/> Input Methods<a name="input"/></h4>
+        <h4><span className="ion-ios-cog-outline"/> <a name="input">Input Methods</a></h4>
         <div className="guide-section-content">
           <p>
             You can enter the text you want to transform using the following methods. Binary files such as images are also
@@ -86,7 +83,7 @@ class Guide extends Component {
             <strong>Your file is read by your browser, not uploaded to the server.</strong>
           </p>
         </div>
-        <h4><span className="ion-ios-cog-outline"/> Security<a name="security"/></h4>
+        <h4><span className="ion-ios-cog-outline"/> <a name="security">Security</a></h4>
         <div className="guide-section-content">
           <p>
             You might choose to use this site to prototype or verify encryption or hashing of sensitive data, perhaps
