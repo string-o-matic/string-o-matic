@@ -41,6 +41,16 @@ class About extends Component {
           <p>
             Please take a look at the <Link to="/terms">terms &amp; conditions</Link> and <Link to="/privacy">privacy policy</Link>.
           </p>
+          <h4>Credits</h4>
+          <p>
+            This site could not have been built without the hard work of thousands of developers all over the world
+            who have contributed to the open source community. Listed here are just a few.
+          </p>
+          <ul>
+            <li>MD5, SHA, RSA, Hex and Base64 by Digital Bazaar - <a href="https://github.com/digitalbazaar/forge" target="_blank" rel="noopener noreferrer">digitalbazaar/forge</a></li>
+            <li>BCrypt hashing by Daniel Wirtz (dcodeIO) and others - <a href="https://github.com/dcodeIO/bcrypt.js" target="_blank" rel="noopener noreferrer">dcodeIO/bcrypt.js</a></li>
+            <li>React by Facebook - <a href="https://github.com/facebook/react/" target="_blank" rel="noopener noreferrer">facebook/react</a></li>
+          </ul>
         </div>
       </div>
     );
