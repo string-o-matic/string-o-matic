@@ -2,7 +2,7 @@
 @import '../css/variables';
 
 header {
-  padding: 30px;
+  padding: 30px 30px 0;
   background: $primary;
   margin-bottom: $grid-margin;
 
@@ -32,6 +32,35 @@ header {
       width: 160px;
       height: 42px;
     }
+  }
+
+  nav {
+    display: table;
+    margin: ($grid-margin / 2) auto 0;
+
+    a {
+      font-family: $sans-font;
+      display: inline-block;
+      text-decoration: none;
+      padding: 10px 15px;
+      color: $primary-light;
+      transition: .25s linear;
+      font-size: $body-size;
+      text-align: center;
+      text-transform: uppercase;
+      text-shadow: 1px 1px 2px darken($primary, 10%);
+
+      &:hover,
+      &:focus,
+      &:active,
+      &.active {
+        color: #FFF;
+        padding-bottom: 8px;
+        border-bottom: 2px solid $background;
+      }
+    }
+
+
   }
 
   .github-corner {

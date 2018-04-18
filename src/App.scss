@@ -29,3 +29,41 @@ button {
   transition: .25s linear;
   padding: 10px 20px;
 }
+
+.page {
+  background: #FFF;
+  position: relative;
+  box-shadow: 0 0 5px darken($background, 5%);
+  border-radius: $border-radius;
+  max-width: $width-max;
+  margin: 0 auto $grid-margin;
+  border-top: 4px solid $primary;
+  transition: border-color .2s linear;
+  font-size: $body-size;
+  padding: $grid-margin;
+  color: $data;
+
+  h4 {
+    font-size: ($body-size + 6);
+    font-weight: normal;
+    margin: 0 0 $grid-margin;
+    padding: 0;
+
+    span {
+      color: $primary;
+    }
+  }
+
+  h5 {
+    font-size: ($body-size + 3);
+    font-weight: normal;
+    margin: 0 0 ($grid-margin / 2);
+    padding: 0;
+  }
+
+  p,
+  ul,
+  h5 {
+    margin-left: 22px;
+  }
+}
