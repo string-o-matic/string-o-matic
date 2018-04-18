@@ -13,6 +13,18 @@ body {
   padding: 0;
 }
 
+a {
+  color: $primary;
+  text-decoration: none;
+  transition: .25s linear;
+
+  &:active,
+  &:hover,
+  &:focus {
+    color: darken($primary, 10%);
+  }
+}
+
 .pull-left {
   float: left;
 }
@@ -43,11 +55,21 @@ button {
   padding: $grid-margin;
   color: $data;
 
+  ol.contents {
+    li {
+      padding: 5px 0;
+    }
+  }
+
   h4 {
     font-size: ($body-size + 6);
     font-weight: normal;
-    margin: 0 0 $grid-margin;
+    margin: $grid-margin 0;
     padding: 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
 
     span {
       color: $primary;
@@ -65,5 +87,11 @@ button {
   ul,
   h5 {
     margin-left: 22px;
+  }
+
+  ul {
+    li {
+      padding: 5px 0;
+    }
   }
 }

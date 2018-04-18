@@ -8,3 +8,14 @@
     font-style: normal;
     font-weight: normal;
 }
+
+@font-face {
+  font-family: 'Lato';
+  src: url('lato-latin-bold.eot'); /* IE9 Compat Modes */
+  src: url('lato-latin-bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('lato-latin-bold.woff2') format('woff2'), /* Modern Browsers */
+  url('lato-latin-bold.woff') format('woff'), /* Modern Browsers */
+  url('lato-latin-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: bold;
+}

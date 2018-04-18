@@ -5,7 +5,15 @@ class Help extends Component {
   render() {
     return (
       <div className="page">
-        <h4><span className="ion-ios-cog-outline"/> Mission statement</h4>
+        <ol className="contents">
+          <li><a href="#mission">Mission Statement</a></li>
+          <li><a href="#guide">Guide</a></li>
+          <li><a href="#example">MD5 Example</a></li>
+          <li><a href="#input">Input Methods</a></li>
+          <li><a href="#security">Security</a></li>
+        </ol>
+
+        <h4><span className="ion-ios-cog-outline"/> Mission Statement<a name="mission"/></h4>
         <p>
           You may have used a variety of websites that allow you to hash, encrypt, encode, cipher or transform strings.
           Many of these sites have a single function on each page, don&apos;t update as you type, and don&apos;t give
@@ -21,7 +29,7 @@ class Help extends Component {
         <p>
           This is an open source project. Suggestions and pull requests from the developer community are welcome.
         </p>
-        <h4><span className="ion-ios-cog-outline"/> Basic usage</h4>
+        <h4><span className="ion-ios-cog-outline"/> Guide<a name="guide"/></h4>
         <p>
           To transform some text, simply type it, paste it, or upload it using the Input box. Keep reading for more information
           on these options. Next, select the transformation step you want from the blue step selector box at the bottom.
@@ -41,7 +49,7 @@ class Help extends Component {
           out because they received no input from the broken step. Most errors will have a clear explanation that indicates
           how to fix the problem.
         </p>
-        <h4><span className="ion-ios-cog-outline"/> Example</h4>
+        <h4><span className="ion-ios-cog-outline"/> Example<a name="example"/></h4>
         <p>
           Let&apos;s say you want to generate the MD5 hash of a string. Enter the string in the Input box. Now select MD5
           from the Hash section of the step selector. This adds the MD5 step to the pipeline.
@@ -57,7 +65,7 @@ class Help extends Component {
           see the same output in this step because lower case with no prefixes is the default. To add your prefix, enter
           <code>\x</code> in the prefix field. You&apos;ll now see something like <code>\xb4\xd9\x0c\x13</code>.
         </p>
-        <h4><span className="ion-ios-cog-outline"/> Input options</h4>
+        <h4><span className="ion-ios-cog-outline"/> Input Methods<a name="input"/></h4>
         <p>
           You can enter the text you want to transform using the following methods. Binary files such as images are also
           supported using the File option.
@@ -87,7 +95,7 @@ class Help extends Component {
         <p>
           <strong>Your file is read by your browser, not uploaded to the server.</strong>
         </p>
-        <h4><span className="ion-ios-cog-outline"/> Security</h4>
+        <h4><span className="ion-ios-cog-outline"/> Security<a name="security"/></h4>
         <p>
           You might choose to use this site to prototype or verify encryption or hashing of sensitive data, perhaps
           including production passwords. For this reason, there are no ads, no analytics, no third-party fonts,
@@ -96,17 +104,15 @@ class Help extends Component {
           site&apos;s own.
         </p>
         <p>
-          Despite these measures, please observe the following disclaimer.
-        </p>
-        <p>
-          <strong>
-            Disclaimer: The security of this site cannot be guaranteed. Never enter production secrets or passwords.
-          </strong>
+          <strong>Despite these measures, the security of this site cannot be guaranteed. Never enter production secrets or passwords.</strong>
         </p>
         <p>
           For developers, string-o-matic is open source and is easy to run locally if you have Node installed. This allows
           it to be used with production secrets and passwords, but you are responsible for ensuring the security of your
-          environment. See <a href="https://github.com/string-o-matic/string-o-matic" target="_blank" rel="noopener noreferrer">GitHub</a> for information.
+          development environment. Note that the simple web servers run by <code>react-scripts</code> and <code>serve</code> do
+          not send content security policy (CSP) headers or provide SSL support, so by default a local development environment is not
+          secure. For the most secure local development environment, follow the instructions for running a local Docker
+          container.
         </p>
       </div>
     );
