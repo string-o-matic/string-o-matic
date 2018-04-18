@@ -20,9 +20,8 @@ class Header extends Component {
         </a>
         <nav>
           <NavLink exact to="/" activeClassName="active">Home</NavLink>
-          <NavLink to="/help" activeClassName="active">Help</NavLink>
+          <NavLink to="/guide" activeClassName="active">Guide</NavLink>
           <NavLink to="/about" activeClassName="active">About</NavLink>
-          <NavLink to="/privacy" activeClassName="active">Privacy</NavLink>
         </nav>
       </header>
     );

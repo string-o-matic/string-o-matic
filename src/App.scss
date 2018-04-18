@@ -42,6 +42,65 @@ button {
   padding: 10px 20px;
 }
 
+.about {
+  background: darken($primary, 5%);
+  position: relative;
+  box-shadow: 0 0 5px darken($background, 5%);
+  border-radius: $border-radius;
+  max-width: $width-max;
+  margin: 0 auto $grid-margin;
+  font-size: $body-size;
+  padding: $grid-margin;
+  color:#FFF;
+  text-align: center;
+
+  @media(max-width: $width-mobile) {
+    border-radius: 0;
+  }
+
+  h1 {
+    font-weight: normal;
+    margin: 0 0 $grid-margin;
+  }
+
+  .version {
+    padding: 5px 0;
+    color: $primary-light;
+  }
+
+  .author {
+    padding: 5px 0;
+  }
+
+  .github {
+    padding: 5px 0;
+
+    a {
+      color: $primary-light;
+
+      &:active,
+      &:hover,
+      &:focus {
+        color: darken($primary-light, 20%);
+      }
+
+      span {
+        font-size: ($body-size * 2.5);
+      }
+    }
+  }
+
+  a {
+    color: #fff;
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: $primary-light;
+    }
+  }
+}
+
 .page {
   background: #FFF;
   position: relative;
@@ -54,6 +113,12 @@ button {
   font-size: $body-size;
   padding: $grid-margin;
   color: $data;
+  line-height: 1.7;
+
+  @media(max-width: $width-mobile) {
+    padding: ($grid-margin / 2);
+    border-radius: 0;
+  }
 
   ol.contents {
     li {
@@ -61,11 +126,18 @@ button {
     }
   }
 
+  h1 {
+    margin: 0 0 $grid-margin;
+    font-weight: normal;
+    color: $primary;
+  }
+
   h4 {
-    font-size: ($body-size + 6);
+    font-size: ($body-size + 8);
     font-weight: normal;
     margin: $grid-margin 0;
     padding: 0;
+    color: $primary;
 
     &:first-child {
       margin-top: 0;
@@ -77,16 +149,15 @@ button {
   }
 
   h5 {
-    font-size: ($body-size + 3);
+    font-size: ($body-size + 4);
     font-weight: normal;
     margin: 0 0 ($grid-margin / 2);
     padding: 0;
+    color: $primary;
   }
 
-  p,
-  ul,
-  h5 {
-    margin-left: 22px;
+  .guide-section-content {
+    padding-left: 22px;
   }
 
   ul {
