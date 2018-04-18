@@ -20,9 +20,9 @@ libraries included from other sites, this site should be safe for use with sensi
 This project was started in March 2018 and hasn't reached MVP yet. Once it has a basic feature set, pull requests
 adding new transformation steps will be very welcome.
 
-The features planned for MVP can be found on the [MVP project page](https://github.com/davemorrissey/string-o-matic/projects/1).
+The features planned for MVP can be found on the [MVP project page](https://github.com/string-o-matic/string-o-matic/projects/1).
 
-The [After MVP](https://github.com/davemorrissey/string-o-matic/projects/2) project lists planned future features. If
+The [After MVP](https://github.com/string-o-matic/string-o-matic/projects/2) project lists planned future features. If
 you have a feature request that isn't on either project board, please open an issue!
 
 ### Development setup

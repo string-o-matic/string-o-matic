@@ -106,7 +106,7 @@ class Help extends Component {
         <p>
           For developers, string-o-matic is open source and is easy to run locally if you have Node installed. This allows
           it to be used with production secrets and passwords, but you are responsible for ensuring the security of your
-          environment. See <a href="https://github.com/davemorrissey/string-o-matic" target="_blank" rel="noopener noreferrer">GitHub</a> for information.
+          environment. See <a href="https://github.com/string-o-matic/string-o-matic" target="_blank" rel="noopener noreferrer">GitHub</a> for information.
         </p>
       </div>
     );

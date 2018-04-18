@@ -4,7 +4,7 @@ Feature suggestions, pull requests, and bug reports are very welcome! Before sta
 
 ### Reporting a bug
 
-If you've found a bug, head over to the [issues page](https://github.com/davemorrissey/string-o-matic/issues). Before opening a new issue, search through open issues to see if someone else has already reported the same problem. Then open a new issue and complete the new issue template with as much information as you can - error messages, console logs and screenshots are particularly helpful. If you can try another browser that's also a great help. The more information you provide, the quicker the bug can be found and fixed!
+If you've found a bug, head over to the [issues page](https://github.com/string-o-matic/string-o-matic/issues). Before opening a new issue, search through open issues to see if someone else has already reported the same problem. Then open a new issue and complete the new issue template with as much information as you can - error messages, console logs and screenshots are particularly helpful. If you can try another browser that's also a great help. The more information you provide, the quicker the bug can be found and fixed!
 
 ### Requesting a feature
 
@@ -12,7 +12,7 @@ If you have an idea for a new feature, whether it's a new transformation step, a
 
 ### Asking a question
 
-If you'd like to ask a question, please check [open and closed issues](https://github.com/davemorrissey/string-o-matic/issues?utf8=%E2%9C%93&q=is%3Aissue) to see if your question already has an answer. If not, open a new issue and provide as much information as you can.
+If you'd like to ask a question, please check [open and closed issues](https://github.com/string-o-matic/string-o-matic/issues?utf8=%E2%9C%93&q=is%3Aissue) to see if your question already has an answer. If not, open a new issue and provide as much information as you can.
 
 ### Pull requests
 
