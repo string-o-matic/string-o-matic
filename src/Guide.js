@@ -9,6 +9,7 @@ class Guide extends Component {
           <li><a href="#intro">Introduction</a></li>
           <li><a href="#example">MD5 Example</a></li>
           <li><a href="#input">Input Methods</a></li>
+          <li><a href="#nonprintable">Non Printable Characters</a></li>
           <li><a href="#security">Security</a></li>
         </ol>
         <h4><span className="ion-ios-cog-outline"/> <a name="intro">Introduction</a></h4>
@@ -81,6 +82,33 @@ class Guide extends Component {
           </p>
           <p>
             <strong>Your file is read by your browser, not uploaded to the server.</strong>
+          </p>
+        </div>
+        <h4><span className="ion-ios-cog-outline"/> <a name="nonprintable">Non Printable Characters</a></h4>
+        <div className="guide-section-content">
+          <p>
+            Some characters have no visible representation, for example null (\x00), delete (\x7F) and beep (\x07).
+            These are called control characters. They won&apos;t normally occur in text files and can&apos;t be typed,
+            but they will be present if you copy or import a binary file.
+          </p>
+          <p>
+            By default, this site will replace them with &#xfffd; when displaying text, so you can see the characters
+            are there. The next step in your pipeline receives the unmodified string including control characters.
+            You can add a hex encode step to see the bytes that make up the string.
+          </p>
+          <p>
+            Whitespace characters, including space, tab, carriage return and line feed are considered printable by this
+            site, but it can be difficult to distinguish between them. A normal space and non-breaking space look the same
+            and a tab can be invisible or look like spaces. A carriage return, a line feed and both together all look
+            the same.
+          </p>
+          <p>
+            Your operating system or browser may strip some control characters when you paste text into this site. If
+            you think this could corrupt the text you&apos;re pasting in, import a file instead.
+          </p>
+          <p>
+            There are hundreds or thousands of non printable multi-byte unicode characters but there is no special
+            handling for them. They are not substituted and may not be visible.
           </p>
         </div>
         <h4><span className="ion-ios-cog-outline"/> <a name="security">Security</a></h4>
