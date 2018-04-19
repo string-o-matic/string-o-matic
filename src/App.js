@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import Pipeline from './pipeline/Pipeline';
-import About from './About';
-import Guide from './Guide';
-import Terms from './Terms';
-import Privacy from './Privacy';
+import About from './pages/About';
+import Guide from './pages/Guide';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
 import Header from './chrome/Header';
 import Footer from './chrome/Footer';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
