@@ -10,6 +10,7 @@ class Guide extends Component {
           <li><a href="#example">MD5 Example</a></li>
           <li><a href="#input">Input Methods</a></li>
           <li><a href="#nonprintable">Non Printable Characters</a></li>
+          <li><a href="#lineendings">Line Endings</a></li>
           <li><a href="#security">Security</a></li>
         </ol>
         <h4><span className="ion-ios-cog-outline"/> <a name="intro">Introduction</a></h4>
@@ -109,6 +110,19 @@ class Guide extends Component {
           <p>
             There are hundreds or thousands of non printable multi-byte unicode characters but there is no special
             handling for them. They are not substituted and may not be visible.
+          </p>
+        </div>
+        <h4><span className="ion-ios-cog-outline"/> <a name="lineendings">Line Endings</a></h4>
+        <div className="guide-section-content">
+          <p>
+            Windows uses CRLF line endings and Unix uses just LF. In a text area, most browsers will display LF, CR,
+            and CRLF as a single break so it&apos;s not obvious which form is in use. Additionally, the application
+            you&apos;re copying from, your operating system or browser may change the line endings as you copy and paste.
+          </p>
+          <p>
+            If you are working with text that has line endings and it&apos;s important to preserve the correct form,
+            you must check that this site has interpreted your pasted or imported text correctly by adding a hex encode
+            step, and that results you copy out of it are correct using a hex viewer app.
           </p>
         </div>
         <h4><span className="ion-ios-cog-outline"/> <a name="security">Security</a></h4>
