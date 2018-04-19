@@ -16,9 +16,6 @@ class HexDecodeForm extends Component {
   render() {
     return (
       <form className="form-inline row">
-        <div className="help col-xs-12">
-          Select decoding options. See HTML Decode and URI Decode for specialized hex decoding.
-        </div>
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
           <label>Encoding</label>
           <select onChange={this.onEncodingChange} value={this.props.step.encoding}>

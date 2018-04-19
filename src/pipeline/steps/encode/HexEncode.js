@@ -48,9 +48,6 @@ class HexEncodeForm extends Component {
     }
     return (
       <form className="form-inline row">
-        <div className="help col-xs-12">
-          Select hex options. See HTML Encode and URI Encode for specialized hex encoding.
-        </div>
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
           <label>Separator</label>
           <input onChange={this.onSeparatorChange} type="text" maxLength="4" value={this.props.step.separator} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>

@@ -45,9 +45,6 @@ class Base64EncodeForm extends Component {
     }
     return (
       <form className="form-inline row">
-        <div className="help col-xs-12">
-          Select base64 options.
-        </div>
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
           <label>Line length</label>
           <input onChange={this.onLineLengthChange} type="number" value={this.props.step.lineLength} autoCapitalize="false" autoCorrect="false" autoComplete="false" data-lpignore="true" spellCheck="false"/>
