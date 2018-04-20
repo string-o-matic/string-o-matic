@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
+/* global process */
 
 class Footer extends Component {
 
   render() {
-    let selector = document.head.querySelector('[name=version]');
+    let commit = null;
+    let date = null;
+    let year = '[YEAR]';
     let version = 'DEVELOPMENT BUILD';
-    if (selector && selector.content && !selector.content.startsWith('%')) {
-      version = selector.content;
+    if (process && process.env) {
+      commit = process.env.REACT_APP_COMMIT_NUMBER;
+      date = process.env.REACT_APP_BUILD_DATE;
+      year = process.env.REACT_APP_BUILD_YEAR || '[YEAR]';
+      if (commit && date) {
+        version = commit + ' / ' + date;
+      }
     }
     return (
       <div className="footer">
@@ -40,7 +48,7 @@ class Footer extends Component {
                   <br/>
                   {version}
                   <br/>
-                  &copy;2018
+                  &copy; {year}
                 </div>
                 <div className="col-xs-6">
                   <span className="ion-md-contact"/> <a href="http://www.davemorrissey.com/" target="_blank" rel="noopener noreferrer">Dave Morrissey</a>

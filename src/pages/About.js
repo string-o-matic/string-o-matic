@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+/* global process */
 
 class About extends Component {
 
   render() {
-    let version = document.head.querySelector('[name=version]').content;
-    if (version.startsWith('%')) {
-      version = 'DEVELOPMENT BUILD';
+    let commit = null;
+    let date = null;
+    let year = '[YEAR]';
+    let version = 'DEVELOPMENT BUILD';
+    if (process && process.env) {
+      commit = process.env.REACT_APP_COMMIT_NUMBER;
+      date = process.env.REACT_APP_BUILD_DATE;
+      year = process.env.REACT_APP_BUILD_YEAR || '[YEAR]';
+      if (commit && date) {
+        version = commit + ' / ' + date;
+      }
     }
     return (
       <div>
@@ -16,7 +25,7 @@ class About extends Component {
             {version}
           </div>
           <div className="author">
-            &copy;2018 <a href="http://www.davemorrissey.com/" target="_blank" rel="noopener noreferrer">Dave Morrissey</a>
+            &copy; {year} <a href="http://www.davemorrissey.com/" target="_blank" rel="noopener noreferrer">Dave Morrissey</a>
           </div>
           <div className="github">
             <a href="https://github.com/string-o-matic" target="_blank" rel="noopener noreferrer"><span className="ion-logo-github"/><br/>View source on GitHub</a>
