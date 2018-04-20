@@ -11,6 +11,7 @@ class Guide extends Component {
           <li><a href="#input">Input Methods</a></li>
           <li><a href="#nonprintable">Non Printable Characters</a></li>
           <li><a href="#lineendings">Line Endings</a></li>
+          <li><a href="#emoji">Emoji</a></li>
           <li><a href="#security">Security</a></li>
         </ol>
         <h4><span className="ion-ios-cog-outline"/> <a name="intro">Introduction</a></h4>
@@ -123,6 +124,39 @@ class Guide extends Component {
             If you are working with text that has line endings and it&apos;s important to preserve the correct form,
             you must check that this site has interpreted your pasted or imported text correctly by adding a hex encode
             step, and that results you copy out of it are correct using a hex viewer app.
+          </p>
+        </div>
+        <h4><span className="ion-ios-cog-outline"/> <a name="emoji">Emoji</a></h4>
+        <div className="guide-section-content">
+          <p>
+            Emoji are fully supported by most transformation steps but you may see some unexpected behaviour due to the
+            way they work and how javascript encodes characters.
+          </p>
+          <p>
+            You may notice that string lengths are reported incorrectly if certain emoji are included. For example, the
+            red heart emoji <span role="img" aria-label="red heart">&#x2764;&#xFE0F;</span> appears as a single character
+            but according to javascript it has a length of 2. This is because it&apos;s actually made up of the black
+            heart emoji (<span role="img" aria-label="black heart">&#x2764;</span> - <code>U+2764</code>) followed by
+            variation selector 16 (<code>U+FE0F</code>) which turns the heart red.
+          </p>
+          <p>
+            This site doesn&apos;t attempt to interpret multi-character emoji as single characters, because not all browsers
+            and other applications interpret emoji the same way, so this would always be error prone. As a result you&apos;ll
+            see unexpected string lengths and some steps will corrupt emoji.
+          </p>
+          <p>
+            For example, the String Reverse step will reverse the order of the characters that make up <span role="img" aria-label="red heart">&#x2764;&#xFE0F;</span>,
+            producing <span role="img" aria-label="red heart">&#xFE0F;&#x2764;</span> (your browser may not display the
+            variation selector). If you have several emoji together, reversing the string may cause them to be combined
+            together in unpredictable ways.
+          </p>
+          <p>
+            Most steps such as hashing and encryption are unaffected by this limitation and you simply need to use either
+            UTF-8 or UTF-16 where the option is available to ensure emoji are correctly interpreted.
+          </p>
+          <p>
+            For more information, and some insight into why this site doesn&apos;t attempt more advanced handling, take a
+            look at <a href="http://blog.jonnew.com/posts/poo-dot-length-equals-two" target="_blank" rel="noopener noreferrer">this excellent article</a>.
           </p>
         </div>
         <h4><span className="ion-ios-cog-outline"/> <a name="security">Security</a></h4>
