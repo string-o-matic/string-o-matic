@@ -9,6 +9,8 @@ import SHA512224 from './steps/hash/SHA512224';
 import SHA512256 from './steps/hash/SHA512256';
 import BCryptHash from './steps/hash/BCryptHash';
 import BCryptVerify from './steps/hash/BCryptVerify';
+import HtmlEscape from './steps/escape/HtmlEscape';
+import HtmlUnescape from './steps/escape/HtmlUnescape';
 import HexEncode from './steps/encode/HexEncode';
 import HexDecode from './steps/encode/HexDecode';
 import Base64Encode from './steps/encode/Base64Encode';
@@ -29,6 +31,7 @@ class StepSelector extends Component {
     'String Case': [ UpperCase, LowerCase ],
     'String Transform': [ Reverse ],
     'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode, Base64Encode, Base64Decode ],
+    'Escape': [ HtmlEscape, HtmlUnescape ],
     'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
     'Tests': [ AsyncTest, Iso88591Test ]
   };
