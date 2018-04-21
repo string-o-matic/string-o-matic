@@ -24,6 +24,7 @@ import AsyncTest from './steps/test/AsyncTest';
 import Iso88591Test from './steps/test/Iso88591Test';
 import { StepTop } from '../Common';
 import './StepSelector.css';
+/* global process */
 
 class StepSelector extends Component {
 
@@ -32,9 +33,15 @@ class StepSelector extends Component {
     'String Transform': [ Reverse ],
     'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode, Base64Encode, Base64Decode ],
     'Escape': [ HtmlEscape, HtmlUnescape ],
-    'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
-    'Tests': [ AsyncTest, Iso88591Test ]
+    'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ]
   };
+
+  constructor(props) {
+    super(props);
+    if (process.env.NODE_ENV !== 'production') {
+      this.categories['Tests'] = [ AsyncTest, Iso88591Test ];
+    }
+  }
 
   render() {
 
