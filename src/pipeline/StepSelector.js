@@ -38,32 +38,60 @@ class StepSelector extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {'filter': ''};
+    this.onSearchChange = this.onSearchChange.bind(this);
+    this.clearSearch = this.clearSearch.bind(this);
     if (process.env.NODE_ENV !== 'production') {
       this.categories['Tests'] = [ AsyncTest, Iso88591Test ];
     }
   }
 
   render() {
+    let filteredCategories = { };
+    Object.keys(this.categories).forEach(categoryName => {
+      const category = this.categories[categoryName];
+      category.forEach(step => {
+        if (this.state.filter.length === 0 || step.title.toLowerCase().indexOf(this.state.filter.toLowerCase()) > -1) {
+          if (!filteredCategories[categoryName]) {
+            filteredCategories[categoryName] = [];
+          }
+          filteredCategories[categoryName].push(step);
+        }
+      });
+    });
+    let steps = <p className="no-matches">No matching steps!</p>;
+    if (Object.keys(filteredCategories).length > 0) {
+      steps = Object.keys(filteredCategories).map((name) => {
+        return (<div key={name} className="category">
+          <h4>{name}</h4>
+          {
+            filteredCategories[name].map((step, i) =>
+              <button key={i} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>
+            )
+          }
+        </div>);
+      });
+    }
 
     return (
       <div className="step-selector">
         <StepTop/>
         <div className="body">
-          {
-            Object.keys(this.categories).map((name) => {
-              return (<div key={name} className="category">
-                <h4>{name}</h4>
-                {
-                  this.categories[name].map((step, i) =>
-                    <button key={i} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>
-                  )
-                }
-              </div>);
-            })
-          }
+          <div className="search">
+            <input type="text" placeholder="Search" onChange={this.onSearchChange}/><button className="delete" onClick={this.clearSearch}><span className="ion-md-close"/></button>
+          </div>
+          {steps}
         </div>
       </div>
     );
+  }
+
+  onSearchChange(e) {
+    this.setState({'filter': e.target.value});
+  }
+
+  clearSearch() {
+    this.setState({'filter': ''});
   }
 
   addStep(step) {
