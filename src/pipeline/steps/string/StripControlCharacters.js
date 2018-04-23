@@ -2,6 +2,10 @@ import Step from '../Step';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
+/**
+ * Removes unprintable control characters. Although tab, CR and LF are control characters, they are printable and not
+ * removed. A regex replace step will provide more flexibility.
+ */
 class StripControlCharacters extends Step {
 
   static title = 'Strip Control Characters';
