@@ -13,10 +13,19 @@ class TextInput extends Component {
   }
 
   render() {
+    let warning = null;
+    // eslint-disable-next-line no-control-regex
+    if (this.state.input.match(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g)) {
+      warning = <div className="warning" key="warningX"><span className="ionicon ion-md-alert"/> Text contains unprintable characters</div>;
+    }
+
     return (
       <div>
         <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input} direction={this.props.direction}/>
-        <div className="meta">String, {this.state.input.length} characters</div>
+        <div className="meta">
+          <div>String, {this.state.input.length} characters</div>
+          {warning}
+        </div>
       </div>
     );
   }
