@@ -9,17 +9,29 @@ class HtmlEscapeForm extends Component {
   constructor(props) {
     super(props);
     this.onCharactersChange = this.onCharactersChange.bind(this);
+    this.onLinesChange = this.onLinesChange.bind(this);
   }
 
   render() {
     return (
       <form className="form-inline row">
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
-          <label>Characters</label>
+          <label>Escape</label>
           <select onChange={this.onCharactersChange} value={this.props.step.characters}>
             <option value="minimal">&lt; &gt; &amp; &quot; &apos;</option>
             <option value="nonascii">Non-ASCII</option>
             <option value="all">All</option>
+          </select>
+        </div>
+        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+          <label>Line endings</label>
+          <select onChange={this.onLinesChange} value={this.props.step.lines}>
+            <option value="keep">Keep</option>
+            <option value="encode">Encode</option>
+            <option value="brx">&lt;br/&gt;</option>
+            <option value="br">&lt;br&gt;</option>
+            <option value="p">&lt;p&gt;...&lt;/p&gt;</option>
+            <option value="strip">Strip</option>
           </select>
         </div>
       </form>
@@ -28,6 +40,11 @@ class HtmlEscapeForm extends Component {
 
   onCharactersChange(e) {
     this.props.step.setCharacters(e.target.value);
+    this.props.refresh();
+  }
+
+  onLinesChange(e) {
+    this.props.step.setLines(e.target.value);
     this.props.refresh();
   }
 
@@ -40,6 +57,7 @@ class HtmlEscape extends Step {
 
   form = HtmlEscapeForm;
   characters = 'minimal';
+  lines = 'keep';
   
   minimalEntities = {
     '<': 'lt',
@@ -315,21 +333,44 @@ class HtmlEscape extends Step {
     this.passInput();
   }
 
+  setLines(lines) {
+    this.output = null;
+    this.lines = lines;
+    this.passInput();
+  }
+
   calculate(input) {
     let result = '';
-    for (let i = 0; i < input.data.length; i++) {
-      const char = input.data.substring(i, i + 1);
-      const int = input.data.charCodeAt(i);
+    let data = input.data;
+    // When encoding lines as breaks/paragraphs, replace windows new lines first
+    if (this.lines === 'b' || this.lines === 'p') {
+      data = data.replace(/\r\n/g, '\n');
+    }
+    for (let i = 0; i < data.length; i++) {
+      const char = data.substring(i, i + 1);
+      const int = data.charCodeAt(i);
       if (this.minimalEntities[char]) {
         result += '&' + this.minimalEntities[char] + ';';
+      } else if (char === '\r' || char === '\n') {
+        if (this.lines === 'keep') {
+          result += char;
+        } else if (this.lines === 'encode') {
+          result += char === '\r' ? '&#x0d;' : '&x0a;';
+        } else if (this.lines === 'brx') {
+          result += '\n<br/>\n';
+        } else if (this.lines === 'br') {
+          result += '\n<br>\n';
+        } else if (this.lines === 'p') {
+          result += '\n</p>\n<p>\n';
+        }
       } else if ((int > 0xFF && this.characters === 'nonascii') || this.characters === 'all') {
         if (this.allEntities[char]) {
           result += '&' + this.allEntities[char] + ';';
-        } else if (int >= 0xD800 && int <= 0xDBFF && i < input.data.length - 1) {
+        } else if (int >= 0xD800 && int <= 0xDBFF && i < data.length - 1) {
           // Surrogate high byte. Combine this and the next.
           // NOTE No check if the second byte is in the low surrogate range 0xDC00 to 0xDFFF.
           const hi = int;
-          const lo = input.data.charCodeAt(i + 1);
+          const lo = data.charCodeAt(i + 1);
           const pair = (hi - 0xD800) * 0x400 + lo - 0xDC00 + 0x10000;
           result += '&#x' + pair.toString(16) + ';';
           i += 1;
@@ -342,6 +383,9 @@ class HtmlEscape extends Step {
       } else {
         result += char;
       }
+    }
+    if (this.lines === 'p') {
+      result = '<p>\n' + result + '\n</p>';
     }
     return Data.string(result);
   }
