@@ -6,7 +6,28 @@
   .step-header {
     .btn-group {
       .btn-clear {
-        border-right: 1px solid darken($primary-vlight, 10%);
+        color: transparentize($primary, .5);
+        font-size: 22px;
+        vertical-align: top;
+        padding: 6px 12px;
+
+        &:focus,
+        &:active,
+        &:hover {
+          box-shadow: none;
+        }
+      }
+
+      .btn-direction {
+        font-family: $mono-font;
+        color: transparentize($primary, .5);
+        padding: 11px 5px 10px;
+
+        &:focus,
+        &:active,
+        &:hover {
+          box-shadow: none;
+        }
       }
     }
   }

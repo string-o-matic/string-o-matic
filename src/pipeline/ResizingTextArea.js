@@ -16,7 +16,6 @@ class ResizingTextArea extends Component {
     return (
       <textarea
         className={className}
-        type="text"
         value={this.props.value}
         onChange={this.onChange}
         rows="1"
@@ -25,6 +24,7 @@ class ResizingTextArea extends Component {
         autoCapitalize="off"
         spellCheck="false"
         readOnly={this.props.readOnly}
+        dir={this.props.direction || 'ltr'}
         ref="textarea">
       </textarea>
     );
@@ -56,7 +56,8 @@ ResizingTextArea.propTypes = {
   readOnly: PropTypes.bool,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  direction: PropTypes.string
 };
 
 export default ResizingTextArea;

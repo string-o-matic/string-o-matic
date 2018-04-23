@@ -23,6 +23,7 @@
     background: $primary-vlight;
     color: $primary;
     transition: background-color .2s linear;
+    height: 36px;
 
     &::after {
       clear: both;
@@ -44,6 +45,10 @@
       }
     }
 
+    button {
+      height: 36px;
+    }
+
     .delete {
       background: none;
       border: 0;
@@ -58,6 +63,25 @@
       &:focus {
         color: #FFF;
         background: #E53935;
+        outline: none;
+      }
+    }
+
+    .direction {
+      font-family: $mono-font;
+      background: none;
+      border: 0;
+      font-size: $body-size;
+      padding: 11px 8px;
+      color: transparentize($primary, .5);
+      transition: background, color;
+      transition-duration: .2s;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: #FFF;
+        background: $primary;
         outline: none;
       }
     }

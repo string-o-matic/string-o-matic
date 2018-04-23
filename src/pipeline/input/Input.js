@@ -9,14 +9,15 @@ class Input extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { type: 'text' };
+    this.state = { type: 'text', direction: 'ltr' };
     this.clear = this.clear.bind(this);
+    this.toggleDirection = this.toggleDirection.bind(this);
   }
 
   render() {
     let content = null;
     if (this.state.type === 'text') {
-      content = <TextInput initialInput={this.props.initialInput} inputChange={this.props.inputChange} ref="textInput"/>;
+      content = <TextInput initialInput={this.props.initialInput} inputChange={this.props.inputChange} direction={this.state.direction} ref="textInput"/>;
     } else if (this.state.type === 'file') {
       content = <FileInput inputChange={this.props.inputChange} ref="fileInput"/>;
     }
@@ -26,7 +27,8 @@ class Input extends Component {
         <div className="step-header">
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
-            <button className="btn-clear" onClick={this.clear}><span className="ion-md-close-circle"/> Clear</button>
+            <button className="btn-direction" onClick={this.toggleDirection} title="Direction">{this.state.direction.toUpperCase()}</button>
+            <button className="btn-clear" onClick={this.clear} title="Clear"><span className="ion-ios-backspace"/></button>
             <button className={this.state.type === 'text' ? ' active' : ''} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
             <button className={this.state.type === 'file' ? ' active' : ''} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
             {/*<button className={this.state.type === 'rand' ? ' active' : ''} onClick={this.setType.bind(this, 'rand')}>Random</button>*/}
@@ -42,6 +44,14 @@ class Input extends Component {
 
   setType(type) {
     this.setState({type: type});
+  }
+
+  toggleDirection() {
+    if (this.state.direction === 'rtl') {
+      this.setState({ direction: 'ltr' });
+    } else {
+      this.setState({ direction: 'rtl' });
+    }
   }
 
   clear() {

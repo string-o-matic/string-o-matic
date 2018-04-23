@@ -11,7 +11,9 @@ class StepComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.state = { 'direction': 'ltr' };
     this.deleteStep = this.deleteStep.bind(this);
+    this.toggleDirection = this.toggleDirection.bind(this);
   }
 
   deleteStep() {
@@ -76,7 +78,8 @@ class StepComponent extends Component {
         <StepTop/>
         <div className="step-header">
           <h4 className="pull-left">{this.props.step.constructor.title}</h4>
-          <button className="pull-right delete" onClick={this.deleteStep}><span className="ion-md-close"/></button>
+          <button className="pull-right delete" onClick={this.deleteStep}><span className="ion-md-trash"/></button>
+          <button className="pull-right direction" onClick={this.toggleDirection}>{this.state.direction.toUpperCase()}</button>
         </div>
         <div className="step-body">
           {content.map(c => c)}
@@ -86,8 +89,16 @@ class StepComponent extends Component {
     );
   }
 
+  toggleDirection() {
+    if (this.state.direction === 'rtl') {
+      this.setState({ direction: 'ltr' });
+    } else {
+      this.setState({ direction: 'rtl' });
+    }
+  }
+
   data(content, className) {
-    return <ResizingTextArea key="data" readOnly={true} value={content} className={className}/>;
+    return <ResizingTextArea key="data" readOnly={true} value={content} className={className} direction={this.state.direction}/>;
   }
 
   meta(content) {

@@ -15,7 +15,7 @@ class TextInput extends Component {
   render() {
     return (
       <div>
-        <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input}/>
+        <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input} direction={this.props.direction}/>
         <div className="meta">String, {this.state.input.length} characters</div>
       </div>
     );
@@ -39,7 +39,8 @@ class TextInput extends Component {
 
 TextInput.propTypes = {
   initialInput: PropTypes.string.isRequired,
-  inputChange: PropTypes.func.isRequired
+  inputChange: PropTypes.func.isRequired,
+  direction: PropTypes.string
 };
 
 export default TextInput;
