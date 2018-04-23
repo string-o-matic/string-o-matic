@@ -11,6 +11,7 @@ class HtmlUnescape extends Step {
     return Data.string(input.data
       .replace(/&quot;/g, '"')
       .replace(/&#39;/g, '\'')
+      .replace(/&apos;/g, '\'')
       .replace(/&lt;/g, '<')
       .replace(/&gt;/g, '>')
       .replace(/&amp;/g, '&'));

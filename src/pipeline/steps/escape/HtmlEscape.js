@@ -11,7 +11,7 @@ class HtmlEscape extends Step {
     return Data.string(input.data
       .replace(/&/g, '&amp;')
       .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;')
+      .replace(/'/g, '&apos;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;'));
   }
