@@ -20,6 +20,7 @@ import URIDecode from './steps/encode/URIDecode';
 import Reverse from './steps/string/Reverse';
 import UpperCase from './steps/string/UpperCase';
 import LowerCase from './steps/string/LowerCase';
+import StripControlCharacters from './steps/string/StripControlCharacters';
 import AsyncTest from './steps/test/AsyncTest';
 import Iso88591Test from './steps/test/Iso88591Test';
 import { StepTop } from '../Common';
@@ -29,7 +30,7 @@ import './StepSelector.css';
 class StepSelector extends Component {
 
   categories = {
-    'String Case': [ UpperCase, LowerCase ],
+    'String Case': [ UpperCase, LowerCase, StripControlCharacters ],
     'String Transform': [ Reverse ],
     'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode, Base64Encode, Base64Decode ],
     'Escape': [ HtmlEscape, HtmlUnescape ],
