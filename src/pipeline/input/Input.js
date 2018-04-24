@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 import { StepTail } from '../../Common';
 import TextInput from './TextInput';
 import FileInput from './FileInput';
+import Globals from '../../Globals';
 import './Input.css';
 
 class Input extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { type: 'text', direction: 'ltr' };
     this.clear = this.clear.bind(this);
     this.toggleDirection = this.toggleDirection.bind(this);
   }
 
   render() {
     let content = null;
-    if (this.state.type === 'text') {
-      content = <TextInput initialInput={this.props.initialInput} inputChange={this.props.inputChange} direction={this.state.direction} ref="textInput"/>;
-    } else if (this.state.type === 'file') {
+    if (Globals.inputType === 'text') {
+      content = <TextInput initialInput={this.props.initialInput} inputChange={this.props.inputChange} direction={Globals.inputDirection} ref="textInput"/>;
+    } else if (Globals.inputType === 'file') {
       content = <FileInput inputChange={this.props.inputChange} ref="fileInput"/>;
     }
 
@@ -27,11 +27,11 @@ class Input extends Component {
         <div className="step-header">
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
-            <button className="btn-direction" onClick={this.toggleDirection} title="Direction">{this.state.direction.toUpperCase()}</button>
+            <button className="btn-direction" onClick={this.toggleDirection} title="Direction">{Globals.inputDirection.toUpperCase()}</button>
             <button className="btn-clear" onClick={this.clear} title="Clear"><span className="ion-ios-backspace"/></button>
-            <button className={this.state.type === 'text' ? ' active' : ''} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
-            <button className={this.state.type === 'file' ? ' active' : ''} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
-            {/*<button className={this.state.type === 'rand' ? ' active' : ''} onClick={this.setType.bind(this, 'rand')}>Random</button>*/}
+            <button className={Globals.inputType === 'text' ? ' active' : ''} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
+            <button className={Globals.inputType === 'file' ? ' active' : ''} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
+            {/*<button className={Globals.inputType === 'rand' ? ' active' : ''} onClick={this.setType.bind(this, 'rand')}>Random</button>*/}
           </div>
         </div>
         <div className="step-body">
@@ -43,15 +43,17 @@ class Input extends Component {
   }
 
   setType(type) {
-    this.setState({type: type});
+    Globals.inputType = type;
+    this.setState({ });
   }
 
   toggleDirection() {
-    if (this.state.direction === 'rtl') {
-      this.setState({ direction: 'ltr' });
+    if (Globals.inputDirection === 'rtl') {
+      Globals.inputDirection = 'ltr';
     } else {
-      this.setState({ direction: 'rtl' });
+      Globals.inputDirection = 'rtl';
     }
+    this.setState({ });
   }
 
   clear() {

@@ -4,7 +4,8 @@ class Globals {
 
   static pipelineSteps = [];
 
-  static input = 'text';
+  static inputType = 'text';
+  static inputDirection = 'ltr';
 
   static textInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
 
