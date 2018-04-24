@@ -42,6 +42,7 @@ class Base64Decode extends Step {
 
   static title = 'Base64 Decode';
   static supports = [ StringType ];
+  static rtl = true;
 
   form = Base64DecodeForm;
 

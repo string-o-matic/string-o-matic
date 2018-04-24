@@ -9,6 +9,7 @@ class StripWhiteSpace extends Step {
 
   static title = 'Strip White Space';
   static supports = [ StringType ];
+  static rtl = true;
 
   calculate(input) {
     // eslint-disable-next-line no-control-regex

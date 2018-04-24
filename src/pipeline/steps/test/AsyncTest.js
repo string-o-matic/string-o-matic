@@ -10,6 +10,7 @@ class AsyncTest extends Step {
 
   static title = 'Async Test';
   static supports = [ StringType ];
+  static rtl = true;
 
   calculate(input) {
     const output = Data.string(input.data + ' (' + this.key + ')');

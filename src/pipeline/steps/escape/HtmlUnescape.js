@@ -6,7 +6,8 @@ class HtmlUnescape extends Step {
 
   static title = 'HTML Unescape';
   static supports = [ StringType ];
-  
+  static rtl = true;
+
   entities = {
     'quot': '\u0022',
     'amp': '\u0026',

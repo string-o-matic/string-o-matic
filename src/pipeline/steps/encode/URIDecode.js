@@ -6,6 +6,7 @@ class URIDecode extends Step {
 
   static title = 'URI Decode';
   static supports = [ StringType ];
+  static rtl = true;
 
   calculate(input) {
     return Data.string(decodeURIComponent(input.data));
