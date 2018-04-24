@@ -292,9 +292,9 @@ class HtmlUnescape extends Step {
 
   utf16SurrogatePair(int) {
     if (int > 0xFFFF) {
-      const p1 = (Math.floor((int - 0x10000) / 0x400) + 0xD800);
-      const p2 = ((int - 0x10000) % 0x400 + 0xDC00);
-      return String.fromCharCode(p1) + String.fromCharCode(p2);
+      const hi = (Math.floor((int - 0x10000) / 0x400) + 0xD800);
+      const lo = ((int - 0x10000) % 0x400 + 0xDC00);
+      return String.fromCharCode(hi) + String.fromCharCode(lo);
     } else {
       return String.fromCharCode(int);
     }
