@@ -3,11 +3,12 @@ import Input from './input/Input';
 import StepComponent from './StepComponent';
 import StepSelector from './StepSelector';
 import Data from './Data';
+import Globals from '../Globals';
 
 class Pipeline extends Component {
 
   initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
-  steps = [ ];
+  steps = Globals.pipelineSteps;
 
   constructor(props) {
     super(props);

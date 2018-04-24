@@ -1,7 +1,6 @@
 import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Globals from '../../../Globals';
 import Step from '../Step';
 import Data from '../../Data';
 import {StringType,ByteStringBufferType} from '../../Types';
@@ -92,7 +91,7 @@ class Base64Encode extends Step {
   form = Base64EncodeForm;
   showEncoding = false;
 
-  encoding = Globals.ENCODING;
+  encoding = 'UTF-8';
   bom = '0';
   variant = 'standard';
   lineLength = '';

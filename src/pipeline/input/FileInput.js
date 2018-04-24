@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {StringType} from '../Types';
 import Data from '../Data';
 import ResizingTextArea from '../ResizingTextArea';
+import Globals from '../../Globals';
 import Dropzone from 'react-dropzone';
 import './Input.css';
 
@@ -11,35 +12,34 @@ class FileInput extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { input: Data.string('') };
     this.onChange = this.onChange.bind(this);
   }
 
   render() {
-    var style = { };
-    var status = null;
-    var textarea = null;
-    if (this.state.file) {
+    let style = { };
+    let status = null;
+    let textarea = null;
+    if (Globals.file) {
       status = (
-        <div className="file-success"><span className="ion-md-checkmark-circle"/> Imported {this.state.file.name}</div>
+        <div className="file-success"><span className="ion-md-checkmark-circle"/> Imported {Globals.file.name}</div>
       );
-      if (this.state.input.type === StringType) {
+      if (Globals.fileInput.type === StringType) {
         textarea = (
           <div>
-            <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input.data}/>
-            <div className="meta">String, {this.state.input.data.length} characters</div>
+            <ResizingTextArea onChange={this.onChange} readOnly={false} value={Globals.fileInput.data}/>
+            <div className="meta">String, {Globals.fileInput.data.length} characters</div>
           </div>
         );
       } else {
         textarea = (
           <div>
             <div className="binary">This file can&apos;t be displayed or edited as text, so it&apos;s been imported as a byte array. You can encode, hash or encrypt it.</div>
-            <div className="meta">Byte array, {this.state.input.data.length()} bytes</div>
+            <div className="meta">Byte array, {Globals.fileInput.data.length()} bytes</div>
           </div>
         );
       }
-    } else if (this.state.error) {
-      status = <div className="file-error"><span className="ion-md-alert"/> {this.state.error}</div>;
+    } else if (Globals.fileError) {
+      status = <div className="file-error"><span className="ion-md-alert"/> {Globals.fileError}</div>;
     }
     return (
       <div>
@@ -59,7 +59,7 @@ class FileInput extends Component {
   }
 
   componentDidMount() {
-    this.props.inputChange(this.state.input);
+    this.props.inputChange(Globals.fileInput);
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -68,33 +68,46 @@ class FileInput extends Component {
       reader.onload = () => {
         const arrayBuffer = reader.result;
         const byteStringBuffer = util.createBuffer(arrayBuffer);
-        var input = null;
+        let input = null;
         try {
           input = Data.string(byteStringBuffer.toString());
         } catch (e) {
           input = Data.byteStringBuffer(byteStringBuffer);
         }
         this.props.inputChange(input);
-        this.setState({ file: acceptedFiles[0], input: input });
+        Globals.file = acceptedFiles[0];
+        Globals.fileInput = input;
+        this.setState({ });
       };
-      reader.onabort = () => this.setState({ file: null, error: 'Oops, couldn\'t read your file!'});
-      reader.onerror = () => this.setState({ file: null, error: 'Oops, couldn\'t read your file!'});
+      const onFail = () => {
+        Globals.file = null;
+        Globals.fileError = 'Oops, couldn\'t read your file!';
+        this.setState({ });
+      };
+      reader.onabort = onFail;
+      reader.onerror = onFail;
       reader.readAsArrayBuffer(acceptedFiles[0]);
     } else if (rejectedFiles && rejectedFiles.length > 0) {
-      this.setState({ file: null, error: 'File ' + rejectedFiles[0].name + ' is unsupported. Max size is 1Mb.'});
+      Globals.file = null;
+      Globals.fileError = 'File ' + rejectedFiles[0].name + ' is unsupported. Max size is 1Mb.';
+      this.setState({ });
     }
   }
 
   onChange(value) {
     const input = Data.string(value);
     this.props.inputChange(input);
-    this.setState({ input: input });
+    Globals.fileInput = input;
+    this.setState({ });
   }
 
   clear() {
     const input = Data.string('');
     this.props.inputChange(input);
-    this.setState({ input: input, error: null, file: null });
+    Globals.fileInput = input;
+    Globals.fileError = null;
+    Globals.file = null;
+    this.setState({ });
   }
 
 }

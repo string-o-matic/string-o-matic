@@ -1,7 +1,6 @@
 import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Globals from '../../../Globals';
 import Step from '../Step';
 import Data from '../../Data';
 import {StringType,ByteStringBufferType} from '../../Types';
@@ -122,7 +121,7 @@ class HexEncode extends Step {
   form = HexEncodeForm;
   showEncoding = false;
 
-  encoding = Globals.ENCODING;
+  encoding = 'UTF-8';
   bom = '0';
   bytesPerLine = '';
   separator = '';

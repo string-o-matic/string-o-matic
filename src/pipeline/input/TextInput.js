@@ -2,28 +2,28 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Data from '../Data';
 import ResizingTextArea from '../ResizingTextArea';
+import Globals from '../../Globals';
 import './Input.css';
 
 class TextInput extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { input: this.props.initialInput };
     this.onChange = this.onChange.bind(this);
   }
 
   render() {
     let warning = null;
     // eslint-disable-next-line no-control-regex
-    if (this.state.input.match(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g)) {
+    if (Globals.textInput.match(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g)) {
       warning = <div className="warning" key="warningX"><span className="ionicon ion-md-alert"/> Text contains unprintable characters</div>;
     }
 
     return (
       <div>
-        <ResizingTextArea onChange={this.onChange} readOnly={false} value={this.state.input} direction={this.props.direction}/>
+        <ResizingTextArea onChange={this.onChange} readOnly={false} value={Globals.textInput} direction={this.props.direction}/>
         <div className="meta">
-          <div>String, {this.state.input.length} characters</div>
+          <div>String, {Globals.textInput.length} characters</div>
           {warning}
         </div>
       </div>
@@ -31,16 +31,18 @@ class TextInput extends Component {
   }
 
   componentDidMount() {
-    this.props.inputChange(Data.string(this.state.input + ''));
+    this.props.inputChange(Data.string(Globals.textInput + ''));
   }
 
   onChange(value) {
     this.props.inputChange(Data.string(value));
-    this.setState({ input: value });
+    Globals.textInput = value;
+    this.setState({ });
   }
 
   clear() {
-    this.setState({ input: '' });
+    Globals.textInput = '';
+    this.setState({ });
     this.props.inputChange(Data.string(''));
   }
 
