@@ -8,7 +8,6 @@ import Globals from '../Globals';
 class Pipeline extends Component {
 
   initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
-  steps = Globals.pipelineSteps;
 
   constructor(props) {
     super(props);
@@ -24,7 +23,7 @@ class Pipeline extends Component {
       <div>
         <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
         {
-          this.steps.map(step =>
+          Globals.steps.map(step =>
             <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} refresh={this.refresh}/>
           )
         }
@@ -35,8 +34,8 @@ class Pipeline extends Component {
 
   inputChange(input) {
     // Pass new input to first step in pipeline. It will pass its output down the chain.
-    if (this.steps.length > 0) {
-      this.steps[0].setInput(input);
+    if (Globals.steps.length > 0) {
+      Globals.steps[0].setInput(input);
     }
     this.setState({ input: input });
   }
@@ -48,18 +47,18 @@ class Pipeline extends Component {
   }
 
   addStep(step) {
-    if (this.steps.length > 0) {
-      this.steps[this.steps.length - 1].setNext(step);
+    if (Globals.steps.length > 0) {
+      Globals.steps[Globals.steps.length - 1].setNext(step);
     } else {
       step.setInput(this.state.input);
     }
-    this.steps.push(step);
+    Globals.steps.push(step);
     this.setState({});
   }
 
   deleteStep(deleteStep) {
     var steps = [ ];
-    this.steps.forEach(step => {
+    Globals.steps.forEach(step => {
       if (step !== deleteStep) {
         if (steps.length > 0) {
           steps[steps.length - 1].setNext(step);
@@ -69,7 +68,7 @@ class Pipeline extends Component {
         steps.push(step);
       }
     });
-    this.steps = steps;
+    Globals.steps = steps;
     this.setState({});
   }
 }

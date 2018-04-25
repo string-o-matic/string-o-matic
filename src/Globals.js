@@ -2,7 +2,7 @@ import Data from './pipeline/Data';
 
 class Globals {
 
-  static pipelineSteps = [];
+  static steps = [];
 
   static inputType = 'text';
   static inputDirection = 'ltr';
@@ -12,6 +12,14 @@ class Globals {
   static file = null;
   static fileInput = Data.string('');
   static fileError = null;
+
+  static reset() {
+    Globals.steps = [];
+    Globals.textInput = '';
+    Globals.file = null;
+    Globals.fileInput = Data.string('');
+    Globals.fileError =  null;
+  }
 
 }
 

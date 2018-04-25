@@ -8,15 +8,21 @@ import Privacy from './pages/Privacy';
 import NotFound from './pages/NotFound';
 import Header from './chrome/Header';
 import Footer from './chrome/Footer';
+import Globals from './Globals';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.reset = this.reset.bind(this);
+  }
 
   render() {
     return (
       <Router>
         <div>
-          <Header/>
+          <Header reset={this.reset}/>
           <div className="content">
             <Switch>
               <Route exact path="/" component={Pipeline} />
@@ -31,6 +37,11 @@ class App extends Component {
         </div>
       </Router>
     );
+  }
+
+  reset() {
+    Globals.reset();
+    this.setState({});
   }
 
 }
