@@ -57,9 +57,10 @@ class Pipeline extends Component {
   }
 
   deleteStep(deleteStep) {
-    var steps = [ ];
+    const steps = [ ];
     Globals.steps.forEach(step => {
       if (step !== deleteStep) {
+        step.setNext(null);
         if (steps.length > 0) {
           steps[steps.length - 1].setNext(step);
         } else {
