@@ -1,5 +1,6 @@
 import Data from '../Data';
 import {NullType} from '../Types';
+import Globals from '../../Globals';
 
 import '../StepComponent.css';
 
@@ -15,7 +16,6 @@ class StepCounter {
 /**
  * Superclass for transformation steps in the pipeline. The superclass handles input chaining, promise
  * resolution and error handling, delegating only calculation to subclasses.
- * TODO fix out-of-order promise resolution
  */
 class Step {
 
@@ -111,7 +111,13 @@ class Step {
         this.output = this.calculate(input);
         if (this.output.then) {
           // Replacing output with actual data avoids redundant updates of the component
-          this.output.then(output => this.output = output);
+          this.output.then(output => {
+            if (input.sequence === Globals.inputSequence) {
+              this.output = output.withSequence(input.sequence);
+            }
+          });
+        } else {
+          this.output.withSequence(input.sequence);
         }
       } catch (e) {
         this.error('Calculation failed', {input: input, error: e});
@@ -140,10 +146,14 @@ class Step {
    */
   passInput() {
     if (this.next) {
-      var output = this.getOutput();
+      const output = this.getOutput();
       if (output.then) {
         this.next.setInput(new Promise(resolve => {
-          output.then(input => resolve(input));
+          output.then(input => {
+            if (input.sequence === Globals.inputSequence) {
+              resolve(input);
+            }
+          });
         }));
       } else {
         this.next.setInput(output);

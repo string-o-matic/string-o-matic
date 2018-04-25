@@ -1,6 +1,7 @@
 import * as util from 'node-forge/lib/util';
 import bcrypt from 'bcryptjs';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {StringType} from '../../Types';
 import Data from '../../Data';
 import Step from '../Step';
@@ -65,7 +66,7 @@ class BCryptHash extends Step {
     return new Promise(resolve => {
       bcrypt.genSalt(cost).then(salt => {
         bcrypt.hash(input.data, salt).then(hash => {
-          const result = Data.string(hash);
+          const result = Data.string(hash).withSequence(input.sequence);
           if (util.encodeUtf8(input.data).length > 72) {
             result.addWarning('Input exceeds 72 bytes. Only the first 72 bytes are hashed.');
           }
@@ -84,9 +85,8 @@ class BCryptHash extends Step {
 }
 
 BCryptHashForm.propTypes = {
-  step: BCryptHash.prototype.isRequired,
-  onChange: Function.prototype.isRequired,
-  refresh: Function.prototype.isRequired
+  step: PropTypes.instanceOf(BCryptHash).isRequired,
+  refresh: PropTypes.func.isRequired
 };
 
 export {BCryptHashForm};

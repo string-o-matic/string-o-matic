@@ -4,6 +4,8 @@ class Globals {
 
   static steps = [];
 
+  static inputSequence = 0;
+
   static inputType = 'text';
   static inputDirection = 'ltr';
 
@@ -15,6 +17,7 @@ class Globals {
 
   static reset() {
     Globals.steps = [];
+    Globals.inputSequence = 0;
     Globals.textInput = '';
     Globals.file = null;
     Globals.fileInput = Data.string('');

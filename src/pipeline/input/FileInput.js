@@ -59,7 +59,7 @@ class FileInput extends Component {
   }
 
   componentDidMount() {
-    this.props.inputChange(Globals.fileInput);
+    this.props.inputChange(Globals.fileInput.withSequence(++Globals.inputSequence));
   }
 
   onDrop(acceptedFiles, rejectedFiles) {
@@ -74,9 +74,9 @@ class FileInput extends Component {
         } catch (e) {
           input = Data.byteStringBuffer(byteStringBuffer);
         }
-        this.props.inputChange(input);
         Globals.file = acceptedFiles[0];
-        Globals.fileInput = input;
+        Globals.fileInput = input.withSequence(++Globals.inputSequence);
+        this.props.inputChange(input);
         this.setState({ });
       };
       const onFail = () => {
@@ -95,14 +95,14 @@ class FileInput extends Component {
   }
 
   onChange(value) {
-    const input = Data.string(value);
+    const input = Data.string(value).withSequence(++Globals.inputSequence);
     this.props.inputChange(input);
     Globals.fileInput = input;
     this.setState({ });
   }
 
   clear() {
-    const input = Data.string('');
+    const input = Data.string('').withSequence(++Globals.inputSequence);
     this.props.inputChange(input);
     Globals.fileInput = input;
     Globals.fileError = null;

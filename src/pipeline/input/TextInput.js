@@ -37,19 +37,23 @@ class TextInput extends Component {
   }
 
   componentDidMount() {
-    this.props.inputChange(Data.string(Globals.textInput + ''));
+    this.send(Globals.textInput + '');
   }
 
   onChange(value) {
-    this.props.inputChange(Data.string(value));
     Globals.textInput = value;
     this.setState({ });
+    this.send(value);
   }
 
   clear() {
     Globals.textInput = '';
     this.setState({ });
-    this.props.inputChange(Data.string(''));
+    this.send('');
+  }
+
+  send(value) {
+    this.props.inputChange(Data.string(value).withSequence(++Globals.inputSequence));
   }
 
 }

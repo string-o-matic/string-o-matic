@@ -9,6 +9,7 @@ class Data {
   inputType = null;
   warnings = [];
   infos = [];
+  sequence = 0;
 
   constructor(status, type, data) {
     this.status = status;
@@ -54,10 +55,17 @@ class Data {
 
   addWarning(warning) {
     this.warnings.push(warning);
+    return this;
   }
 
   addInfo(info) {
     this.infos.push(info);
+    return this;
+  }
+
+  withSequence(sequence) {
+    this.sequence = sequence;
+    return this;
   }
 
 }
