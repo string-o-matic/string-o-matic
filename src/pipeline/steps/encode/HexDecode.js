@@ -43,7 +43,7 @@ class HexDecode extends Step {
   static rtl = true;
 
   form = HexDecodeForm;
-
+  direction = 'ltr';
   encoding = 'UTF-8';
 
   setEncoding(encoding) {

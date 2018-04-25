@@ -11,6 +11,8 @@ class StripWhiteSpace extends Step {
   static supports = [ StringType ];
   static rtl = true;
 
+  direction = 'ltr';
+
   calculate(input) {
     // eslint-disable-next-line no-control-regex
     return Data.string(input.data.replace(/[\x09-\x0d\x20\x85\xa0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000]/g, ''));

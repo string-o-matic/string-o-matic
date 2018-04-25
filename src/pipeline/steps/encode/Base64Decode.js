@@ -44,7 +44,7 @@ class Base64Decode extends Step {
   static rtl = true;
 
   form = Base64DecodeForm;
-
+  direction = 'ltr';
   encoding = 'UTF-8';
 
   setEncoding(encoding) {
