@@ -44,7 +44,11 @@ class StepComponent extends Component {
           meta.push(<div className="warning" key="warningX"><span className="ionicon ion-md-alert"/> Some characters are not printable and are displayed as &#xfffd;.</div>);
         }
         content.push(this.data(cleanData));
-        meta.push(<div key="type">String, {output.data.length} characters</div>);
+        if (output.data.match(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\uFE00-\uFE0F\uD800-\uDBFF\uDC00-\uDFFF]/g)) {
+          meta.push(<div key="type">String, ~{output.data.length} characters. <span className="ion-md-information-circle"/> Contains combining characters, variation selectors or surrogate pairs.</div>);
+        } else {
+          meta.push(<div key="type">String, {output.data.length} characters</div>);
+        }
       } else if (output.type === BoolType) {
         content.push(this.data(output.data ? 'TRUE' : 'FALSE', output.data ? 'true' : 'false'));
         meta.push(<div key="type">Boolean</div>);
