@@ -87,8 +87,8 @@ class Base64Encode extends Step {
 
   static title = 'Base64 Encode';
   static supports = [ StringType, ByteStringBufferType ];
+  static form = Base64EncodeForm;
 
-  form = Base64EncodeForm;
   showEncoding = false;
 
   encoding = 'UTF-8';

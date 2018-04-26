@@ -117,8 +117,8 @@ class HexEncode extends Step {
 
   static title = 'Hex Encode';
   static supports = [ StringType, ByteStringBufferType ];
+  static form = HexEncodeForm;
 
-  form = HexEncodeForm;
   showEncoding = false;
 
   encoding = 'UTF-8';

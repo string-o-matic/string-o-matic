@@ -41,8 +41,8 @@ class BCryptHash extends Step {
 
   static title = 'BCrypt Hash';
   static supports = [ StringType ];
+  static form = BCryptHashForm;
 
-  form = BCryptHashForm;
   cost = 12;
   costValid = true;
   minCost = 4;

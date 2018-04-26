@@ -37,8 +37,8 @@ class BCryptVerify extends Step {
 
   static title = 'BCrypt Verify';
   static supports = [ StringType ];
+  static form = BCryptVerifyForm;
 
-  form = BCryptVerifyForm;
   password = '';
 
   setPassword(password) {

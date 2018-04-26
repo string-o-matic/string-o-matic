@@ -6,8 +6,7 @@ import './StepForm.css';
 class StepForm extends Component {
 
   render() {
-    // TODO temp - migrate to static form fields
-    const TagName = this.props.step.constructor.form || this.props.step.form;
+    const TagName = this.props.step.constructor.form;
     if (TagName) {
       return (
         <div className="step-form container-fluid">

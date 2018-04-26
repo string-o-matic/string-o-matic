@@ -32,8 +32,8 @@ import './StepSelector.css';
 class StepSelector extends Component {
 
   categories = {
-    'String Case': [ UpperCase, LowerCase, StripControlCharacters, StripWhiteSpace ],
-    'String Transform': [ Reverse ],
+    'String Case': [ UpperCase, LowerCase ],
+    'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ],
     'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode, Base64Encode, Base64Decode, BinaryEncode ],
     'Escape': [ HtmlEscape, HtmlUnescape ],
     'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ]

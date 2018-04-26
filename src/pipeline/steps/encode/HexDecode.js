@@ -41,8 +41,8 @@ class HexDecode extends Step {
   static title = 'Hex Decode';
   static supports = [ StringType ];
   static rtl = true;
+  static form = HexDecodeForm;
 
-  form = HexDecodeForm;
   direction = 'ltr';
   encoding = 'UTF-8';
 
