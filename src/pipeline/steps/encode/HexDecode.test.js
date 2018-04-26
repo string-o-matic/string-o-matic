@@ -142,7 +142,7 @@ test('x prefix', () => {
 
 test('0x prefix', () => {
   step.setEncoding('UTF-16');
-  expectResult('0x270x640xfe0x0f', '\u2764\uFE0F');
+  expectResult('0x270X640xfe0X0f', '\u2764\uFE0F');
 });
 
 test('; suffix', () => {
