@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Guide.css';
 
 class Guide extends Component {
 
@@ -12,6 +13,7 @@ class Guide extends Component {
           <li><a href="#nonprintable">Non Printable Characters</a></li>
           <li><a href="#lineendings">Line Endings</a></li>
           <li><a href="#emoji">Emoji</a></li>
+          <li><a href="#combining">Combining Characters</a></li>
           <li><a href="#security">Security</a></li>
         </ol>
         <h4><span className="ion-ios-cog-outline"/> <a name="intro">Introduction</a></h4>
@@ -129,6 +131,12 @@ class Guide extends Component {
         <h4><span className="ion-ios-cog-outline"/> <a name="emoji">Emoji</a></h4>
         <div className="guide-section-content">
           <p>
+            <strong>
+              Some browsers do not properly support emoji. For example, on Chrome/Linux you may not see any coloured
+              emoji in this guide or in the pipeline. That&apos;s a limitation of the browser and not this site.
+            </strong>
+          </p>
+          <p>
             Emoji are fully supported by most transformation steps but you may see some unexpected behaviour due to the
             way they work and how javascript encodes characters.
           </p>
@@ -158,6 +166,70 @@ class Guide extends Component {
             For more information, and some insight into why this site doesn&apos;t attempt more advanced handling, take a
             look at <a href="http://blog.jonnew.com/posts/poo-dot-length-equals-two" target="_blank" rel="noopener noreferrer">this excellent article</a>.
           </p>
+        </div>
+        <h4><span className="ion-ios-cog-outline"/> <a name="combining">Combining Characters</a></h4>
+        <div className="guide-section-content">
+          <p>
+            Combining characters modify the character before them. The most common use of combining characters is to add
+            diacritical marks such as accents. For example a lower case <code>a</code> followed by the grave accent
+            combining diacritical <code>&#x0300;</code> produces <code>a&#x0300;</code>.
+          </p>
+          <p>
+            Unicode contains many precomposed accented characters which represent the same glyph as a letter plus
+            diacritical combination. The accented a as a single character appears as <code>&#xe0;</code>.
+          </p>
+          <p>
+            As with emoji, combining characters can produce unexpected results because they appear to be multiple characters
+            but are combined together in one glyph by the browser, which javascript can&apos;t detect. You may see string
+            lengths that are inaccurate or string transformations that look corrupt because the combining character now
+            appears after a different character.
+          </p>
+          <p>
+            A warning message will be shown if your input may be affected.
+          </p>
+          <p>
+            The following pseudocode examples illustrate some behaviour you might see.
+          </p>
+          <table>
+            <thead>
+              <th><code>a</code> + combining character <code>&#x0300;</code></th>
+              <th>Single character <code>&#xE0;</code></th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <code>a&#x0300;.length() = 2</code>
+                </td>
+                <td>
+                  <code>&#xE0;.length() = 1</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>a&#x0300;e.reverse() = e&#x0300;a</code>
+                </td>
+                <td>
+                  <code>&#xE0;e.reverse() = e&#xE0;</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>a&#x0300;.replace(&#xE0;, x) = a&#x0300;</code>
+                </td>
+                <td>
+                  <code>&#xE0;.replace(&#xE0;, x) = x</code>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <code>a&#x0300;.replace(<span>&#x0300;</span>, x) = ax</code>
+                </td>
+                <td>
+                  <code>&#xE0;.replace(<span>&#x0300;</span>, x) = &#xE0;</code>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <h4><span className="ion-ios-cog-outline"/> <a name="security">Security</a></h4>
         <div className="guide-section-content">

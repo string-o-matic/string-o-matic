@@ -1,0 +1,17 @@
+@import '../css/colors';
+@import '../css/variables';
+
+table {
+  th {
+    text-align: left;
+  }
+
+  td,
+  th {
+    padding: 5px 15px;
+
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
