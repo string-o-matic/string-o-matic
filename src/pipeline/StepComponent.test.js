@@ -8,5 +8,6 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   const refresh = function() { };
   const deleteStep = function() { };
-  ReactDOM.render(<StepComponent step={step} refresh={refresh} deleteStep={deleteStep}/>, div);
+  const injectStepBefore = function() { };
+  ReactDOM.render(<StepComponent step={step} refresh={refresh} deleteStep={deleteStep} injectStepBefore={injectStepBefore}/>, div);
 });

@@ -4,6 +4,8 @@ import Step from './steps/Step';
 import {StepTail, StepTop} from '../Common';
 import StepForm from './steps/StepForm';
 import ResizingTextArea from './ResizingTextArea';
+import HexEncode from './steps/encode/HexEncode';
+import Base64Encode from './steps/encode/Base64Encode';
 import {StringType, BoolType, NullType, ByteStringBufferType} from './Types';
 import './StepComponent.css';
 
@@ -17,6 +19,10 @@ class StepComponent extends Component {
 
   deleteStep() {
     this.props.deleteStep(this.props.step);
+  }
+
+  injectStepBefore(step) {
+    this.props.injectStepBefore(this.props.step, new step());
   }
 
   render() {
@@ -36,7 +42,7 @@ class StepComponent extends Component {
       const meta = [];
       if (output.type === ByteStringBufferType) {
         content.push(this.data(output.data.toHex()));
-        meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes<br/>Displayed as hex - for other options add an encode step</span></div>);
+        meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes<br/><span className="ion-md-information-circle"/> Hex preview. Add an encode step.</span></div>);
       } else if (output.type === StringType) {
         // eslint-disable-next-line no-control-regex
         const cleanData = output.data.replace(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g, '\ufffd');
@@ -45,7 +51,7 @@ class StepComponent extends Component {
         }
         content.push(this.data(cleanData));
         if (output.data.match(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\uFE00-\uFE0F\uD800-\uDBFF\uDC00-\uDFFF]/g)) {
-          meta.push(<div key="type">String, ~{output.data.length} characters. <span className="ion-md-information-circle"/> Contains combining characters, variation selectors or surrogate pairs.</div>);
+          meta.push(<div key="type">String, ~{output.data.length} characters<br/><span className="ion-md-information-circle"/> Contains combining characters, variation selectors or surrogate pairs.</div>);
         } else {
           meta.push(<div key="type">String, {output.data.length} characters</div>);
         }
@@ -68,7 +74,15 @@ class StepComponent extends Component {
     } else if (output.status === 'unsupported') {
       clazz = 'error';
       const supports = step.constructor.supports.map(s => s.display).join(', ');
-      content.push(this.error(<span>This step can&apos;t convert {output.inputType.displayPlural} - supported types are: {supports}<br/><small>Try adding a conversion step</small></span>));
+      let suggestions = <div>Try adding a conversion step</div>;
+      if (output.inputType === ByteStringBufferType && step.constructor.supports.indexOf(StringType) > -1) {
+        suggestions = (<div className="suggestions">
+          <p>Recommended conversion steps:</p>
+          <button className="btn" onClick={this.injectStepBefore.bind(this, HexEncode)}>{HexEncode.title}</button>
+          <button className="btn" onClick={this.injectStepBefore.bind(this, Base64Encode)}>{Base64Encode.title}</button>
+        </div>);
+      }
+      content.push(this.error(<span>This step can&apos;t convert {output.inputType.displayPlural} - supported types are: {supports}{suggestions}</span>));
     } else if (output.status === 'broken-pipe') {
       clazz = 'broken-pipe';
       content.push(this.brokenPipe());
@@ -130,6 +144,7 @@ class StepComponent extends Component {
 
 StepComponent.propTypes = {
   deleteStep: PropTypes.func.isRequired,
+  injectStepBefore: PropTypes.func.isRequired,
   refresh: PropTypes.func.isRequired,
   step: PropTypes.instanceOf(Step).isRequired
 };

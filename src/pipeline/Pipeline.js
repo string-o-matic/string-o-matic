@@ -15,6 +15,7 @@ class Pipeline extends Component {
     this.inputChange = this.inputChange.bind(this);
     this.addStep = this.addStep.bind(this);
     this.deleteStep = this.deleteStep.bind(this);
+    this.injectStepBefore = this.injectStepBefore.bind(this);
     this.refresh = this.refresh.bind(this);
   }
 
@@ -24,7 +25,7 @@ class Pipeline extends Component {
         <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
         {
           Globals.steps.map(step =>
-            <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} refresh={this.refresh}/>
+            <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} injectStepBefore={this.injectStepBefore} refresh={this.refresh}/>
           )
         }
         <StepSelector addStep={this.addStep}/>
@@ -53,6 +54,27 @@ class Pipeline extends Component {
       step.setInput(this.state.input);
     }
     Globals.steps.push(step);
+    this.setState({});
+  }
+
+  injectStepBefore(thisStep, newStep) {
+    const steps = [ ];
+    const pushStep = (step) => {
+      step.setNext(null);
+      if (steps.length > 0) {
+        steps[steps.length - 1].setNext(step);
+      } else {
+        step.setInput(this.state.input);
+      }
+      steps.push(step);
+    };
+    Globals.steps.forEach(step => {
+      if (step === thisStep) {
+        pushStep(newStep);
+      }
+      pushStep(step);
+    });
+    Globals.steps = steps;
     this.setState({});
   }
 

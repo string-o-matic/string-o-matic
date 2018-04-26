@@ -264,6 +264,27 @@
       padding: $step-padding;
     }
 
+    .suggestions {
+      button {
+        font-family: Lato, Helvetica, Arial, sans-serif;
+        background: #F5F5F5;
+        color: #757575;
+        outline: none;
+        padding: 7px 10px;
+        text-align: left;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 2px;
+
+        &:hover,
+        &:focus,
+        &:active {
+          background: #E0E0E0;
+          color: #616161;
+        }
+      }
+    }
+
   }
 
 }
