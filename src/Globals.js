@@ -24,6 +24,14 @@ class Globals {
     Globals.fileError =  null;
   }
 
+  static noAutoComplete = {
+    autoCapitalize: 'false',
+    autoCorrect: 'false',
+    autoComplete: 'false',
+    spellCheck: 'false',
+    'data-lpignore': 'true'
+  };
+
 }
 
 export default Globals;
