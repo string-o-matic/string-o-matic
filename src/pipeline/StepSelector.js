@@ -16,6 +16,7 @@ import HexDecode from './steps/encode/HexDecode';
 import Base64Encode from './steps/encode/Base64Encode';
 import Base64Decode from './steps/encode/Base64Decode';
 import BinaryEncode from './steps/encode/BinaryEncode';
+import BinaryDecode from './steps/encode/BinaryDecode';
 import URIEncode from './steps/encode/URIEncode';
 import URIDecode from './steps/encode/URIDecode';
 import Reverse from './steps/string/Reverse';
@@ -34,7 +35,7 @@ class StepSelector extends Component {
   categories = {
     'String Case': [ UpperCase, LowerCase ],
     'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ],
-    'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode, Base64Encode, Base64Decode, BinaryEncode ],
+    'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode, Base64Encode, Base64Decode, BinaryEncode, BinaryDecode ],
     'Escape': [ HtmlEscape, HtmlUnescape ],
     'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ]
   };
