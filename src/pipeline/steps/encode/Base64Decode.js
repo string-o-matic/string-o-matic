@@ -1,55 +1,26 @@
 import * as util from 'node-forge/lib/util';
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { ByteDecodeForm } from './AbstractByteDecode';
 import Step from '../Step';
 import Data from '../../Data';
 import {StringType} from '../../Types';
-
-// TODO Show some information about auto padding and decoding of URL safe
-class Base64DecodeForm extends Component {
-
-  constructor(props) {
-    super(props);
-    this.onEncodingChange = this.onEncodingChange.bind(this);
-  }
-
-  render() {
-    return (
-      <form className="form-inline row">
-        <div className="material-group col-xs-4 col-sm-3 col-md-2">
-          <label>Encoding</label>
-          <select onChange={this.onEncodingChange} value={this.props.step.encoding}>
-            <option value="UTF-8">UTF-8</option>
-            <option value="UTF-16">UTF-16 big-endian</option>
-            <option value="UTF-16LE">UTF-16 little-endian</option>
-            <option value="UTF-16AUTO">UTF-16 auto</option>
-            <option value="ISO-8859-1">ISO-8859-1</option>
-          </select>
-        </div>
-      </form>
-    );
-  }
-
-  onEncodingChange(e) {
-    this.props.step.setEncoding(e.target.value);
-    this.props.refresh();
-  }
-
-}
 
 class Base64Decode extends Step {
 
   static title = 'Base64 Decode';
   static supports = [ StringType ];
   static rtl = true;
-  static form = Base64DecodeForm;
+  static form = ByteDecodeForm;
 
   direction = 'ltr';
-  encoding = 'UTF-8';
 
-  setEncoding(encoding) {
+  prefs = {
+    encoding: 'UTF-8'
+  };
+
+  setEncoding = (v) => { this.prefs.encoding = v; this._update(); };
+
+  _update() {
     this.output = null;
-    this.encoding = encoding;
     this.passInput();
   }
 
@@ -59,7 +30,7 @@ class Base64Decode extends Step {
     while (data.length % 4 !== 0) {
       data += '=';
     }
-    switch (this.encoding) {
+    switch (this.prefs.encoding) {
     case 'UTF-8':
       try {
         return Data.string(util.decodeUtf8(util.decode64(data)));
@@ -122,10 +93,4 @@ class Base64Decode extends Step {
 
 }
 
-Base64DecodeForm.propTypes = {
-  step: PropTypes.instanceOf(Base64Decode).isRequired,
-  refresh: PropTypes.func.isRequired
-};
-
-export {Base64DecodeForm};
 export default Base64Decode;

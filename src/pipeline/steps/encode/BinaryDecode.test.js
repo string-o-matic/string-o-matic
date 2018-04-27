@@ -31,6 +31,11 @@ test('dollar utf8', () => {
   expectResult('00100100', '$');
 });
 
+test('dollar utf8 without leading zeros', () => {
+  step.setEncoding('UTF-8');
+  expectResult('100100', '$');
+});
+
 test('cent utf8', () => {
   step.setEncoding('UTF-8');
   expectResult('11000010 10100010', '¢');
@@ -58,6 +63,11 @@ test('dollar utf16', () => {
   expectResult('00000000 00100100', '$');
 });
 
+test('dollar utf16 without leading zeros', () => {
+  step.setEncoding('UTF-16');
+  expectResult('0 100100', '$');
+});
+
 test('euro utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('00100000 10101100', '€');
@@ -83,6 +93,11 @@ test('empty utf16le', () => {
 test('dollar utf16le', () => {
   step.setEncoding('UTF-16LE');
   expectResult('00100100 00000000', '$');
+});
+
+test('dollar utf16le without leading zeros', () => {
+  step.setEncoding('UTF-16LE');
+  expectResult('100100 0', '$');
 });
 
 test('euro utf16le', () => {
@@ -136,22 +151,22 @@ test('combined options', () => {
 
 test('utf16be correct bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('11111110 11111111 00000000 00100100', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('11111110 11111111 00000000 00100100', '$', 'Stripped big-endian byte order mark (11111110 11111111)');
 });
 
 test('utf16be incorrect bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('11111111 11111110 00000000 00100100', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('11111111 11111110 00000000 00100100', '$', 'Stripped little-endian byte order mark (11111111 11111110)');
 });
 
 test('utf16le correct bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('11111111 11111110 00100100 00000000', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('11111111 11111110 00100100 00000000', '$', 'Stripped little-endian byte order mark (11111111 11111110)');
 });
 
 test('utf16le incorrect bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('11111110 11111111 00100100 00000000', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('11111110 11111111 00100100 00000000', '$', 'Stripped big-endian byte order mark (11111110 11111111)');
 });
 
 test('utf16be auto bom', () => {

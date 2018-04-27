@@ -103,6 +103,7 @@ test('dollar utf16le bom', () => {
 // -------- OPTIONS --------
 
 test('no separator', () => {
+  // FIXME needs error message
   expectResult('194 162', '¢');
 });
 
@@ -132,22 +133,22 @@ test('combined options', () => {
 
 test('utf16be correct bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('254 255 0 36', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('254 255 0 36', '$', 'Stripped big-endian byte order mark (254 255)');
 });
 
 test('utf16be incorrect bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('255 254 0 36', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('255 254 0 36', '$', 'Stripped little-endian byte order mark (255 254)');
 });
 
 test('utf16le correct bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('255 254 36 0', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('255 254 36 0', '$', 'Stripped little-endian byte order mark (255 254)');
 });
 
 test('utf16le incorrect bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('254 255 36 0', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('254 255 36 0', '$', 'Stripped big-endian byte order mark (254 255)');
 });
 
 test('utf16be auto bom', () => {

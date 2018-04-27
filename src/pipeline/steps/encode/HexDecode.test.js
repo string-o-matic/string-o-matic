@@ -65,19 +65,29 @@ test('space utf16', () => {
   expectResult('0020', ' ');
 });
 
+test('space utf16 without leading zeros', () => {
+  step.setEncoding('UTF-16');
+  expectResult('0 20', ' ');
+});
+
 test('pound utf16', () => {
   step.setEncoding('UTF-16');
   expectResult('00a3', '\u00A3');
 });
 
+test('pound utf16 without leading zeros', () => {
+  step.setEncoding('UTF-16');
+  expectResult('0 a3', '\u00A3');
+});
+
 test('pound utf16 correct bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('feff00a3', '\u00A3', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('feff00a3', '\u00A3', 'Stripped big-endian byte order mark (FE FF)');
 });
 
 test('pound utf16 incorrect bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('fffe00a3', '\u00A3', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('fffe00a3', '\u00A3', 'Stripped little-endian byte order mark (FF FE)');
 });
 
 test('abc utf16le', () => {
@@ -97,12 +107,12 @@ test('pound utf16le', () => {
 
 test('pound utf16le correct bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('fffea300', '\u00A3', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('fffea300', '\u00A3', 'Stripped little-endian byte order mark (FF FE)');
 });
 
 test('pound utf16le incorrect bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('feffa300', '\u00A3', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('feffa300', '\u00A3', 'Stripped big-endian byte order mark (FE FF)');
 });
 
 test('dash emoji utf16', () => {
