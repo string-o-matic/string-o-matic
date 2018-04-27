@@ -1,11 +1,11 @@
-import BinaryDecode from './BinaryDecode';
+import DecimalDecode from './DecimalDecode';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
 let step;
 
 beforeEach(() => {
-  step = new BinaryDecode();
+  step = new DecimalDecode();
 });
 
 // No tests for null or unsupported types - superclass rejects them.
@@ -28,22 +28,22 @@ test('empty utf8', () => {
 
 test('dollar utf8', () => {
   step.setEncoding('UTF-8');
-  expectResult('00100100', '$');
+  expectResult('36', '$');
 });
 
 test('cent utf8', () => {
   step.setEncoding('UTF-8');
-  expectResult('11000010 10100010', '¢');
+  expectResult('194 162', '¢');
 });
 
 test('euro utf8', () => {
   step.setEncoding('UTF-8');
-  expectResult('11100010 10000010 10101100', '€');
+  expectResult('226 130 172', '€');
 });
 
 test('u{10348} utf8', () => {
   step.setEncoding('UTF-8');
-  expectResult('11110000 10010000 10001101 10001000', '\u{10348}');
+  expectResult('240 144 141 136', '\u{10348}');
 });
 
 // -------- DEFAULT UTF16BE --------
@@ -55,22 +55,22 @@ test('empty utf16', () => {
 
 test('dollar utf16', () => {
   step.setEncoding('UTF-16');
-  expectResult('00000000 00100100', '$');
+  expectResult('0 36', '$');
 });
 
 test('euro utf16', () => {
   step.setEncoding('UTF-16');
-  expectResult('00100000 10101100', '€');
+  expectResult('32 172', '€');
 });
 
 test('U+10437 utf16', () => {
   step.setEncoding('UTF-16');
-  expectResult('11011000 00000001 11011100 00110111', '\u{10437}');
+  expectResult('216 1 220 55', '\u{10437}');
 });
 
 test('dollar utf16 bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('11111110 11111111 00000000 00100100', '$');
+  expectResult('254 255 0 36', '$');
 });
 
 // -------- DEFAULT UTF16LE --------
@@ -82,89 +82,85 @@ test('empty utf16le', () => {
 
 test('dollar utf16le', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('00100100 00000000', '$');
+  expectResult('36 0', '$');
 });
 
 test('euro utf16le', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('10101100 00100000', '€');
+  expectResult('172 32', '€');
 });
 
 test('U+10437 utf16le', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('00000001 11011000 00110111 11011100', '\u{10437}');
+  expectResult('1 216 55 220', '\u{10437}');
 });
 
 test('dollar utf16le bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('11111111 11111110 00100100 00000000', '$');
+  expectResult('255 254 36 0', '$');
 });
 
 // -------- OPTIONS --------
 
 test('no separator', () => {
-  expectResult('1100001010100010', '¢');
+  expectResult('194 162', '¢');
 });
 
 test('pipe separator', () => {
-  expectResult('11000010|10100010', '¢');
+  expectResult('194|162', '¢');
 });
 
 test('prefix', () => {
-  expectResult('\\b11000010 \\b10100010', '¢');
-});
-
-test('0b prefix', () => {
-  expectResult('0b110000100B10100010', '¢');
+  expectResult('\\d194 \\d162', '¢');
 });
 
 test('suffix', () => {
-  expectResult('11000010; 10100010;', '¢');
+  expectResult('194; 162;', '¢');
 });
 
 test('multiline', () => {
   step.setEncoding('UTF-16');
-  expectResult('11111110 11111111\n00000000 00100100', '$');
+  expectResult('254 255\n0 36', '$');
 });
 
 test('combined options', () => {
   step.setEncoding('UTF-16');
-  expectResult('\\b11111110;|\\b11111111;\n\\b00000000;|\\b00100100;', '$');
+  expectResult('\\d254;|\\d255;\n\\d0;|\\d36;', '$');
 });
 
 // -------- BOM DETECTION --------
 
 test('utf16be correct bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('11111110 11111111 00000000 00100100', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('254 255 0 36', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
 });
 
 test('utf16be incorrect bom', () => {
   step.setEncoding('UTF-16');
-  expectResult('11111111 11111110 00000000 00100100', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('255 254 0 36', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
 });
 
 test('utf16le correct bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('11111111 11111110 00100100 00000000', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
+  expectResult('255 254 36 0', '$', 'Stripped little-endian byte order mark (0xFF 0xFE)');
 });
 
 test('utf16le incorrect bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('11111110 11111111 00100100 00000000', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
+  expectResult('254 255 36 0', '$', 'Stripped big-endian byte order mark (0xFE 0xFF)');
 });
 
 test('utf16be auto bom', () => {
   step.setEncoding('UTF-16AUTO');
-  expectResult('11111110 11111111 00000000 00100100', '$', 'Found big-endian byte order mark');
+  expectResult('254 255 0 36', '$', 'Found big-endian byte order mark');
 });
 
 test('utf16le auto bom', () => {
   step.setEncoding('UTF-16AUTO');
-  expectResult('11111111 11111110 00100100 00000000', '$', 'Found little-endian byte order mark');
+  expectResult('255 254 36 0', '$', 'Found little-endian byte order mark');
 });
 
 test('utf16be auto no bom', () => {
   step.setEncoding('UTF-16AUTO');
-  expectResult('00000000 00100100', '$', 'No byte order mark - assuming big-endian');
+  expectResult('0 36', '$', 'No byte order mark - assuming big-endian');
 });

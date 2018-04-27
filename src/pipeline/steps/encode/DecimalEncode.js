@@ -96,7 +96,6 @@ class DecimalEncode extends Step {
 
   calculate(input) {
     let bytes = [];
-    let result = '';
     if (input.type === StringType) {
       this.showEncoding = true;
       switch (this.prefs.encoding) {
@@ -142,8 +141,7 @@ class DecimalEncode extends Step {
         bytes[i] = this.prefs.prefix + bytes[i] + this.prefs.suffix + terminator;
       }
     }
-    result = bytes.join('');
-    return Data.string(result);
+    return Data.string(bytes.join(''));
   }
 
   encodeRaw(data) {

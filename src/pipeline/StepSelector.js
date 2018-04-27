@@ -18,6 +18,7 @@ import Base64Decode from './steps/encode/Base64Decode';
 import BinaryEncode from './steps/encode/BinaryEncode';
 import BinaryDecode from './steps/encode/BinaryDecode';
 import DecimalEncode from './steps/encode/DecimalEncode';
+import DecimalDecode from './steps/encode/DecimalDecode';
 import URIEncode from './steps/encode/URIEncode';
 import URIDecode from './steps/encode/URIDecode';
 import Reverse from './steps/string/Reverse';
@@ -38,7 +39,7 @@ class StepSelector extends Component {
     'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ], // Replace, Normalize ...
     'Escape': [ HtmlEscape, HtmlUnescape ], // Java, Python ...
     'Character Encode': [ URIEncode, URIDecode ], // Code points decimal/hex
-    'Byte Encode': [ Base64Encode, Base64Decode, HexEncode, HexDecode, DecimalEncode, BinaryEncode, BinaryDecode ],
+    'Byte Encode': [ Base64Encode, Base64Decode, HexEncode, HexDecode, DecimalEncode, DecimalDecode, BinaryEncode, BinaryDecode ],
     'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
     'Encrypt': [ ], // RSA ...
     'Cipher': [ ] // ROT13 ...
