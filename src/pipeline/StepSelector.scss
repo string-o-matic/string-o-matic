@@ -32,7 +32,7 @@
     }
 
     .category {
-      padding: ($grid-margin / 2) 0;
+      padding: ($grid-margin / 2) 0 (($grid-margin / 2) - 5);
       border-bottom: 1px dashed #EEE;
 
       &:first-child {

@@ -69,13 +69,17 @@ class StepSelector extends Component {
     let steps = <p className="no-matches">No matching steps!</p>;
     if (Object.keys(filteredCategories).length > 0) {
       steps = Object.keys(filteredCategories).map((name) => {
-        return (<div key={name} className="category">
-          <h4>{name}</h4>
-          {
-            filteredCategories[name].map((step, i) =>
-              <button key={i} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>
-            )
-          }
+        return (<div key={name} className="category row">
+          <div className="col-md-2">
+            <h4>{name}</h4>
+          </div>
+          <div className="col-md-10">
+            {
+              filteredCategories[name].map((step, i) =>
+                <button key={i} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>
+              )
+            }
+          </div>
         </div>);
       });
     }
@@ -84,8 +88,12 @@ class StepSelector extends Component {
       <div className="step-selector">
         <StepTop/>
         <div className="body">
-          <div className="search">
-            <input type="text" placeholder="Search" onChange={this.onSearchChange}/><button className="delete" onClick={this.clearSearch}><span className="ion-md-close"/></button>
+          <div className="row">
+            <div className="col-xs-12">
+              <div className="search pull-right">
+                <input type="text" placeholder="Search" onChange={this.onSearchChange}/><button className="delete" onClick={this.clearSearch}><span className="ion-md-close"/></button>
+              </div>
+            </div>
           </div>
           {steps}
         </div>
