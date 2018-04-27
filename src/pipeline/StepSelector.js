@@ -33,11 +33,14 @@ import './StepSelector.css';
 class StepSelector extends Component {
 
   categories = {
-    'String Case': [ UpperCase, LowerCase ],
-    'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ],
-    'Encode': [ URIEncode, URIDecode, HexEncode, HexDecode, Base64Encode, Base64Decode, BinaryEncode, BinaryDecode ],
-    'Escape': [ HtmlEscape, HtmlUnescape ],
-    'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ]
+    'String Case': [ UpperCase, LowerCase ], // Title, Snake, Camel, Inverse ...
+    'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ], // Replace, Normalize ...
+    'Escape': [ HtmlEscape, HtmlUnescape ], // Java, Python ...
+    'Character Encode': [ URIEncode, URIDecode ], // Code points decimal/hex
+    'Byte Encode': [ HexEncode, HexDecode, Base64Encode, Base64Decode, BinaryEncode, BinaryDecode ],
+    'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
+    'Encrypt': [ ], // RSA ...
+    'Cipher': [ ] // ROT13 ...
   };
 
   constructor(props) {
