@@ -92,8 +92,7 @@ class AbstractByteDecode extends Step {
       try {
         return Data.string(util.decodeUtf8(this.decodeFixedBytes(data, 1).data));
       } catch (e) {
-        // TODO make encoding names links that set the encoding
-        return Data.invalid('Input cannot be decoded as UTF-8 - try UTF-16 or ISO-8859-1');
+        return Data.invalid('Input cannot be decoded as UTF-8 - try another character encoding.');
       }
     case 'UTF-16':
       return this.decodeFixedBytes(data, 2, 'big');
@@ -116,7 +115,7 @@ class AbstractByteDecode extends Step {
       .filter((e) => e.length > 0)
       .reduce((r, e) => {
         if (splitter && e.length > conf.chars) {
-          e.match(splitter).forEach((b) => r.push(b));
+          r.push(...e.match(splitter));
         } else {
           r.push(e);
         }
@@ -124,16 +123,16 @@ class AbstractByteDecode extends Step {
       }, [])
       .map((e) => parseInt(e, this.base)) || [];
 
-    let firstByte = 0;
+    let start = 0;
     if (width === 2 && bytes.length >= 2) {
       const bom = (bytes[0] << 8) + bytes[1];
       if (endian === 'auto') {
         if (bom === 0xFFFE) {
-          firstByte = 2;
+          start = 2;
           endian = 'little';
           info = 'Found little-endian byte order mark';
         } else if (bom === 0xFEFF) {
-          firstByte = 2;
+          start = 2;
           endian = 'big';
           info = 'Found big-endian byte order mark';
         } else {
@@ -141,16 +140,16 @@ class AbstractByteDecode extends Step {
           info = 'No byte order mark - assuming big-endian';
         }
       } else if (bom === 0xFFFE) {
-        firstByte = 2;
+        start = 2;
         info = 'Stripped little-endian byte order mark (' + conf.leBom + ')';
       } else if (bom === 0xFEFF) {
-        firstByte = 2;
+        start = 2;
         info = 'Stripped big-endian byte order mark (' + conf.beBom + ')';
       }
     }
 
     let string = '';
-    for (let i = firstByte; i < bytes.length - (width - 1); i += width) {
+    for (let i = start; i < bytes.length - (width - 1); i += width) {
       let b = bytes[i];
       if (width === 2) {
         let b2 = bytes[i + 1];
