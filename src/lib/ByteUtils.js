@@ -25,13 +25,13 @@ class ByteUtils {
   };
 
   /**
-   * Decode a string containing encoded bytes e.g hex 'aa ab', decimal '128 63', binary '1001 10110111' into an array of
+   * Decode a string containing encoded bytes e.g hex '0xAA 0xBB', decimal '128 63', binary '1001 10110111' into an array of
    * uint(8) integers. Will throw an exception if there are any above 0xFF.
    * @param data {String} input string
-   * @param base 2 (binary), 10 (decimal), 16 (hex)
+   * @param base {Number} 2 = binary, 10 = decimal, 16 = hex
    * @returns {Array<Number>}
    */
-  static decodeToUint8Array(data, base) {
+  static baseStringToUint8Array(data, base) {
     const conf = this.baseConfig[base];
     const splitter = conf.chars ? new RegExp('.{1,' + conf.chars + '}', 'g') : null;
 
@@ -59,18 +59,30 @@ class ByteUtils {
       .map((e) => {
         const uint8 = parseInt(e, base);
         if (uint8 > 0xFF) {
-          throw 'String contains invalid bytes';
+          throw new Error('String contains invalid bytes');
         }
         return uint8;
       }) || [];
   }
 
-  static decodeToByteStringBuffer(data, base) {
-    return new util.ByteStringBuffer(this.decodeToByteString(data, base));
+  /**
+   * Decodes a hex/decimal/binary string into a forge ByteStringBuffer.
+   * @param data {String} input string.
+   * @param base {Number} 2 = binary, 10 = decimal, 16 = hex
+   * @returns {ByteStringBuffer}
+   */
+  static baseStringToByteStringBuffer(data, base) {
+    return new util.ByteStringBuffer(this.baseStringToBinaryString(data, base));
   }
 
-  static decodeToByteString(data, base) {
-    const bytes = this.decodeToUint8Array(data, base);
+  /**
+   * Decodes a hex/decimal/binary string into a forge ByteStringBuffer.
+   * @param data {String} input string.
+   * @param base {Number} 2 = binary, 10 = decimal, 16 = hex
+   * @returns {String}
+   */
+  static baseStringToBinaryString(data, base) {
+    const bytes = this.baseStringToUint8Array(data, base);
     let start = 0;
     let string = '';
     for (let i = start; i < bytes.length; i++) {

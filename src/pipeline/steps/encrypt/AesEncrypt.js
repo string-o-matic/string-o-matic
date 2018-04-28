@@ -102,7 +102,7 @@ class AesEncrypt extends Step {
 
     let key = null;
     if (this.prefs.keyType === 'hex') {
-      key = ByteUtils.decodeToByteStringBuffer(this.prefs.key, 16);
+      key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, 16);
     } else {
       key = new util.ByteStringBuffer(util.decode64(this.prefs.key));
     }
