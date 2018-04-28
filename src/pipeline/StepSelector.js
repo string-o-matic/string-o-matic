@@ -10,6 +10,7 @@ import SHA512256 from './steps/hash/SHA512256';
 import BCryptHash from './steps/hash/BCryptHash';
 import BCryptVerify from './steps/hash/BCryptVerify';
 import AesEncrypt from './steps/encrypt/AesEncrypt';
+import AesDecrypt from './steps/encrypt/AesDecrypt';
 import HtmlEscape from './steps/escape/HtmlEscape';
 import HtmlUnescape from './steps/escape/HtmlUnescape';
 import HexEncode from './steps/encode/HexEncode';
@@ -50,7 +51,9 @@ class StepSelector extends Component {
       { root: 'BCrypt', variants: [BCryptHash, BCryptVerify] },
       MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256
     ],
-    'Encrypt': [ { root: 'AES', variants: [ AesEncrypt ] }],
+    'Encrypt': [
+      { root: 'AES', variants: [ AesEncrypt, AesDecrypt ] }
+    ],
     'Cipher': [ ] // ROT13 ...
   };
 

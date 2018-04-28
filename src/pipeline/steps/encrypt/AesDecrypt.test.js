@@ -1,4 +1,4 @@
-import AesEncrypt from './AesEncrypt';
+import AesDecrypt from './AesDecrypt';
 import Data from '../../Data';
 import {ByteStringBufferType} from '../../Types';
 import ByteUtils from '../../../lib/ByteUtils';
@@ -6,7 +6,7 @@ import ByteUtils from '../../../lib/ByteUtils';
 let step;
 
 beforeEach(() => {
-  step = new AesEncrypt();
+  step = new AesDecrypt();
 });
 
 function expectResult(input, output) {
@@ -28,5 +28,5 @@ test('aes128-cbc', () => {
   step.setIvType('hex');
   step.setIv(ivHex);
 
-  expectResult(ByteUtils.baseStringToByteStringBuffer(plainHex, 16), resultHex);
+  expectResult(ByteUtils.baseStringToByteStringBuffer(resultHex, 16), plainHex);
 });

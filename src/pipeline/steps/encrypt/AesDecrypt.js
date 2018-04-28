@@ -8,7 +8,9 @@ import Step from '../Step';
 import Data from '../../Data';
 import {ByteStringBufferType} from '../../Types';
 
-class AesEncryptForm extends Component {
+// TODO option to copy iv and key from preceding aes encrypt step
+// TODO combine with encrypt step if possible
+class AesDecryptForm extends Component {
 
   render() {
     const step = this.props.step;
@@ -65,7 +67,7 @@ class AesEncryptForm extends Component {
 
 }
 
-class AesEncrypt extends Step {
+class AesDecrypt extends Step {
 
   constructor() {
     super();
@@ -73,10 +75,10 @@ class AesEncrypt extends Step {
     aes.keepMe = true;
   }
 
-  static title = 'AES Encrypt';
-  static variantTitle = 'Encrypt';
+  static title = 'AES Decrypt';
+  static variantTitle = 'Decrypt';
   static supports = [ ByteStringBufferType ];
-  static form = AesEncryptForm;
+  static form = AesDecryptForm;
   static ciphers = {
     'AES-128-CBC': {
       ref: 'AES-CBC',
@@ -119,7 +121,7 @@ class AesEncrypt extends Step {
   }
 
   calculate(input) {
-    const cipherConf = AesEncrypt.ciphers[this.prefs.cipher];
+    const cipherConf = AesDecrypt.ciphers[this.prefs.cipher];
 
     let key = null;
     if (this.prefs.keyType === 'hex') {
@@ -147,19 +149,23 @@ class AesEncrypt extends Step {
       this.ivValid = true;
     }
 
-    const aes = cipher.createCipher(cipherConf.ref, key);
+    const aes = cipher.createDecipher(cipherConf.ref, key);
     aes.start({iv: iv});
     aes.update(input.data.copy());
-    aes.finish();
-    return Data.byteStringBuffer(aes.output).addInfo('Cipher: AES, Key Size: ' + (cipherConf.size / 8) + ', Mode: ' + cipherConf.mode + ', IV: Random, Padding: PKCS#7');
+    const result = aes.finish();
+    if (!result) {
+      return Data.invalid('Decryption failed! This probably means your key is incorrect.');
+    } else {
+      return Data.byteStringBuffer(aes.output).addInfo('Cipher: AES, Key Size: ' + (cipherConf.size / 8) + ', Mode: ' + cipherConf.mode + ', IV: Random, Padding: PKCS#7');
+    }
   }
 
 }
 
-AesEncryptForm.propTypes = {
-  step: PropTypes.instanceOf(AesEncrypt).isRequired,
+AesDecryptForm.propTypes = {
+  step: PropTypes.instanceOf(AesDecrypt).isRequired,
   refresh: PropTypes.func.isRequired
 };
 
-export {AesEncryptForm};
-export default AesEncrypt;
+export {AesDecryptForm};
+export default AesDecrypt;
