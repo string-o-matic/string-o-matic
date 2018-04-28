@@ -116,6 +116,7 @@ class HexEncodeForm extends Component {
 class HexEncode extends Step {
 
   static title = 'Hex Encode';
+  static variantTitle = 'Encode';
   static supports = [ StringType, ByteStringBufferType ];
   static form = HexEncodeForm;
 

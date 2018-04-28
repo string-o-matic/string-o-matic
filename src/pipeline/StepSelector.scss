@@ -56,20 +56,50 @@
 
       button {
         font-family: Lato, Helvetica, Arial, sans-serif;
-        background: #F5F5F5;
-        color: #757575;
+        background: $selector;
+        color: #FFF;
         outline: none;
         padding: 7px 10px;
         text-align: left;
         margin-right: 5px;
         margin-bottom: 5px;
-        border-radius: 2px;
+        border-radius: 3px;
 
         &:hover,
         &:focus,
         &:active {
-          background: #E0E0E0;
-          color: #616161;
+          background: lighten($selector, 10%);
+          color: #FFF;
+        }
+      }
+
+      .btn-group {
+        display: inline-block;
+
+        .btn-group-label {
+          font-family: Lato, Helvetica, Arial, sans-serif;
+          font-size: $body-size;
+          box-sizing: border-box;
+          display: inline-block;
+          border-radius: 3px 0 0 3px;
+          border: 1px solid $selector;
+          border-right: 0;
+          font-weight: bold;
+          background: #FFF;
+          color: $selector;
+          padding: 6px 10px;
+          text-align: left;
+          margin-bottom: 5px;
+        }
+
+        button {
+          margin-right: 0;
+          border-radius: 0;
+
+          &:last-child {
+            margin-right: 5px;
+            border-radius: 0 3px 3px 0;
+          }
         }
       }
     }
@@ -88,6 +118,8 @@
         line-height: 24px;
         transition: color linear .25s, border-color linear .25s;
         padding-right: 33px;
+        position: relative;
+        left: 33px;
 
         @media (max-width: $width-mobile) {
           font-size: ($body-size * .85);
@@ -108,8 +140,6 @@
         color: transparentize($selector, .5);
         transition: background, color;
         transition-duration: .2s;
-        position: relative;
-        left: -33px;
 
         &:hover,
         &:active,

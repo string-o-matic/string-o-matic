@@ -68,6 +68,7 @@ class DecimalEncodeForm extends Component {
 class DecimalEncode extends Step {
 
   static title = 'Decimal Encode';
+  static variantTitle = 'Encode';
   static supports = [ StringType, ByteStringBufferType ];
   static form = DecimalEncodeForm;
 

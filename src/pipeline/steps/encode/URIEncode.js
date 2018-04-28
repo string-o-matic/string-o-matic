@@ -5,6 +5,7 @@ import {StringType} from '../../Types';
 class URIEncode extends Step {
 
   static title = 'URI Encode';
+  static variantTitle = 'Encode';
   static supports = [ StringType ];
 
   calculate(input) {

@@ -5,6 +5,7 @@ import {StringType} from '../../Types';
 class HtmlUnescape extends Step {
 
   static title = 'HTML Unescape';
+  static variantTitle = 'Unescape';
   static supports = [ StringType ];
   static rtl = true;
 

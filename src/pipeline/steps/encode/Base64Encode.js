@@ -86,6 +86,7 @@ class Base64EncodeForm extends Component {
 class Base64Encode extends Step {
 
   static title = 'Base64 Encode';
+  static variantTitle = 'Encode';
   static supports = [ StringType, ByteStringBufferType ];
   static form = Base64EncodeForm;
 

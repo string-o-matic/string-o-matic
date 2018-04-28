@@ -37,10 +37,18 @@ class StepSelector extends Component {
   categories = {
     'String Case': [ UpperCase, LowerCase ], // Title, Snake, Camel, Inverse ...
     'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ], // Replace, Normalize ...
-    'Escape': [ HtmlEscape, HtmlUnescape ], // Java, Python ...
-    'Character Encode': [ URIEncode, URIDecode ], // Code points decimal/hex
-    'Byte Encode': [ Base64Encode, Base64Decode, HexEncode, HexDecode, DecimalEncode, DecimalDecode, BinaryEncode, BinaryDecode ],
-    'Hash': [ BCryptHash, BCryptVerify, MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256 ],
+    'Escape': [ { root: 'HTML', variants: [HtmlEscape, HtmlUnescape] } ], // Java, Python ...
+    'Character Encode': [ { root: 'URI', variants: [URIEncode, URIDecode] } ], // Code points decimal/hex
+    'Byte Encode': [
+      { root: 'Base64', variants: [Base64Encode, Base64Decode] },
+      { root: 'Hex', variants: [HexEncode, HexDecode] },
+      { root: 'Decimal', variants: [DecimalEncode, DecimalDecode] },
+      { root: 'Binary', variants: [BinaryEncode, BinaryDecode] },
+    ],
+    'Hash': [
+      { root: 'BCrypt', variants: [BCryptHash, BCryptVerify] },
+      MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256
+    ],
     'Encrypt': [ ], // RSA ...
     'Cipher': [ ] // ROT13 ...
   };
@@ -57,10 +65,13 @@ class StepSelector extends Component {
 
   render() {
     let filteredCategories = { };
+    const filter = this.state.filter.toLowerCase();
     Object.keys(this.categories).forEach(categoryName => {
       const category = this.categories[categoryName];
       category.forEach(step => {
-        if (this.state.filter.length === 0 || step.title.toLowerCase().indexOf(this.state.filter.toLowerCase()) > -1) {
+        if (filter.length === 0 ||
+          (step.root && step.variants.filter((variant) => variant.title.toLowerCase().indexOf(filter.toLowerCase()) > -1).length > 0) ||
+          (!step.root && step.title.toLowerCase().indexOf(filter.toLowerCase()) > -1)) {
           if (!filteredCategories[categoryName]) {
             filteredCategories[categoryName] = [];
           }
@@ -77,9 +88,21 @@ class StepSelector extends Component {
           </div>
           <div className="col-md-10">
             {
-              filteredCategories[name].map((step, i) =>
-                <button key={i} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>
-              )
+              filteredCategories[name].map((step, si) => {
+                if (step.root) {
+                  const variants = step.variants.map((variant, vi) => {
+                    return <button key={vi} className="btn" onClick={this.addStep.bind(this, variant)}>{variant.variantTitle}</button>;
+                  });
+                  return (
+                    <div className="btn-group" key={si}>
+                      <div className="btn-group-label">{step.root}</div>
+                      {variants}
+                    </div>
+                  );
+                } else {
+                  return <button key={si} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>;
+                }
+              })
             }
           </div>
         </div>);

@@ -36,6 +36,7 @@ class BCryptVerifyForm extends Component {
 class BCryptVerify extends Step {
 
   static title = 'BCrypt Verify';
+  static variantTitle = 'Verify';
   static supports = [ StringType ];
   static form = BCryptVerifyForm;
 

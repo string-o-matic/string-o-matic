@@ -68,6 +68,7 @@ class BinaryEncodeForm extends Component {
 class BinaryEncode extends Step {
 
   static title = 'Binary Encode';
+  static variantTitle = 'Encode';
   static supports = [ StringType, ByteStringBufferType ];
   static form = BinaryEncodeForm;
 

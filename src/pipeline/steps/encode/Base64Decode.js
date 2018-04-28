@@ -7,6 +7,7 @@ import {StringType} from '../../Types';
 class Base64Decode extends Step {
 
   static title = 'Base64 Decode';
+  static variantTitle = 'Decode';
   static supports = [ StringType ];
   static rtl = true;
   static form = ByteDecodeForm;

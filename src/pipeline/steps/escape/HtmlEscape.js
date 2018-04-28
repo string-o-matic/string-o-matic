@@ -71,6 +71,7 @@ class HtmlEscapeForm extends Component {
 class HtmlEscape extends Step {
 
   static title = 'HTML Escape';
+  static variantTitle = 'Escape';
   static supports = [ StringType ];
   static form = HtmlEscapeForm;
 

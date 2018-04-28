@@ -40,6 +40,7 @@ class BCryptHashForm extends Component {
 class BCryptHash extends Step {
 
   static title = 'BCrypt Hash';
+  static variantTitle = 'Hash';
   static supports = [ StringType ];
   static form = BCryptHashForm;
 
