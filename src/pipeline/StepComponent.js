@@ -129,7 +129,7 @@ class StepComponent extends Component {
   }
 
   error(content) {
-    return <div key="error" className="error">{content}</div>;
+    return <div key="error" className="error"><span className="ionicon ion-ios-alert-outline"/><br/>{content}</div>;
   }
 
   bug(content) {
@@ -137,7 +137,7 @@ class StepComponent extends Component {
   }
 
   brokenPipe() {
-    return <div key="broken-pipe" className="broken-pipe">Can&apos;t show this step due to errors above</div>;
+    return <div key="broken-pipe" className="broken-pipe"><span className="ionicon ion-ios-thunderstorm-outline"/><br/>Can&apos;t show this step due to errors above</div>;
   }
 
 }

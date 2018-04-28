@@ -9,7 +9,7 @@
   max-width: $width-max;
   margin: 0 auto $grid-margin;
   border-top: 4px solid $primary;
-  transition:  border-color .2s linear;
+  transition:  border-color, filter .2s linear;
 
   @media (max-width: $width-mobile) {
     margin-bottom: ($grid-margin * .7);
@@ -135,29 +135,7 @@
   }
 
   &.broken-pipe {
-    border-color: $broken-pipe;
-
-    .step-header {
-      background: $broken-pipe-vlight;
-
-      h4 {
-        color: $broken-pipe;
-      }
-
-      .delete {
-        color: transparentize($broken-pipe, .5);
-
-        &:hover,
-        &:active,
-        &:focus {
-          color: #FFF;
-        }
-      }
-    }
-
-    .step-top-1 {
-      background: $broken-pipe;
-    }
+    filter: grayscale(100%) opacity(70%);
   }
 
   .step-body {
@@ -262,6 +240,10 @@
       font-size: $message-size;
       color: darken($broken-pipe, 10%);
       padding: $step-padding;
+
+      .ionicon {
+        font-size: 30px;
+      }
     }
 
     .suggestions {
