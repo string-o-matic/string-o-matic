@@ -1,8 +1,8 @@
 import Data from '../Data';
 import {NullType} from '../Types';
 import Globals from '../../Globals';
-
 import '../StepComponent.css';
+/* global process */
 
 class StepCounter {
   /**
@@ -122,6 +122,9 @@ class Step {
       } catch (e) {
         this.error('Calculation failed', {input: input, error: e});
         this.output = Data.bug();
+        if (process.env.NODE_ENV !== 'production') {
+          throw e;
+        }
       }
     }
     return this.output;
