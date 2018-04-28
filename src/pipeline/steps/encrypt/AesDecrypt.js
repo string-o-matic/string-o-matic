@@ -7,6 +7,9 @@ class AesDecrypt extends Aes {
   static title = 'AES Decrypt';
   static variantTitle = 'Decrypt';
 
+  allowRandomKey = false;
+  allowRandomIv = false;
+
   _calculate(cipherConf, key, iv, input) {
     const aes = cipher.createDecipher(cipherConf.ref, key);
     aes.start({iv: iv});

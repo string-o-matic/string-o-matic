@@ -1,0 +1,26 @@
+@import '../../../css/colors';
+@import '../../../css/variables';
+
+.step-form {
+
+  .has-button {
+    padding-right: 30px;
+  }
+
+  .regen {
+    position: absolute;
+    padding: 5px 10px;
+    right: 10px;
+    bottom: 0;
+    font-size: 20px;
+    color: #AAA;
+    background: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: $primary;
+    }
+  }
+
+}
