@@ -10,6 +10,7 @@ class Guide extends Component {
           <li><a href="#intro">Introduction</a></li>
           <li><a href="#example">MD5 Example</a></li>
           <li><a href="#input">Input Methods</a></li>
+          <li><a href="#encryption">Encryption</a></li>
           <li><a href="#nonprintable">Non Printable Characters</a></li>
           <li><a href="#lineendings">Line Endings</a></li>
           <li><a href="#emoji">Emoji</a></li>
@@ -86,6 +87,26 @@ class Guide extends Component {
           </p>
           <p>
             <strong>Your file is read by your browser, not uploaded to the server.</strong>
+          </p>
+        </div>
+        <h4><span className="ion-ios-cog-outline"/> <a name="encryption">Encryption</a></h4>
+        <div className="guide-section-content">
+          <p>
+            <strong>Cryptography is hard. Really hard.</strong>
+          </p>
+          <p>
+            This site hasn&apos;t been developed or reviewed a professional cryptographer. It runs in an unknown environment
+            (your browser) using a random source that may not be secure and a third party library that may have bugs. It
+            uses defaults for some options you may want to control.
+          </p>
+          <p>
+            The encryption and decryption steps provided are for information only and should be treated with extreme caution.
+            You may be unable to verify the results with other AES sites because most are not transparent about how the
+            key and plain text are converted to bytes, how the IV is generated, the padding mode in use and even the key
+            size or block mode they use. This site tries to be transparent even though this makes it more complex.
+          </p>
+          <p>
+            <strong>You must do your own research to find the best algorithm and options for your purposes.</strong>
           </p>
         </div>
         <h4><span className="ion-ios-cog-outline"/> <a name="nonprintable">Non Printable Characters</a></h4>
