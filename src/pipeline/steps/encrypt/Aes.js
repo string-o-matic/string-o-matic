@@ -19,8 +19,8 @@ class AesForm extends Component {
 
     const keyRandom = step.allowRandomKey ? (<option value="random">Random</option>) : null;
     const ivRandom = step.allowRandomIv ? (<option value="random">Random</option>) : null;
-    const keyContext = step.allowContextKey ? (<option value="context">🔗 Encrypt step</option>) : null;
-    const ivContext = step.allowContextIv ? (<option value="context">🔗 Encrypt step</option>) : null;
+    const keyContext = step.allowContextKey ? (<option value="context">Encrypt step</option>) : null;
+    const ivContext = step.allowContextIv ? (<option value="context">Encrypt step</option>) : null;
 
     let keyRegen = null;
     if (step.prefs.keyType === 'random') {

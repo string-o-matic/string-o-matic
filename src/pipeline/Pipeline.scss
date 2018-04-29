@@ -1,0 +1,78 @@
+@import '../css/colors';
+@import '../css/variables';
+
+.intro {
+  background: #FFF;
+  position: relative;
+  box-shadow: 0 0 5px darken($background, 5%);
+  border-radius: $border-radius;
+  max-width: $width-max;
+  margin: 0 auto $grid-margin;
+  border-top: 4px solid $selector;
+  transition: border-color .2s linear;
+  font-size: $body-size;
+  padding: ($grid-margin / 2) $grid-margin $grid-margin;
+  color: $data;
+  line-height: 1.7;
+
+  @media(max-width: $width-mobile) {
+    padding: ($grid-margin / 4) ($grid-margin / 2) ($grid-margin / 2);
+    border-radius: 0;
+  }
+
+  h1 {
+    color: $selector;
+    text-align: center;
+    margin-top: 0;
+    font-weight: normal;
+    font-size: 25px;
+  }
+}
+
+.precomposed {
+  background: #FFF;
+  position: relative;
+  box-shadow: 0 0 5px darken($background, 5%);
+  border-radius: $border-radius;
+  max-width: $width-max;
+  margin: 0 auto $grid-margin;
+  border-top: 4px solid $precomposed;
+  transition: border-color .2s linear;
+  font-size: $body-size;
+  padding: $grid-margin;
+  color: $data;
+  line-height: 1.7;
+
+  @media(max-width: $width-mobile) {
+    padding: ($grid-margin / 2);
+    border-radius: 0;
+  }
+
+  h3 {
+    color: $precomposed;
+    text-align: center;
+    margin-top: 0;
+    font-weight: normal;
+    font-size: 25px;
+  }
+
+  a {
+    background: $precomposed;
+    color: #FFF;
+    display: inline-block;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    font-size: $body-size;
+    outline: none;
+    padding: 7px 10px;
+    text-align: left;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background: lighten($precomposed, 10%);
+    }
+  }
+}

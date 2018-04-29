@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Input from './input/Input';
 import StepComponent from './StepComponent';
 import StepSelector from './StepSelector';
 import Data from './Data';
 import Globals from '../Globals';
+import './Pipeline.css';
 
 class Pipeline extends Component {
 
@@ -19,9 +21,24 @@ class Pipeline extends Component {
     this.refresh = this.refresh.bind(this);
   }
 
+  /**
+   * Override in subclass to add an intro to a precomposed pipeline page.
+   */
+  precomposedIntro() {
+    return null;
+  }
+
+  /**
+   * Override in subclass add call {@link this.addStep} to build up a precomposed pipeline.
+   */
+  buildPrecomposedPipeline() {
+
+  }
+
   render() {
     return (
       <div>
+        {this.precomposedIntro()}
         <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
         {
           Globals.steps.map(step =>
@@ -29,8 +46,25 @@ class Pipeline extends Component {
           )
         }
         <StepSelector addStep={this.addStep}/>
+        <div className="precomposed">
+          <h3>Here are some we made earlier...</h3>
+          <p>
+            These links will take you to pages with ready-made transformation pipelines using the most common options.
+            Each page has instructions so if you&apos;re confused or in a hurry they&apos;re a great way to get started.
+            They probably help our Google search ranking too, so everybody wins.
+          </p>
+          <p>
+            <Link to="/aes-encrypt"><strong>AES Encrypt</strong> as Base 64 or Hex</Link>
+          </p>
+        </div>
       </div>
     );
+  }
+
+  componentWillMount() {
+    if (Globals.steps.length === 0) {
+      this.buildPrecomposedPipeline();
+    }
   }
 
   inputChange(input) {
