@@ -9,7 +9,8 @@ import NotFound from './pages/NotFound';
 import Header from './chrome/Header';
 import Footer from './chrome/Footer';
 import Globals from './Globals';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import PageRoute from './PageRoute';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 class App extends Component {
 
@@ -25,12 +26,12 @@ class App extends Component {
           <Header reset={this.reset}/>
           <div className="content">
             <Switch>
-              <Route exact path="/" component={Pipeline} />
-              <Route path="/guide" component={Guide} />
-              <Route path="/about" component={About} />
-              <Route path="/terms" component={Terms} />
-              <Route path="/privacy" component={Privacy} />
-              <Route component={NotFound}/>
+              <PageRoute exact path="/" component={Pipeline} />
+              <PageRoute path="/guide" component={Guide} />
+              <PageRoute path="/about" component={About} />
+              <PageRoute path="/terms" component={Terms} />
+              <PageRoute path="/privacy" component={Privacy} />
+              <PageRoute component={NotFound}/>
             </Switch>
           </div>
           <Footer/>
