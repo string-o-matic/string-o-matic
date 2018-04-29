@@ -1,6 +1,5 @@
 import React  from 'react';
 import Pipeline from '../Pipeline';
-import MD5 from '../steps/hash/MD5';
 import AesEncrypt from '../steps/encrypt/AesEncrypt';
 import Base64Encode from '../steps/encode/Base64Encode';
 
@@ -43,15 +42,11 @@ class AesEncryptPipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    const md5 = new MD5();
     const aes = new AesEncrypt();
     aes.setKeyType('random');
     aes.setIvType('random');
-    const b64 = new Base64Encode();
-    b64.setLineLength(76);
-    this.addStep(md5);
     this.addStep(aes);
-    this.addStep(b64);
+    this.addStep(new Base64Encode());
   }
   
 }

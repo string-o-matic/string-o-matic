@@ -28,6 +28,7 @@ import UpperCase from './steps/string/UpperCase';
 import LowerCase from './steps/string/LowerCase';
 import StripControlCharacters from './steps/string/StripControlCharacters';
 import StripWhiteSpace from './steps/string/StripWhiteSpace';
+import TextToBytes from './steps/convert/TextToBytes';
 import AsyncTest from './steps/test/AsyncTest';
 import Iso88591Test from './steps/test/Iso88591Test';
 import { StepTop } from '../Common';
@@ -47,6 +48,7 @@ class StepSelector extends Component {
       { root: 'Decimal', variants: [DecimalEncode, DecimalDecode] },
       { root: 'Binary', variants: [BinaryEncode, BinaryDecode] },
     ],
+    'Convert': [ TextToBytes ],
     'Hash': [
       { root: 'BCrypt', variants: [BCryptHash, BCryptVerify] },
       MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256
@@ -104,7 +106,7 @@ class StepSelector extends Component {
                     </div>
                   );
                 } else {
-                  return <button key={si} className="btn" onClick={this.addStep.bind(this, step)}>{step.title}</button>;
+                  return <button key={si} className="btn" onClick={this.addStep.bind(this, step)}>{step.selectorTitle || step.title}</button>;
                 }
               })
             }

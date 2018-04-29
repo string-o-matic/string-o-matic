@@ -6,11 +6,11 @@ import ByteUtils from '../../../lib/ByteUtils';
 import PropTypes from 'prop-types';
 import Step from '../Step';
 import Data from '../../Data';
-import {ByteStringBufferType} from '../../Types';
+import {ByteStringBufferType, StringType} from '../../Types';
+import TextToBytes, {TextToBytesForm} from '../convert/TextToBytes';
 import Globals from '../../../Globals';
 import './Aes.css';
 
-// TODO option to copy iv and key from preceding aes encrypt step
 class AesForm extends Component {
 
   render() {
@@ -30,11 +30,22 @@ class AesForm extends Component {
     if (step.prefs.ivType === 'random') {
       ivRegen = (<button onClick={this.resetIv} className="regen"><span className="ion-md-refresh"/></button>);
     }
+
+    // TODO Make this generic, included in all steps that convert bytes
+    let textToBytesForm = null;
+    if (step.textToBytesStep) {
+      const refresh = () => {
+        step._update();
+        this.props.refresh();
+      };
+      textToBytesForm = (<TextToBytesForm step={step.textToBytesStep} refresh={refresh}/>);
+    }
     return (
-      <form className="form-inline">
+      <div>
+        {textToBytesForm}
         <div className="row">
           <div className="material-group col-xs-6 col-sm-3 col-md-2">
-            <label>Mode</label>
+            <label>Cipher</label>
             <select onChange={this.settingHandler(step.setCipher)} value={prefs.cipher}>
               <option value="AES-128-CBC">AES-128-CBC</option>
               <option value="AES-192-CBC">AES-192-CBC</option>
@@ -74,7 +85,7 @@ class AesForm extends Component {
             {ivRegen}
           </div>
         </div>
-      </form>
+      </div>
     );
   }
 
@@ -85,14 +96,12 @@ class AesForm extends Component {
     };
   };
 
-  resetKey = (e) => {
-    e.preventDefault();
+  resetKey = () => {
     this.props.step.setKey('');
     this.props.refresh();
   };
 
-  resetIv = (e) => {
-    e.preventDefault();
+  resetIv = () => {
     this.props.step.setIv('');
     this.props.refresh();
   };
@@ -107,7 +116,7 @@ class Aes extends Step {
     aes.keepMe = true;
   }
 
-  static supports = [ ByteStringBufferType ];
+  static supports = [ StringType, ByteStringBufferType ];
   static form = AesForm;
   static ciphers = {
     'AES-128-CBC': {
@@ -126,6 +135,8 @@ class Aes extends Step {
       mode: 'CBC'
     }
   };
+
+  textToBytesStep = null;
 
   keyValid = false;
   ivValid = false;
@@ -154,6 +165,21 @@ class Aes extends Step {
   }
 
   calculate(input) {
+    // If the input is a string it needs conversion. We embed the form from TextToBytes and run the input through it,
+    // effectively concealing a conversion step within this one.
+    if (input.type === StringType) {
+      this.textToBytesStep = this.textToBytesStep || new TextToBytes();
+      this.textToBytesStep.setInput(input);
+      const ttbOutput = this.textToBytesStep.getOutput();
+      if (ttbOutput.status !== 'valid') {
+        return ttbOutput;
+      } else {
+        input = ttbOutput;
+      }
+    } else {
+      this.textToBytesStep = null;
+    }
+
     const cipherConf = Aes.ciphers[this.prefs.cipher];
 
     if (input.context['aes.encrypt.key']) {
@@ -176,12 +202,10 @@ class Aes extends Step {
         key = new util.ByteStringBuffer(random.getBytesSync(cipherConf.size / 8));
         this.prefs.key = key.toHex();
       } else {
-        key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, 16);
+        key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, 'hex');
       }
-    } else if (this.prefs.keyType === 'hex') {
-      key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, 16);
     } else {
-      key = new util.ByteStringBuffer(util.decode64(this.prefs.key));
+      key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, this.prefs.keyType);
     }
 
     let iv = null;
@@ -193,12 +217,10 @@ class Aes extends Step {
         iv = new util.ByteStringBuffer(random.getBytesSync(16));
         this.prefs.iv = iv.toHex();
       } else {
-        iv = ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, 16);
+        iv = ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, 'hex');
       }
-    } else if (this.prefs.ivType === 'hex') {
-      iv = ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, 16);
     } else {
-      iv = new util.ByteStringBuffer(util.decode64(this.prefs.iv));
+      iv = ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, this.prefs.ivType);
     }
 
     this.keyValid = key.length() === cipherConf.size / 8;

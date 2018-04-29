@@ -28,5 +28,5 @@ test('aes128-cbc', () => {
   step.setIvType('hex');
   step.setIv(ivHex);
 
-  expectResult(ByteUtils.baseStringToByteStringBuffer(plainHex, 16), resultHex);
+  expectResult(ByteUtils.baseStringToByteStringBuffer(plainHex, 'hex'), resultHex);
 });

@@ -2,7 +2,7 @@
 @import '../../css/colors';
 
 .step-form {
-  margin: $grid-margin $grid-margin 0;
+  margin: ($grid-margin / 2) $grid-margin 0;
   padding-bottom: $grid-margin;
   border-bottom: 1px dashed #EEE;
 
@@ -13,7 +13,7 @@
   }
 
   @media(max-width: $width-mobile) {
-    margin: ($grid-margin / 2) ($grid-margin / 2) 0;
+    margin: ($grid-margin / 4) ($grid-margin / 2) 0;
     padding-bottom: ($grid-margin / 2);
   }
 
@@ -40,7 +40,7 @@
 
   .material-group {
 
-    margin-top: ($grid-margin / 4);
+    margin-top: ($grid-margin / 2);
 
     label {
       font-size: $note-size;
@@ -94,6 +94,40 @@
       select {
         border-color: $error;
         color: $error-text;
+      }
+    }
+
+    .btn-group {
+
+      button {
+        font-family: $mono-font;
+        font-size: $body-size;
+        border-bottom: 1px solid lighten($field, 40%);
+        color: lighten($field, 10%);
+        outline: none;
+        padding: 5px 0;
+        text-align: left;
+        transition: linear .25s;
+        margin-right: 10px;
+        border-radius: 0;
+        background: none;
+
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+          color: $primary;
+          padding-bottom: 4px;
+          border-bottom: 2px solid $primary;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        @media(max-width: $width-mobile) {
+          font-size: ($body-size * .85);
+        }
       }
     }
 

@@ -16,7 +16,7 @@ class AesDecrypt extends Aes {
     aes.update(input);
     const result = aes.finish();
     if (!result) {
-      return Data.invalid('Decryption failed! This probably means your key is incorrect.');
+      return Data.invalid('Decryption failed! Likely causes: incorrect key, corrupt input.');
     } else {
       return Data
         .byteStringBuffer(aes.output)
