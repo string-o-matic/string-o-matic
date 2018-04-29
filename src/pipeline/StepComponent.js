@@ -14,7 +14,6 @@ class StepComponent extends Component {
   constructor(props) {
     super(props);
     this.deleteStep = this.deleteStep.bind(this);
-    this.toggleDirection = this.toggleDirection.bind(this);
   }
 
   deleteStep() {
@@ -88,11 +87,6 @@ class StepComponent extends Component {
       content.push(this.brokenPipe());
     }
 
-    let rtl = null;
-    if (step.constructor.rtl) {
-      rtl = <button className="pull-right direction" onClick={this.toggleDirection}>{this.props.step.direction.toUpperCase()}</button>;
-    }
-
     clazz += ' step step-transform';
 
     return (
@@ -101,7 +95,6 @@ class StepComponent extends Component {
         <div className="step-header">
           <h4 className="pull-left">{this.props.step.constructor.title}</h4>
           <button className="pull-right delete" onClick={this.deleteStep}><span className="ion-md-trash"/></button>
-          {rtl}
         </div>
         <div className="step-body">
           {content.map(c => c)}
@@ -109,15 +102,6 @@ class StepComponent extends Component {
         <StepTail/>
       </div>
     );
-  }
-
-  toggleDirection() {
-    if (this.props.step.direction === 'rtl') {
-      this.props.step.direction = 'ltr';
-    } else {
-      this.props.step.direction = 'rtl';
-    }
-    this.setState({});
   }
 
   data(content, className) {

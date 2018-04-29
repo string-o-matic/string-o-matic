@@ -43,8 +43,6 @@ class AbstractByteDecode extends Step {
 
   base = 16;
 
-  direction = 'ltr';
-
   prefs = {
     encoding: 'UTF-8'
   };

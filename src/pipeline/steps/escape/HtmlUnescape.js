@@ -9,8 +9,6 @@ class HtmlUnescape extends Step {
   static supports = [ StringType ];
   static rtl = true;
 
-  direction = 'ltr';
-
   entities = {
     'quot': '\u0022',
     'amp': '\u0026',

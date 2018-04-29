@@ -11,7 +11,6 @@ class Input extends Component {
   constructor(props) {
     super(props);
     this.clear = this.clear.bind(this);
-    this.toggleDirection = this.toggleDirection.bind(this);
   }
 
   render() {
@@ -27,7 +26,6 @@ class Input extends Component {
         <div className="step-header">
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
-            <button className="btn-direction" onClick={this.toggleDirection} title="Direction">{Globals.inputDirection.toUpperCase()}</button>
             <button className="btn-clear" onClick={this.clear} title="Clear"><span className="ion-ios-backspace"/></button>
             <button className={Globals.inputType === 'text' ? ' active' : ''} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
             <button className={Globals.inputType === 'file' ? ' active' : ''} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
@@ -44,15 +42,6 @@ class Input extends Component {
 
   setType(type) {
     Globals.inputType = type;
-    this.setState({ });
-  }
-
-  toggleDirection() {
-    if (Globals.inputDirection === 'rtl') {
-      Globals.inputDirection = 'ltr';
-    } else {
-      Globals.inputDirection = 'rtl';
-    }
     this.setState({ });
   }
 

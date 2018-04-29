@@ -12,8 +12,6 @@ class StripControlCharacters extends Step {
   static supports = [ StringType ];
   static rtl = true;
 
-  direction = 'ltr';
-
   calculate(input) {
     // eslint-disable-next-line no-control-regex
     return Data.string(input.data.replace(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g, ''));

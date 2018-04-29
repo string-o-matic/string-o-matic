@@ -8,8 +8,6 @@ class UpperCase extends Step {
   static supports = [ StringType ];
   static rtl = true;
 
-  direction = 'ltr';
-
   calculate(input) {
     return Data.string(input.data.toUpperCase());
   }

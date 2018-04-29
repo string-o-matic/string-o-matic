@@ -12,8 +12,6 @@ class AsyncTest extends Step {
   static supports = [ StringType ];
   static rtl = true;
 
-  direction = 'ltr';
-
   calculate(input) {
     const output = Data.string(input.data + ' (' + this.key + ')');
     if (input.data.length > 0) {

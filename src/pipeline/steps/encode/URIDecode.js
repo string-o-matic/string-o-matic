@@ -9,8 +9,6 @@ class URIDecode extends Step {
   static supports = [ StringType ];
   static rtl = true;
 
-  direction = 'ltr';
-
   calculate(input) {
     return Data.string(decodeURIComponent(input.data));
   }

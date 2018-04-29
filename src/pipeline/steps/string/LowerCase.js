@@ -8,8 +8,6 @@ class LowerCase extends Step {
   static supports = [ StringType ];
   static rtl = true;
 
-  direction = 'ltr';
-
   calculate(input) {
     return Data.string(input.data.toLowerCase());
   }
