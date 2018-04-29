@@ -19,6 +19,8 @@ class AesForm extends Component {
 
     const keyRandom = step.allowRandomKey ? (<option value="random">Random</option>) : null;
     const ivRandom = step.allowRandomIv ? (<option value="random">Random</option>) : null;
+    const keyContext = step.allowContextKey ? (<option value="context">🔗 Encrypt step</option>) : null;
+    const ivContext = step.allowContextIv ? (<option value="context">🔗 Encrypt step</option>) : null;
 
     let keyRegen = null;
     if (step.prefs.keyType === 'random') {
@@ -42,10 +44,11 @@ class AesForm extends Component {
         </div>
         <div className="row">
           <div className="material-group col-xs-4 col-sm-3 col-md-2">
-            <label>Key Type</label>
+            <label>Key Source</label>
             <select onChange={this.settingHandler(step.setKeyType)} value={prefs.keyType}>
               <option value="hex">Hex Entry</option>
               <option value="b64">Base64 Entry</option>
+              {keyContext}
               {keyRandom}
             </select>
           </div>
@@ -57,10 +60,11 @@ class AesForm extends Component {
         </div>
         <div className="row">
           <div className="material-group col-xs-4 col-sm-3 col-md-2">
-            <label>IV Type</label>
+            <label>IV Source</label>
             <select onChange={this.settingHandler(step.setIvType)} value={prefs.ivType}>
               <option value="hex">Hex Entry</option>
               <option value="b64">Base64 Entry</option>
+              {ivContext}
               {ivRandom}
             </select>
           </div>
@@ -127,6 +131,8 @@ class Aes extends Step {
   ivValid = false;
   allowRandomKey = true;
   allowRandomIv = true;
+  allowContextIv = false;
+  allowContextKey = false;
 
   prefs = {
     cipher: 'AES-128-CBC',
@@ -150,9 +156,22 @@ class Aes extends Step {
   calculate(input) {
     const cipherConf = Aes.ciphers[this.prefs.cipher];
 
+    if (input.context['aes.encrypt.key']) {
+      this.allowContextKey = true;
+    } else if (this.prefs.keyType === 'context') {
+      this.prefs.keyType = 'hex';
+    }
+    if (input.context['aes.encrypt.iv']) {
+      this.allowContextIv = true;
+    } else if (this.prefs.ivType === 'context') {
+      this.prefs.ivType = 'hex';
+    }
+
     let key = null;
-    console.log('calculate');
-    if (this.allowRandomKey && this.prefs.keyType === 'random') {
+    if (this.allowContextKey && this.prefs.keyType === 'context') {
+      key = input.context['aes.encrypt.key'];
+      this.prefs.key = key.toHex();
+    } else if (this.allowRandomKey && this.prefs.keyType === 'random') {
       if (!this.prefs.key || this.prefs.key.length === 0) {
         key = new util.ByteStringBuffer(random.getBytesSync(cipherConf.size / 8));
         this.prefs.key = key.toHex();
@@ -166,7 +185,10 @@ class Aes extends Step {
     }
 
     let iv = null;
-    if (this.allowRandomIv && this.prefs.ivType === 'random') {
+    if (this.allowContextIv && this.prefs.ivType === 'context') {
+      iv = input.context['aes.encrypt.iv'];
+      this.prefs.iv = iv.toHex();
+    } else if (this.allowRandomIv && this.prefs.ivType === 'random') {
       if (!this.prefs.iv || this.prefs.iv.length === 0) {
         iv = new util.ByteStringBuffer(random.getBytesSync(16));
         this.prefs.iv = iv.toHex();

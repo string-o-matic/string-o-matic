@@ -118,6 +118,7 @@ class Step {
           });
         } else {
           this.output.withSequence(input.sequence);
+          this.output.context = Object.assign(this.output.context, input.context);
         }
       } catch (e) {
         this.error('Calculation failed', {input: input, error: e});

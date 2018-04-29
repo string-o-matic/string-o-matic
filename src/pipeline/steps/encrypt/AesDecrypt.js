@@ -11,14 +11,16 @@ class AesDecrypt extends Aes {
   allowRandomIv = false;
 
   _calculate(cipherConf, key, iv, input) {
-    const aes = cipher.createDecipher(cipherConf.ref, key);
-    aes.start({iv: iv});
+    const aes = cipher.createDecipher(cipherConf.ref, key.copy());
+    aes.start({iv: iv.copy()});
     aes.update(input);
     const result = aes.finish();
     if (!result) {
       return Data.invalid('Decryption failed! This probably means your key is incorrect.');
     } else {
-      return Data.byteStringBuffer(aes.output).addInfo('Cipher: AES, Key Size: ' + (cipherConf.size / 8) + ', Mode: ' + cipherConf.mode + ', IV: Random, Padding: PKCS#7');
+      return Data
+        .byteStringBuffer(aes.output)
+        .addInfo('Cipher: AES \u00a0 Key Size: ' + cipherConf.size + ' \u00a0 Mode: ' + cipherConf.mode + ' \u00a0 Padding: PKCS#7');
     }
   }
 

@@ -9,6 +9,7 @@ class Data {
   inputType = null;
   warnings = [];
   infos = [];
+  context = {};
   sequence = 0;
 
   constructor(status, type, data) {
@@ -65,6 +66,11 @@ class Data {
 
   withSequence(sequence) {
     this.sequence = sequence;
+    return this;
+  }
+
+  addContext(key, value) {
+    this.context[key] = value;
     return this;
   }
 

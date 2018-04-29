@@ -58,6 +58,7 @@ class BCryptHash extends Step {
     this.passInput();
   }
 
+  // TODO This has to copy sequence and context to the output, which should be done by the Step class.
   calculate(input) {
     const cost = parseInt(this.cost, 10);
     this.costValid = cost && cost >= this.minCost && cost <= this.maxCost;
@@ -71,6 +72,7 @@ class BCryptHash extends Step {
           if (util.encodeUtf8(input.data).length > 72) {
             result.addWarning('Input exceeds 72 bytes. Only the first 72 bytes are hashed.');
           }
+          result.context = Object.assign(result.context, input.context);
           resolve(result);
         }, error => {
           this.error('hash error', error);
