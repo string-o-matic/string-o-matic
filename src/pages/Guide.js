@@ -213,8 +213,10 @@ class Guide extends Component {
           </p>
           <table>
             <thead>
-              <th><code>a</code> + combining character <code>&#x0300;</code></th>
-              <th>Single character <code>&#xE0;</code></th>
+              <tr>
+                <th><code>a</code> + combining character <code>&#x0300;</code></th>
+                <th>Single character <code>&#xE0;</code></th>
+              </tr>
             </thead>
             <tbody>
               <tr>

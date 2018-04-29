@@ -42,7 +42,7 @@ class StepComponent extends Component {
       const meta = [];
       if (output.type === ByteStringBufferType) {
         content.push(this.data(output.data.toHex()));
-        meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes<br/><span className="ion-md-information-circle"/> Hex preview. Add an encode step.</span></div>);
+        meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes. Hex preview.</span></div>);
       } else if (output.type === StringType) {
         // eslint-disable-next-line no-control-regex
         const cleanData = output.data.replace(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g, '\ufffd');

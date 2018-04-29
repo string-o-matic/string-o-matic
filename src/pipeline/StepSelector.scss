@@ -137,15 +137,16 @@
         border: 0;
         font-size: 22px;
         padding: 4px 10px;
-        color: transparentize($selector, .5);
+        color: #AAA;
         transition: background, color;
         transition-duration: .2s;
+        position: relative;
+        z-index: 1000;
 
         &:hover,
         &:active,
         &:focus {
-          color: #FFF;
-          background: #E53935;
+          color: #E53935;
           outline: none;
         }
       }
