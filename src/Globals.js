@@ -9,7 +9,7 @@ class Globals {
   static inputType = 'text';
   static inputDirection = 'ltr';
 
-  static textInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
+  static textInput = 'Life is like a 📦 of 🍫';
 
   static file = null;
   static fileInput = Data.string('');

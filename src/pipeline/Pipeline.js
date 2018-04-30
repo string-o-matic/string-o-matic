@@ -9,11 +9,9 @@ import './Pipeline.css';
 
 class Pipeline extends Component {
 
-  initialInput = 'Grumpy wizards make toxic brew for the evil queen and jack';
-
   constructor(props) {
     super(props);
-    this.state = { input: Data.string(this.initialInput) };
+    this.state = { input: Data.string(Globals.textInput) };
     this.inputChange = this.inputChange.bind(this);
     this.addStep = this.addStep.bind(this);
     this.deleteStep = this.deleteStep.bind(this);
@@ -39,7 +37,7 @@ class Pipeline extends Component {
     return (
       <div>
         {this.precomposedIntro()}
-        <Input inputChange={this.inputChange} initialInput={this.initialInput}/>
+        <Input inputChange={this.inputChange} initialInput={Globals.textInput}/>
         {
           Globals.steps.map(step =>
             <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} injectStepBefore={this.injectStepBefore} refresh={this.refresh}/>
