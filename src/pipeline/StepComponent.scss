@@ -9,7 +9,7 @@
   max-width: $width-max;
   margin: 0 auto $grid-margin;
   border-top: 4px solid $primary;
-  transition:  border-color, filter .2s linear;
+  transition: .2s linear;
 
   @media (max-width: $width-mobile) {
     margin-bottom: ($grid-margin * .7);
@@ -22,7 +22,7 @@
   .step-header {
     background: $primary-vlight;
     color: $primary;
-    transition: background-color .2s linear;
+    transition: .2s linear;
     height: 36px;
 
     &::after {
@@ -55,14 +55,13 @@
       font-size: 22px;
       padding: 6px 12px;
       color: transparentize($primary, .5);
-      transition: background, color;
-      transition-duration: .2s;
+      transition: .2s linear;
 
       &:hover,
       &:active,
       &:focus {
-        color: #FFF;
-        background: #E53935;
+        color: $error;
+        background: $error-vlight;
         outline: none;
       }
     }
@@ -89,7 +88,8 @@
     }
   }
 
-  &.error {
+  &.error,
+  &.focus {
     border-color: $error;
 
     .step-header {
@@ -105,7 +105,9 @@
         &:hover,
         &:active,
         &:focus {
-          color: #FFF;
+          color: $error;
+          background: $error-vlight;
+          outline: none;
         }
       }
     }
@@ -230,14 +232,14 @@
     .suggestions {
       button {
         font-family: Lato, Helvetica, Arial, sans-serif;
-        background: #F5F5F5;
-        color: #757575;
+        background: $selector;
+        color: #FFF;
         outline: none;
         padding: 7px 10px;
         text-align: left;
         margin-right: 5px;
         margin-bottom: 5px;
-        border-radius: 2px;
+        border-radius: 3px;
 
         &:hover,
         &:focus,

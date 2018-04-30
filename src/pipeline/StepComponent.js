@@ -13,6 +13,7 @@ class StepComponent extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {};
     this.deleteStep = this.deleteStep.bind(this);
   }
 
@@ -90,11 +91,11 @@ class StepComponent extends Component {
     clazz += ' step step-transform';
 
     return (
-      <div className={clazz}>
+      <div className={clazz + (this.state.deleteFocus ? ' focus': '')}>
         <StepTop/>
-        <div className="step-header">
+        <div className="step-header" ref="step-header">
           <h4 className="pull-left">{this.props.step.constructor.title}</h4>
-          <button className="pull-right delete" onClick={this.deleteStep}><span className="ion-md-trash"/></button>
+          <button className="pull-right delete" onClick={this.deleteStep} onMouseEnter={this.deleteFocus} onFocus={this.deleteFocus} onMouseLeave={this.deleteBlur} onBlur={this.deleteBlur}><span className="ion-md-close"/></button>
         </div>
         <div className="step-body">
           {content.map(c => c)}
@@ -103,6 +104,14 @@ class StepComponent extends Component {
       </div>
     );
   }
+
+  deleteFocus = () => {
+    this.setState({ deleteFocus: true });
+  };
+
+  deleteBlur = () => {
+    this.setState({ deleteFocus: false });
+  };
 
   data(content, className) {
     return <ResizingTextArea key="data" readOnly={true} value={content} className={className} direction={this.props.step.direction}/>;
