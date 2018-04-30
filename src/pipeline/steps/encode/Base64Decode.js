@@ -3,6 +3,11 @@ import { ByteDecodeForm } from './AbstractByteDecode';
 import Step from '../Step';
 import Data from '../../Data';
 import {StringType} from '../../Types';
+import PropTypes from 'prop-types';
+
+class Base64DecodeForm extends ByteDecodeForm {
+
+}
 
 class Base64Decode extends Step {
 
@@ -10,7 +15,7 @@ class Base64Decode extends Step {
   static variantTitle = 'Decode';
   static supports = [ StringType ];
   static rtl = true;
-  static form = ByteDecodeForm;
+  static form = Base64DecodeForm;
 
   prefs = {
     encoding: 'UTF-8'
@@ -93,5 +98,10 @@ class Base64Decode extends Step {
   }
 
 }
+
+Base64DecodeForm.propTypes = {
+  step: PropTypes.instanceOf(Base64Decode).isRequired,
+  refresh: PropTypes.func.isRequired
+};
 
 export default Base64Decode;
