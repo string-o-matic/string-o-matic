@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ByteUtils from '../../../lib/ByteUtils';
+import ByteUtils, {OutOfRangeError} from '../../../lib/ByteUtils';
 import Step from '../Step';
 import Data from '../../Data';
 import {StringType} from '../../Types';
@@ -107,7 +107,7 @@ class TextToBytes extends Step {
       try {
         return Data.byteStringBuffer(ByteUtils.baseStringToByteStringBuffer(input.data, this.prefs.source));
       } catch (e) {
-        if (e.message === 'out_of_range' && this.prefs.source === 'dec') {
+        if (e instanceof OutOfRangeError && this.prefs.source === 'dec') {
           return Data.invalid('Your input can\'t be converted from decimal because it contains values over 255. Separators are needed between decimal bytes.');
         } else {
           throw e;

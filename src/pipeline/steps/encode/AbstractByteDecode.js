@@ -16,7 +16,7 @@ class ByteDecodeForm extends Component {
           <label>Encoding</label>
           <select onChange={this.settingHandler(step.setEncoding)} value={prefs.encoding}>
             <option value="UTF-8">UTF-8</option>
-            <option value="UTF-16">UTF-16 big-endian</option>
+            <option value="UTF-16BE">UTF-16 big-endian</option>
             <option value="UTF-16LE">UTF-16 little-endian</option>
             <option value="UTF-16AUTO">UTF-16 auto</option>
             <option value="ISO-8859-1">ISO-8859-1</option>
@@ -37,6 +37,7 @@ class ByteDecodeForm extends Component {
 
 class AbstractByteDecode extends Step {
 
+  static variantTitle = 'Decode';
   static supports = [ StringType ];
   static rtl = true;
   static form = ByteDecodeForm;
