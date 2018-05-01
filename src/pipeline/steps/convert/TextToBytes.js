@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ByteUtils, {OutOfRangeError} from '../../../lib/ByteUtils';
 import Step from '../Step';
 import Data from '../../Data';
-import {StringType} from '../../Types';
+import {ByteStringBufferType, StringType} from '../../Types';
 import * as util from 'node-forge/lib/util';
 
 class TextToBytesForm extends Component {
@@ -79,6 +79,7 @@ class TextToBytes extends Step {
   static title = 'Convert Text \u2192 Bytes';
   static selectorTitle = 'Text \u2192 Bytes';
   static supports = [ StringType ];
+  static output = ByteStringBufferType;
   static form = TextToBytesForm;
 
   showEncoding = true;

@@ -5,6 +5,7 @@ import StepComponent from './StepComponent';
 import StepSelector from './StepSelector';
 import Data from './Data';
 import Globals from '../Globals';
+import {StringType} from './Types';
 import './Pipeline.css';
 
 class Pipeline extends Component {
@@ -34,6 +35,13 @@ class Pipeline extends Component {
   }
 
   render() {
+    let outputType = StringType;
+    if (Globals.steps.length > 0) {
+      outputType = Globals.steps[Globals.steps.length - 1].constructor.output || outputType;
+    } else if (this.state.input) {
+      outputType = this.state.input.type;
+    }
+
     return (
       <div>
         {this.precomposedIntro()}
@@ -43,7 +51,7 @@ class Pipeline extends Component {
             <StepComponent key={step.key} step={step} deleteStep={this.deleteStep} injectStepBefore={this.injectStepBefore} refresh={this.refresh}/>
           )
         }
-        <StepSelector addStep={this.addStep}/>
+        <StepSelector addStep={this.addStep} type={outputType}/>
         <div className="precomposed">
           <h3>Here are some we made earlier...</h3>
           <p>

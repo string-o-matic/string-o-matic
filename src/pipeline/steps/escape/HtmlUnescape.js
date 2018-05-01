@@ -7,6 +7,7 @@ class HtmlUnescape extends Step {
   static title = 'HTML Unescape';
   static variantTitle = 'Unescape';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   entities = {

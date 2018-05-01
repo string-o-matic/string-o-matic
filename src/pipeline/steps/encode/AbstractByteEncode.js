@@ -80,6 +80,7 @@ class AbstractByteEncode extends Step {
 
   static variantTitle = 'Encode';
   static supports = [ StringType, ByteStringBufferType ];
+  static output = StringType;
   static form = ByteEncodeForm;
 
   base = 'bin';

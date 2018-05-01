@@ -73,6 +73,7 @@ class HtmlEscape extends Step {
   static title = 'HTML Escape';
   static variantTitle = 'Escape';
   static supports = [ StringType ];
+  static output = StringType;
   static form = HtmlEscapeForm;
 
   characters = 'minimal';

@@ -39,6 +39,7 @@ class AbstractByteDecode extends Step {
 
   static variantTitle = 'Decode';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
   static form = ByteDecodeForm;
 

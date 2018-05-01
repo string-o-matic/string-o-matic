@@ -6,6 +6,7 @@ import {StringType,ByteStringBufferType} from '../../Types';
 class Hash extends Step {
 
   static supports = [ StringType, ByteStringBufferType ];
+  static output = ByteStringBufferType;
 
   constructor(hash) {
     super();
@@ -15,6 +16,7 @@ class Hash extends Step {
   calculate(input) {
     this.hash.start();
     if (input.type === StringType) {
+      // FIXME needs selectable encoding
       this.hash.update(util.encodeUtf8(input.data));
     } else {
       this.hash.update(util.createBuffer(input.data).getBytes());

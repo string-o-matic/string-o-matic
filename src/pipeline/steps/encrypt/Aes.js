@@ -11,6 +11,7 @@ import TextToBytes, {TextToBytesForm} from '../convert/TextToBytes';
 import Globals from '../../../Globals';
 import './Aes.css';
 
+// TODO drop the random option and use the generate button to generate random for b64 or hex options in appropriate format
 class AesForm extends Component {
 
   render() {
@@ -117,6 +118,7 @@ class Aes extends Step {
   }
 
   static supports = [ StringType, ByteStringBufferType ];
+  static output = ByteStringBufferType;
   static form = AesForm;
   static ciphers = {
     'AES-128-CBC': {

@@ -96,17 +96,28 @@ class StepSelector extends Component {
             {
               filteredCategories[name].map((step, si) => {
                 if (step.root) {
+                  let supportedVariants = 0;
                   const variants = step.variants.map((variant, vi) => {
-                    return <button key={vi} className="btn" onClick={this.addStep.bind(this, variant)}>{variant.variantTitle}</button>;
+                    let className = 'btn';
+                    if (variant.supports.indexOf(this.props.type) === -1) {
+                      className += ' fade';
+                    } else {
+                      supportedVariants++;
+                    }
+                    return <button key={vi} className={className} onClick={this.addStep.bind(this, variant)}>{variant.variantTitle}</button>;
                   });
                   return (
-                    <div className="btn-group" key={si}>
+                    <div className={'btn-group' + (supportedVariants === 0 ? ' fade' : '')} key={si}>
                       <div className="btn-group-label">{step.root}</div>
                       {variants}
                     </div>
                   );
                 } else {
-                  return <button key={si} className="btn" onClick={this.addStep.bind(this, step)}>{step.selectorTitle || step.title}</button>;
+                  let className = 'btn';
+                  if (step.supports.indexOf(this.props.type) === -1) {
+                    className += ' fade';
+                  }
+                  return <button key={si} className={className} onClick={this.addStep.bind(this, step)}>{step.selectorTitle || step.title}</button>;
                 }
               })
             }
@@ -147,7 +158,8 @@ class StepSelector extends Component {
 }
 
 StepSelector.propTypes = {
-  addStep: PropTypes.func.isRequired
+  addStep: PropTypes.func.isRequired,
+  type: PropTypes.func
 };
 
 export default StepSelector;

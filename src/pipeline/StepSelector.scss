@@ -71,6 +71,17 @@
           background: lighten($selector, 10%);
           color: #FFF;
         }
+
+        &.fade {
+          background: $selector-fade;
+
+          &:hover,
+          &:focus,
+          &:active {
+            background: lighten($selector-fade, 10%);
+            color: #FFF;
+          }
+        }
       }
 
       .btn-group {
@@ -95,11 +106,17 @@
         button {
           margin-right: 0;
           border-radius: 0;
-          border-left: 1px solid transparentize(#FFF, .8);
 
           &:last-child {
             margin-right: 5px;
             border-radius: 0 3px 3px 0;
+          }
+        }
+
+        &.fade {
+          .btn-group-label {
+            border: 1px solid $selector-fade;
+            color: $selector-fade;
           }
         }
       }
