@@ -1,5 +1,5 @@
 import Data from '../Data';
-import {NullType} from '../Types';
+import {ByteStringBufferType, NullType, StringType} from '../Types';
 import Globals from '../../Globals';
 import '../StepComponent.css';
 /* global process */
@@ -108,17 +108,26 @@ class Step {
     } else {
       try {
         this.log('Calculate', input);
-        this.output = this.calculate(input);
-        if (this.output.then) {
-          // Replacing output with actual data avoids redundant updates of the component
-          this.output.then(output => {
-            if (input.sequence === Globals.inputSequence) {
-              this.output = output.withSequence(input.sequence);
-            }
-          });
+        this._updateConvertStep(input);
+        if (this.convertStep) {
+          this.convertStep.setInput(input);
+          input = this.convertStep.getOutput();
+        }
+        if (input.status !== 'valid') {
+          this.output = input;
         } else {
-          this.output.withSequence(input.sequence);
-          this.output.context = Object.assign(this.output.context, input.context);
+          this.output = this.calculate(input);
+          if (this.output.then) {
+            // Replacing output with actual data avoids redundant updates of the component
+            this.output.then(output => {
+              if (input.sequence === Globals.inputSequence) {
+                this.output = output.withSequence(input.sequence);
+              }
+            });
+          } else {
+            this.output.withSequence(input.sequence);
+            this.output.context = Object.assign(this.output.context, input.context);
+          }
         }
       } catch (e) {
         this.error('Calculation failed', {input: input, error: e});
@@ -129,6 +138,27 @@ class Step {
       }
     }
     return this.output;
+  }
+
+  /**
+   * Set the input converter step based on the received input type and the input static field. Require imports needed
+   * because TextToBytes extends Step.
+   * @param input {Data}
+   * @private
+   */
+  _updateConvertStep(input) {
+    let converterType = null;
+    if (this.constructor.input && this.constructor.input !== input.type) {
+      if (this.constructor.input === ByteStringBufferType && input.type === StringType) {
+        converterType = require('./convert/TextToBytes').default;
+      }
+    }
+    if (converterType == null) {
+      this.convertStep = null;
+    } else if (this.convertStep == null || this.convertStep.constructor !== converterType) {
+      this.convertStep = new converterType();
+      this.convertStep.prefs = this.prefs || this.convertStep.prefs;
+    }
   }
 
   /**

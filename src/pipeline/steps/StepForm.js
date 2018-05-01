@@ -6,11 +6,22 @@ import './StepForm.css';
 class StepForm extends Component {
 
   render() {
-    const TagName = this.props.step.constructor.form;
-    if (TagName) {
+    const step = this.props.step;
+    const convertStep = step.convertStep;
+    const refresh = this.props.refresh;
+    const ConvertTagName = convertStep && convertStep.constructor.form;
+    const TagName = step.constructor.form;
+    if (TagName || ConvertTagName) {
+      const convertRefresh = () => {
+        step._update();
+        refresh();
+      };
+      const convertForm = ConvertTagName ? (<ConvertTagName key="convert-form" step={convertStep} refresh={convertRefresh}/>) : null;
+      const form = TagName ? (<TagName key="form" step={step} refresh={refresh}/>) : null;
       return (
         <div className="step-form container-fluid">
-          <TagName key="form" step={this.props.step} refresh={this.props.refresh}/>
+          {convertForm}
+          {form}
         </div>
       );
     } else {

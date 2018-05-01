@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import Step from '../Step';
 import Data from '../../Data';
 import {ByteStringBufferType, StringType} from '../../Types';
-import TextToBytes, {TextToBytesForm} from '../convert/TextToBytes';
 import Globals from '../../../Globals';
 import './Aes.css';
 
@@ -32,18 +31,8 @@ class AesForm extends Component {
       ivRegen = (<button onClick={this.resetIv} className="regen"><span className="ion-md-refresh"/></button>);
     }
 
-    // TODO Make this generic, included in all steps that convert bytes
-    let textToBytesForm = null;
-    if (step.textToBytesStep) {
-      const refresh = () => {
-        step._update();
-        this.props.refresh();
-      };
-      textToBytesForm = (<TextToBytesForm step={step.textToBytesStep} refresh={refresh}/>);
-    }
     return (
       <div>
-        {textToBytesForm}
         <div className="row">
           <div className="material-group col-xs-6 col-sm-3 col-md-2">
             <label>Cipher</label>
@@ -118,6 +107,7 @@ class Aes extends Step {
   }
 
   static supports = [ StringType, ByteStringBufferType ];
+  static input = ByteStringBufferType;
   static output = ByteStringBufferType;
   static form = AesForm;
   static ciphers = {
@@ -138,8 +128,6 @@ class Aes extends Step {
     }
   };
 
-  textToBytesStep = null;
-
   keyValid = false;
   ivValid = false;
   allowRandomKey = true;
@@ -148,6 +136,8 @@ class Aes extends Step {
   allowContextKey = false;
 
   prefs = {
+    source: 'plain',
+    encoding: 'UTF-8',
     cipher: 'AES-128-CBC',
     keyType: 'hex',
     key: '',
@@ -167,21 +157,6 @@ class Aes extends Step {
   }
 
   calculate(input) {
-    // If the input is a string it needs conversion. We embed the form from TextToBytes and run the input through it,
-    // effectively concealing a conversion step within this one.
-    if (input.type === StringType) {
-      this.textToBytesStep = this.textToBytesStep || new TextToBytes();
-      this.textToBytesStep.setInput(input);
-      const ttbOutput = this.textToBytesStep.getOutput();
-      if (ttbOutput.status !== 'valid') {
-        return ttbOutput;
-      } else {
-        input = ttbOutput;
-      }
-    } else {
-      this.textToBytesStep = null;
-    }
-
     const cipherConf = Aes.ciphers[this.prefs.cipher];
 
     if (input.context['aes.encrypt.key']) {
@@ -248,5 +223,4 @@ AesForm.propTypes = {
   refresh: PropTypes.func.isRequired
 };
 
-export {AesForm};
 export default Aes;
