@@ -1,4 +1,3 @@
-import * as util from 'node-forge/lib/util';
 import * as random from 'node-forge/lib/random';
 import * as aes from 'node-forge/lib/aes';
 import React, { Component } from 'react';
@@ -10,24 +9,21 @@ import {ByteStringBufferType, StringType} from '../../Types';
 import Globals from '../../../Globals';
 import './Aes.css';
 
-// TODO drop the random option and use the generate button to generate random for b64 or hex options in appropriate format
 class AesForm extends Component {
 
   render() {
     const step = this.props.step;
     const prefs = step.prefs;
 
-    const keyRandom = step.allowRandomKey ? (<option value="random">Random</option>) : null;
-    const ivRandom = step.allowRandomIv ? (<option value="random">Random</option>) : null;
     const keyContext = step.allowContextKey ? (<option value="context">Encrypt step</option>) : null;
     const ivContext = step.allowContextIv ? (<option value="context">Encrypt step</option>) : null;
 
     let keyRegen = null;
-    if (step.prefs.keyType === 'random') {
+    if (step.allowRandomKey && prefs.keyType !== 'context') {
       keyRegen = (<button onClick={this.resetKey} className="regen"><span className="ion-md-refresh"/></button>);
     }
     let ivRegen = null;
-    if (step.prefs.ivType === 'random') {
+    if (step.allowRandomIv && prefs.ivType !== 'context') {
       ivRegen = (<button onClick={this.resetIv} className="regen"><span className="ion-md-refresh"/></button>);
     }
 
@@ -49,10 +45,9 @@ class AesForm extends Component {
           <div className="material-group col-xs-4 col-sm-3 col-md-2">
             <label>Key Source</label>
             <select onChange={this.settingHandler(step.setKeyType)} value={prefs.keyType}>
-              <option value="hex">Hex Entry</option>
-              <option value="b64">Base64 Entry</option>
+              <option value="hex">Hex</option>
+              <option value="b64">Base64</option>
               {keyContext}
-              {keyRandom}
             </select>
           </div>
           <div className={'material-group col-xs-8 col-sm-9 col-md-10' + (step.keyValid ? '' : ' has-error')}>
@@ -65,10 +60,9 @@ class AesForm extends Component {
           <div className="material-group col-xs-4 col-sm-3 col-md-2">
             <label>IV Source</label>
             <select onChange={this.settingHandler(step.setIvType)} value={prefs.ivType}>
-              <option value="hex">Hex Entry</option>
-              <option value="b64">Base64 Entry</option>
+              <option value="hex">Hex</option>
+              <option value="b64">Base64</option>
               {ivContext}
-              {ivRandom}
             </select>
           </div>
           <div className={'material-group col-xs-8 col-sm-9 col-md-10' + (step.ivValid ? '' : ' has-error')}>
@@ -96,12 +90,12 @@ class AesForm extends Component {
   };
 
   resetKey = () => {
-    this.props.step.setKey('');
+    this.props.step.generateKey();
     this.props.refresh();
   };
 
   resetIv = () => {
-    this.props.step.setIv('');
+    this.props.step.generateIv();
     this.props.refresh();
   };
 
@@ -119,23 +113,6 @@ class Aes extends Step {
   static input = ByteStringBufferType;
   static output = ByteStringBufferType;
   static form = AesForm;
-  static ciphers = {
-    'AES-128-CBC': {
-      ref: 'AES-CBC',
-      size: 128,
-      mode: 'CBC'
-    },
-    'AES-192-CBC': {
-      ref: 'AES-CBC',
-      size: 192,
-      mode: 'CBC'
-    },
-    'AES-256-CBC': {
-      ref: 'AES-CBC',
-      size: 256,
-      mode: 'CBC'
-    }
-  };
 
   keyValid = false;
   ivValid = false;
@@ -161,14 +138,24 @@ class Aes extends Step {
   setIvType = (v) => { this.prefs.ivType = v; this.prefs.iv = ''; this._update(); };
   setIv = (v) => { this.prefs.iv = v; this._update(); };
 
+  generateKey = () => {
+    const keyBytes = random.getBytesSync(this.prefs.keySize / 8);
+    this.prefs.key = ByteUtils.byteStringToBaseString(keyBytes, this.prefs.keyType, { separator: '' });
+    this._update();
+  };
+
+  generateIv = () => {
+    const ivBytes = random.getBytesSync(16);
+    this.prefs.iv = ByteUtils.byteStringToBaseString(ivBytes, this.prefs.ivType, { separator: '' });
+    this._update();
+  };
+
   _update() {
     this.output = null;
     this.passInput();
   }
 
   calculate(input) {
-    const cipherConf = Aes.ciphers['AES-' + this.prefs.keySize + '-' + this.prefs.mode];
-
     if (input.context['aes.encrypt.key']) {
       this.allowContextKey = true;
     } else if (this.prefs.keyType === 'context') {
@@ -184,13 +171,6 @@ class Aes extends Step {
     if (this.allowContextKey && this.prefs.keyType === 'context') {
       key = input.context['aes.encrypt.key'];
       this.prefs.key = key.toHex();
-    } else if (this.allowRandomKey && this.prefs.keyType === 'random') {
-      if (!this.prefs.key || this.prefs.key.length === 0) {
-        key = new util.ByteStringBuffer(random.getBytesSync(cipherConf.size / 8));
-        this.prefs.key = key.toHex();
-      } else {
-        key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, 'hex');
-      }
     } else {
       key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, this.prefs.keyType);
     }
@@ -199,27 +179,20 @@ class Aes extends Step {
     if (this.allowContextIv && this.prefs.ivType === 'context') {
       iv = input.context['aes.encrypt.iv'];
       this.prefs.iv = iv.toHex();
-    } else if (this.allowRandomIv && this.prefs.ivType === 'random') {
-      if (!this.prefs.iv || this.prefs.iv.length === 0) {
-        iv = new util.ByteStringBuffer(random.getBytesSync(16));
-        this.prefs.iv = iv.toHex();
-      } else {
-        iv = ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, 'hex');
-      }
     } else {
       iv = ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, this.prefs.ivType);
     }
 
-    this.keyValid = key.length() === cipherConf.size / 8;
+    this.keyValid = key.length() === this.prefs.keySize / 8;
     this.ivValid = iv.length() === 16;
     if (!this.keyValid) {
-      return Data.invalid(this.prefs.cipher + ' requires a ' + (cipherConf.size / 8) + ' byte key. Your key is ' + key.length() + ' bytes.');
+      return Data.invalid(this.prefs.cipher + ' requires a ' + (this.prefs.keySize / 8) + ' byte key. Your key is ' + key.length() + ' bytes.');
     }
     if (!this.ivValid) {
       return Data.invalid(this.prefs.cipher + ' requires a 16 byte IV. Your IV is ' + iv.length() + ' bytes.');
     }
 
-    return this._calculate(cipherConf, key, iv, input.data.copy());
+    return this._calculate(key, iv, input.data.copy());
   }
 
   _calculate() {

@@ -10,8 +10,8 @@ class AesDecrypt extends Aes {
   allowRandomKey = false;
   allowRandomIv = false;
 
-  _calculate(cipherConf, key, iv, input) {
-    const aes = cipher.createDecipher(cipherConf.ref, key.copy());
+  _calculate(key, iv, input) {
+    const aes = cipher.createDecipher('AES-' + this.prefs.mode, key.copy());
     aes.start({iv: iv.copy()});
     aes.update(input);
     const result = aes.finish();
@@ -20,7 +20,7 @@ class AesDecrypt extends Aes {
     } else {
       return Data
         .byteStringBuffer(aes.output)
-        .addInfo('Cipher: AES \u00a0 Key Size: ' + cipherConf.size + ' \u00a0 Mode: ' + cipherConf.mode + ' \u00a0 Padding: PKCS#7');
+        .addInfo('Cipher: AES \u00a0 Key Size: ' + this.prefs.keySize + ' \u00a0 Mode: ' + this.prefs.mode + ' \u00a0 Padding: PKCS#7');
     }
   }
 
