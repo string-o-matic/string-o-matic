@@ -11,8 +11,8 @@ class AesDecrypt extends Aes {
   allowRandomIv = false;
 
   _calculate(key, iv, input) {
-    const aes = cipher.createDecipher('AES-' + this.prefs.mode, key.copy());
-    aes.start({iv: iv.copy()});
+    const aes = cipher.createDecipher('AES-' + this.prefs.mode, key.byteStringBuffer.copy());
+    aes.start({iv: iv.byteStringBuffer.copy()});
     aes.update(input);
     const result = aes.finish();
     if (!result) {

@@ -8,15 +8,15 @@ class AesEncrypt extends Aes {
   static variantTitle = 'Encrypt';
 
   _calculate(key, iv, input) {
-    const aes = cipher.createCipher('AES-' + this.prefs.mode, key.copy());
-    aes.start({iv: iv.copy()});
+    const aes = cipher.createCipher('AES-' + this.prefs.mode, key.byteStringBuffer.copy());
+    aes.start({iv: iv.byteStringBuffer.copy()});
     aes.update(input);
     aes.finish();
     return Data
       .byteStringBuffer(aes.output)
       .addInfo('Cipher: AES \u00a0 Key Size: ' + this.prefs.keySize + ' \u00a0 Mode: ' + this.prefs.mode + ' \u00a0 Padding: PKCS#7')
-      .addContext('aes.encrypt.key', key.copy())
-      .addContext('aes.encrypt.iv', iv.copy());
+      .addContext('aes.encrypt.key', key)
+      .addContext('aes.encrypt.iv', iv);
   }
 
 }

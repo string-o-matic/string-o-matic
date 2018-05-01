@@ -170,26 +170,34 @@ class Aes extends Step {
     let key = null;
     if (this.allowContextKey && this.prefs.keyType === 'context') {
       key = input.context['aes.encrypt.key'];
-      this.prefs.key = key.toHex();
+      this.prefs.key = key.string;
     } else {
-      key = ByteUtils.baseStringToByteStringBuffer(this.prefs.key, this.prefs.keyType);
+      key = {
+        string: this.prefs.key,
+        encoding: this.prefs.keyType,
+        byteStringBuffer: ByteUtils.baseStringToByteStringBuffer(this.prefs.key, this.prefs.keyType)
+      };
     }
 
     let iv = null;
     if (this.allowContextIv && this.prefs.ivType === 'context') {
       iv = input.context['aes.encrypt.iv'];
-      this.prefs.iv = iv.toHex();
+      this.prefs.iv = iv.string;
     } else {
-      iv = ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, this.prefs.ivType);
+      iv = {
+        string: this.prefs.iv,
+        encoding: this.prefs.ivType,
+        byteStringBuffer: ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, this.prefs.ivType)
+      };
     }
 
-    this.keyValid = key.length() === this.prefs.keySize / 8;
-    this.ivValid = iv.length() === 16;
+    this.keyValid = key.byteStringBuffer.length() === this.prefs.keySize / 8;
+    this.ivValid = iv.byteStringBuffer.length() === 16;
     if (!this.keyValid) {
-      return Data.invalid(this.prefs.cipher + ' requires a ' + (this.prefs.keySize / 8) + ' byte key. Your key is ' + key.length() + ' bytes.');
+      return Data.invalid('AES-' + this.prefs.keySize + ' requires a ' + (this.prefs.keySize / 8) + ' byte key. Your key is ' + key.byteStringBuffer.length() + ' bytes.');
     }
     if (!this.ivValid) {
-      return Data.invalid(this.prefs.cipher + ' requires a 16 byte IV. Your IV is ' + iv.length() + ' bytes.');
+      return Data.invalid('AES-' + this.prefs.keySize + ' requires a 16 byte IV. Your IV is ' + iv.byteStringBuffer.length() + ' bytes.');
     }
 
     return this._calculate(key, iv, input.data.copy());
