@@ -83,7 +83,6 @@ class AbstractByteEncode extends Step {
   static form = ByteEncodeForm;
 
   base = 'bin';
-  defaultSeparator = '';
   showCase = false;
   showEncoding = false;
 
@@ -91,7 +90,7 @@ class AbstractByteEncode extends Step {
     encoding: 'UTF-8',
     bom: '0',
     bytesPerLine: '',
-    separator: this.defaultSeparator,
+    separator: ' ',
     prefix: '',
     suffix: '',
     'case': 'lower'
