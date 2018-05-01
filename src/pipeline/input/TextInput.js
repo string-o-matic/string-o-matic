@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Data from '../Data';
 import ResizingTextArea from '../ResizingTextArea';
 import Globals from '../../Globals';
-import './Input.css';
 
 class TextInput extends Component {
 

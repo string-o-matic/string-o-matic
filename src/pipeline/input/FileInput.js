@@ -6,7 +6,7 @@ import Data from '../Data';
 import ResizingTextArea from '../ResizingTextArea';
 import Globals from '../../Globals';
 import Dropzone from 'react-dropzone';
-import './Input.css';
+import './FileInput.css';
 
 class FileInput extends Component {
 
@@ -45,12 +45,14 @@ class FileInput extends Component {
       <div>
         <Dropzone onDrop={this.onDrop.bind(this)} maxSize={1048576} disablePreview={true} multiple={false} style={style} className="dropzone" activeClassName="active" rejectClassName="reject">
           <span className="ionicon ion-ios-folder-open-outline"/>
-          <br/>
-          Drop a file here
-          <small>
-            <br/>or click to select a file
-            <br/>Max size 1Mb
-          </small>
+          <div className="drop-label">
+            Drop a file here
+          </div>
+          <div className="drop-alt">
+            or click to select a file
+            <br/>
+            Max 1MB
+          </div>
           {status}
         </Dropzone>
         {textarea}
