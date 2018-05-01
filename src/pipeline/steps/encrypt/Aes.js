@@ -34,13 +34,15 @@ class AesForm extends Component {
     return (
       <div>
         <div className="row">
-          <div className="material-group col-xs-6 col-sm-3 col-md-2">
-            <label>Cipher</label>
-            <select onChange={this.settingHandler(step.setCipher)} value={prefs.cipher}>
-              <option value="AES-128-CBC">AES-128-CBC</option>
-              <option value="AES-192-CBC">AES-192-CBC</option>
-              <option value="AES-256-CBC">AES-256-CBC</option>
-            </select>
+          <div className="material-group col-xs-12 col-sm-6 col-md-4">
+            <label>Key Size</label>
+            <div className="btn-group">
+              {[128, 192, 256].map((keySize) => {
+                return (<button key={keySize} onClick={this.keySizeHandler(keySize)} className={'btn' + (prefs.keySize === keySize ? ' active' : '')}>
+                  <span className={'ionicon ' + (prefs.keySize === keySize ? 'ion-md-checkbox' : 'ion-md-square-outline')}/> {keySize}
+                </button>);
+              })}
+            </div>
           </div>
         </div>
         <div className="row">
@@ -82,6 +84,13 @@ class AesForm extends Component {
   settingHandler = (settingFunc) => {
     return (e) => {
       settingFunc(e.target.value);
+      this.props.refresh();
+    };
+  };
+
+  keySizeHandler = (keySize) => {
+    return () => {
+      this.props.step.setKeySize(keySize);
       this.props.refresh();
     };
   };
@@ -138,14 +147,15 @@ class Aes extends Step {
   prefs = {
     source: 'plain',
     encoding: 'UTF-8',
-    cipher: 'AES-128-CBC',
+    keySize: 128,
+    mode: 'CBC',
     keyType: 'hex',
     key: '',
     ivType: 'hex',
     iv: ''
   };
 
-  setCipher = (v) => { this.prefs.cipher = v; this._update(); };
+  setKeySize = (v) => { this.prefs.keySize = v; this._update(); };
   setKeyType = (v) => { this.prefs.keyType = v; this.prefs.key = ''; this._update(); };
   setKey = (v) => { this.prefs.key = v; this._update(); };
   setIvType = (v) => { this.prefs.ivType = v; this.prefs.iv = ''; this._update(); };
@@ -157,7 +167,7 @@ class Aes extends Step {
   }
 
   calculate(input) {
-    const cipherConf = Aes.ciphers[this.prefs.cipher];
+    const cipherConf = Aes.ciphers['AES-' + this.prefs.keySize + '-' + this.prefs.mode];
 
     if (input.context['aes.encrypt.key']) {
       this.allowContextKey = true;
