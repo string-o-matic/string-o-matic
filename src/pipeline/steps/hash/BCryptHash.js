@@ -45,7 +45,7 @@ class BCryptHash extends Step {
   static output = StringType;
   static form = BCryptHashForm;
 
-  cost = 12;
+  cost = '12';
   costValid = true;
   minCost = 4;
   maxCost = 16;

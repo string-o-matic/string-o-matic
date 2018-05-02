@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import bcrypt from 'bcryptjs';
-import {StringType} from '../../Types';
+import {StringType, BoolType} from '../../Types';
 import Data from '../../Data';
 import Step from '../Step';
+import PropTypes from 'prop-types';
 
 class BCryptVerifyForm extends Component {
 
@@ -38,6 +39,7 @@ class BCryptVerify extends Step {
   static title = 'BCrypt Verify';
   static variantTitle = 'Verify';
   static supports = [ StringType ];
+  static output = BoolType;
   static form = BCryptVerifyForm;
 
   password = '';
@@ -62,9 +64,8 @@ class BCryptVerify extends Step {
 }
 
 BCryptVerifyForm.propTypes = {
-  step: BCryptVerify.prototype.isRequired,
-  onChange: Function.prototype.isRequired,
-  refresh: Function.prototype.isRequired
+  step: PropTypes.instanceOf(BCryptVerify).isRequired,
+  refresh: PropTypes.func.isRequired
 };
 
 export {BCryptVerifyForm};
