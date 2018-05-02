@@ -8,10 +8,7 @@ class NotFound extends Component {
     return (
       <div>
         <div className="notfound">
-          <h1><span className="ion-md-alert"/><br/>404</h1>
-          <p>
-            <strong>Page not found</strong>
-          </p>
+          <h1><span className="ion-md-alert"/><br/>0b110010100 = 0x194 = 404 = PAGE_NOT_FOUND</h1>
           <p>
             <Link to="/">Sorry about that! Try our homepage instead.</Link>
           </p>

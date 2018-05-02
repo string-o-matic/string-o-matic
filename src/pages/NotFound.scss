@@ -21,7 +21,11 @@
     font-weight: normal;
     margin: 0;
     font-family: $mono-font;
-    font-size: 300%;
+    font-size: 150%;
+
+    span {
+      font-size: 300%;
+    }
   }
 
   a {

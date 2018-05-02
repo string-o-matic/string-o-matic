@@ -244,8 +244,8 @@
         &:hover,
         &:focus,
         &:active {
-          background: #E0E0E0;
-          color: #616161;
+          background: lighten($selector, 10%);
+          color: #FFF;
         }
       }
     }
