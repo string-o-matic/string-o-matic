@@ -22,7 +22,7 @@ test('aes128-cbc', () => {
   const ivHex = '808182838485868788898a8b8c8d8e8f';
   const resultHex = '4a895383d7b1dfa600fc55bf3929e08302a11c2815501ee9fe69b019f73e45f9';
 
-  step.setCipher('AES-128-CBC');
+  step.setKeySize(128);
   step.setKeyType('hex');
   step.setKey(keyHex);
   step.setIvType('hex');

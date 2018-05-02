@@ -4,8 +4,7 @@ import Step from '../Step';
 import Data from '../../Data';
 import {StringType,ByteStringBufferType} from '../../Types';
 import Globals from '../../../Globals';
-import ByteUtils, {OutOfRangeError} from '../../../lib/ByteUtils';
-import StringUtils from '../../../lib/StringUtils';
+import ByteUtils from '../../../lib/ByteUtils';
 
 class ByteEncodeForm extends Component {
 
@@ -21,27 +20,6 @@ class ByteEncodeForm extends Component {
         </select>
       </div>
     ) : null;
-    const encoding = step.showEncoding ? (
-      <div className="material-group col-xs-4 col-sm-3 col-md-2">
-        <label>Encoding</label>
-        <select onChange={this.settingHandler(step.setEncoding)} value={prefs.encoding}>
-          <option value="UTF-8">UTF-8</option>
-          <option value="UTF-16BE">UTF-16 big-endian</option>
-          <option value="UTF-16LE">UTF-16 little-endian</option>
-          <option value="ISO-8859-1">ISO-8859-1</option>
-        </select>
-      </div>
-    ) : null;
-    const bom = step.showEncoding && prefs.encoding.startsWith('UTF-16') ? (
-      <div className="material-group col-xs-4 col-sm-3 col-md-2">
-        <label>UTF-16 BOM</label>
-        <select onChange={this.settingHandler(step.setBom)} value={prefs.bom}>
-          <option value="0">Off</option>
-          <option value="1">On</option>
-        </select>
-      </div>
-    ) : null;
-
     return (
       <form className="form-inline row">
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
@@ -61,8 +39,6 @@ class ByteEncodeForm extends Component {
           <input onChange={this.settingHandler(step.setBytesPerLine)} type="number" value={prefs.bytesPerLine} {...Globals.noAutoComplete}/>
         </div>
         {kase}
-        {encoding}
-        {bom}
       </form>
     );
   }
@@ -80,6 +56,7 @@ class AbstractByteEncode extends Step {
 
   static variantTitle = 'Encode';
   static supports = [ StringType, ByteStringBufferType ];
+  static input = ByteStringBufferType;
   static output = StringType;
   static form = ByteEncodeForm;
 
@@ -88,8 +65,9 @@ class AbstractByteEncode extends Step {
   showEncoding = false;
 
   prefs = {
+    source: 'plain',
     encoding: 'UTF-8',
-    bom: '0',
+    bom: false,
     bytesPerLine: '',
     separator: ' ',
     prefix: '',
@@ -102,8 +80,6 @@ class AbstractByteEncode extends Step {
     this.passInput();
   }
 
-  setEncoding = (v) => { this.prefs.encoding = v; this._update(); };
-  setBom = (v) => { this.prefs.bom = v; this._update(); };
   setSeparator = (v) => { this.prefs.separator = v; this._update(); };
   setPrefix = (v) => { this.prefs.prefix = v; this._update(); };
   setSuffix = (v) => { this.prefs.suffix = v; this._update(); };
@@ -112,23 +88,8 @@ class AbstractByteEncode extends Step {
 
   calculate(input) {
     let opts = Object.assign({}, this.prefs);
-    opts.bom = this.prefs.bom === '1';
     opts.bytesPerLine = parseInt(this.prefs.bytesPerLine, 10);
-    if (input.type === StringType) {
-      this.showEncoding = true;
-      try {
-        return Data.string(StringUtils.jsStringToBaseString(input.data, this.base, opts));
-      } catch (e) {
-        if (e instanceof OutOfRangeError && this.prefs.encoding === 'ISO-8859-1') {
-          return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');
-        } else {
-          throw e;
-        }
-      }
-    } else {
-      this.showEncoding = false;
-      return Data.string(ByteUtils.byteStringBufferToBaseString(input.data.copy(), this.base, opts));
-    }
+    return Data.string(ByteUtils.byteStringBufferToBaseString(input.data.copy(), this.base, opts));
   }
 
 }

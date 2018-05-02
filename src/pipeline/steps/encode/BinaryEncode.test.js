@@ -6,12 +6,14 @@ let step;
 
 beforeEach(() => {
   step = new BinaryEncode();
+  step._updateConvertStep(Data.string(''));
 });
 
 // No tests for null or unsupported types - superclass rejects them.
 
 function expectResult(input, output) {
-  const result = step.calculate(Data.string(input));
+  step.setInput(Data.string(input));
+  const result = step.getOutput();
   expect(result.type).toBe(StringType);
   expect(result.data).toBe(output);
 }
@@ -41,15 +43,15 @@ test('suffix', () => {
 });
 
 test('bytes per line', () => {
-  step.setEncoding('UTF-16BE');
-  step.setBom('1');
+  step.convertStep.setEncoding('UTF-16BE');
+  step.convertStep.toggleBom();
   step.setBytesPerLine(2);
   expectResult('$', '11111110 11111111\n00000000 00100100');
 });
 
 test('combined options', () => {
-  step.setEncoding('UTF-16BE');
-  step.setBom('1');
+  step.convertStep.setEncoding('UTF-16BE');
+  step.convertStep.toggleBom();
   step.setBytesPerLine(2);
   step.setPrefix('\\b');
   step.setSuffix(';');

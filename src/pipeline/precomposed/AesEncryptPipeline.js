@@ -43,8 +43,8 @@ class AesEncryptPipeline extends Pipeline {
 
   buildPrecomposedPipeline() {
     const aes = new AesEncrypt();
-    aes.setKeyType('random');
-    aes.setIvType('random');
+    aes.generateIv();
+    aes.generateKey();
     this.addStep(aes);
     this.addStep(new Base64Encode());
   }

@@ -17,8 +17,8 @@ class TextToBytesForm extends Component {
       plain: 'Text',
       b64: 'Base64',
       hex: 'Hex',
-      dec: 'Decimal',
-      bin: 'Binary'
+      dec: 'Dec',
+      bin: 'Bin'
     };
     const encodings = {
       'UTF-8': 'UTF-8',
@@ -41,9 +41,19 @@ class TextToBytesForm extends Component {
         </div>
       );
     }
+    const bom = prefs.source === 'plain' && prefs.encoding.startsWith('UTF-16') ? (
+      <div className="material-group col-xs-4 col-sm-1 col-md-1">
+        <label><abbr title="Byte-order mark">BOM</abbr></label>
+        <div className="btn-group">
+          <button onClick={this.bomHandler()} className={'btn' + (prefs.bom ? ' active' : '')}>
+            <span className={'ionicon ' + (prefs.bom ? 'ion-md-checkbox' : 'ion-md-square-outline')}/> On
+          </button>
+        </div>
+      </div>
+    ) : null;
     return (
       <div className="row">
-        <div className="material-group col-xs-12 col-sm-6 col-md-6">
+        <div className="material-group col-xs-12 col-sm-5 col-md-5">
           <label>Input Type</label>
           <div className="btn-group">
             {Object.keys(sources).map((source) => {
@@ -54,6 +64,7 @@ class TextToBytesForm extends Component {
           </div>
         </div>
         {encoding}
+        {bom}
       </div>
     );
   }
@@ -68,6 +79,13 @@ class TextToBytesForm extends Component {
   encodingHandler = (encoding) => {
     return () => {
       this.props.step.setEncoding(encoding);
+      this.props.refresh();
+    };
+  };
+
+  bomHandler = () => {
+    return () => {
+      this.props.step.toggleBom();
       this.props.refresh();
     };
   }
@@ -86,11 +104,13 @@ class TextToBytes extends Step {
 
   prefs = {
     source: 'plain',
-    encoding: 'UTF-8'
+    encoding: 'UTF-8',
+    bom: false
   };
 
   setSource = (v) => { this.prefs.source = v; this._update(); };
   setEncoding = (v) => { this.prefs.encoding = v; this._update(); };
+  toggleBom = () => { this.prefs.bom = !this.prefs.bom; this._update(); };
 
   _update() {
     this.output = null;
@@ -115,17 +135,17 @@ class TextToBytes extends Step {
         }
       }
     case 'plain':
-    case 'binary':
     default: {
       this.showEncoding = true;
       // TODO check for > 0xFF
+      // TODO move to stringutils
       switch (this.prefs.encoding) {
       case 'UTF-8':
         return Data.byteStringBuffer(new util.ByteStringBuffer(util.encodeUtf8(input.data)));
       case 'UTF-16BE':
-        return this.stringToUtf16BEBytes(input.data);
+        return this.stringToUtf16BEBytes(input.data, this.prefs.bom);
       case 'UTF-16LE':
-        return this.stringToUtf16LEBytes(input.data);
+        return this.stringToUtf16LEBytes(input.data, this.prefs.bom);
       case 'ISO-8859-1':
       default:
         return this.stringToBytes(input.data);
@@ -138,7 +158,10 @@ class TextToBytes extends Step {
     return Data.byteStringBuffer(new util.ByteStringBuffer(string));
   }
 
-  stringToUtf16BEBytes(string) {
+  stringToUtf16BEBytes(string, bom) {
+    if (bom) {
+      string = '\ufeff' + string;
+    }
     const buffer = new Uint8Array(string.length * 2);
     const view = new DataView(buffer.buffer);
     for (let i = 0; i < string.length; i++) {
@@ -147,7 +170,10 @@ class TextToBytes extends Step {
     return Data.byteStringBuffer(new util.ByteStringBuffer(buffer));
   }
 
-  stringToUtf16LEBytes(string) {
+  stringToUtf16LEBytes(string, bom) {
+    if (bom) {
+      string = '\ufffe' + string;
+    }
     const buffer = new Uint8Array(string.length * 2);
     const view = new DataView(buffer.buffer);
     for (let i = 0; i < string.length; i++) {
