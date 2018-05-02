@@ -82,7 +82,9 @@
     select {
       // sass-lint:disable-block no-vendor-prefixes
       -webkit-appearance: none;
+      -moz-appearance: none;
       padding: 1px 0;
+      height: 27px;
     }
 
     &.has-error {
