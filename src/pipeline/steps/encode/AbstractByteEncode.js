@@ -4,7 +4,7 @@ import Step from '../Step';
 import Data from '../../Data';
 import {StringType,ByteStringBufferType} from '../../Types';
 import Globals from '../../../Globals';
-import ByteUtils from '../../../lib/ByteUtils';
+import ByteUtils, {OutOfRangeError} from '../../../lib/ByteUtils';
 
 class ByteEncodeForm extends Component {
 
@@ -89,7 +89,15 @@ class AbstractByteEncode extends Step {
   calculate(input) {
     let opts = Object.assign({}, this.prefs);
     opts.bytesPerLine = parseInt(this.prefs.bytesPerLine, 10);
-    return Data.string(ByteUtils.byteStringBufferToBaseString(input.data.copy(), this.base, opts));
+    try {
+      return Data.string(ByteUtils.byteStringBufferToBaseString(input.data.copy(), this.base, opts));
+    } catch (e) {
+      if (e instanceof OutOfRangeError) {
+        return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');
+      } else {
+        throw e;
+      }
+    }
   }
 
 }

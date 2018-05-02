@@ -104,10 +104,10 @@
       button {
         font-family: $mono-font;
         font-size: $body-size;
-        border-bottom: 1px solid lighten($field, 40%);
+        //border-bottom: 1px solid lighten($field, 40%);
         color: lighten($field, 10%);
         outline: none;
-        padding: 5px 0;
+        padding: 6px 0;
         text-align: left;
         transition: linear .25s;
         margin-right: 10px;
@@ -119,8 +119,8 @@
         &:active,
         &.active {
           color: $primary;
-          padding-bottom: 4px;
-          border-bottom: 2px solid $primary;
+          //padding-bottom: 4px;
+          //border-bottom: 2px solid $primary;
         }
 
         &:last-child {

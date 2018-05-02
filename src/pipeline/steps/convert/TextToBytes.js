@@ -20,29 +20,24 @@ class TextToBytesForm extends Component {
       dec: 'Dec',
       bin: 'Bin'
     };
-    const encodings = {
-      'UTF-8': 'UTF-8',
-      'UTF-16BE': 'UTF-16BE',
-      'UTF-16LE': 'UTF-16LE',
-      'ISO-8859-1': 'ISO-8859-1'
-    };
     let encoding = null;
     if (step.showEncoding) {
       encoding = (
-        <div className="material-group col-xs-12 col-sm-6 col-md-6">
-          <label>Encoding</label>
+        <div className="material-group col-xs-9 col-sm-3 col-md-3">
+          <label>Char Encoding</label>
           <div className="btn-group">
-            {Object.keys(encodings).map((encoding) => {
-              return (<button key={encoding} onClick={this.encodingHandler(encoding)} className={'btn' + (prefs.encoding === encoding ? ' active' : '')}>
-                <span className={'ionicon ' + (prefs.encoding === encoding ? 'ion-md-checkbox' : 'ion-md-square-outline')}/> {encodings[encoding]}
-              </button>);
-            })}
+            <select onChange={this.settingHandler(step.setEncoding)} value={prefs.encoding}>
+              <option value="UTF-8">UTF-8</option>
+              <option value="UTF-16BE">UTF-16 big-endian</option>
+              <option value="UTF-16LE">UTF-16 little-endian</option>
+              <option value="ISO-8859-1">ISO-8859-1</option>
+            </select>
           </div>
         </div>
       );
     }
     const bom = prefs.source === 'plain' && prefs.encoding.startsWith('UTF-16') ? (
-      <div className="material-group col-xs-4 col-sm-1 col-md-1">
+      <div className="material-group col-xs-3 col-sm-1 col-md-1">
         <label><abbr title="Byte-order mark">BOM</abbr></label>
         <div className="btn-group">
           <button onClick={this.bomHandler()} className={'btn' + (prefs.bom ? ' active' : '')}>
@@ -53,7 +48,7 @@ class TextToBytesForm extends Component {
     ) : null;
     return (
       <div className="row">
-        <div className="material-group col-xs-12 col-sm-5 col-md-5">
+        <div className="material-group col-xs-12 col-sm-6 col-md-6">
           <label>Input Type</label>
           <div className="btn-group">
             {Object.keys(sources).map((source) => {
@@ -69,16 +64,16 @@ class TextToBytesForm extends Component {
     );
   }
 
-  sourceHandler = (source) => {
-    return () => {
-      this.props.step.setSource(source);
+  settingHandler = (settingFunc) => {
+    return (e) => {
+      settingFunc(e.target.value);
       this.props.refresh();
     };
   };
 
-  encodingHandler = (encoding) => {
+  sourceHandler = (source) => {
     return () => {
-      this.props.step.setEncoding(encoding);
+      this.props.step.setSource(source);
       this.props.refresh();
     };
   };
@@ -143,9 +138,9 @@ class TextToBytes extends Step {
       case 'UTF-8':
         return Data.byteStringBuffer(new util.ByteStringBuffer(util.encodeUtf8(input.data)));
       case 'UTF-16BE':
-        return this.stringToUtf16BEBytes(input.data, this.prefs.bom);
+        return this.stringToUtf16Bytes(input.data, false, this.prefs.bom);
       case 'UTF-16LE':
-        return this.stringToUtf16LEBytes(input.data, this.prefs.bom);
+        return this.stringToUtf16Bytes(input.data, true, this.prefs.bom);
       case 'ISO-8859-1':
       default:
         return this.stringToBytes(input.data);
@@ -158,26 +153,14 @@ class TextToBytes extends Step {
     return Data.byteStringBuffer(new util.ByteStringBuffer(string));
   }
 
-  stringToUtf16BEBytes(string, bom) {
+  stringToUtf16Bytes(string, le, bom) {
     if (bom) {
       string = '\ufeff' + string;
     }
     const buffer = new Uint8Array(string.length * 2);
     const view = new DataView(buffer.buffer);
     for (let i = 0; i < string.length; i++) {
-      view.setUint16(i * 2, string.charCodeAt(i), false);
-    }
-    return Data.byteStringBuffer(new util.ByteStringBuffer(buffer));
-  }
-
-  stringToUtf16LEBytes(string, bom) {
-    if (bom) {
-      string = '\ufffe' + string;
-    }
-    const buffer = new Uint8Array(string.length * 2);
-    const view = new DataView(buffer.buffer);
-    for (let i = 0; i < string.length; i++) {
-      view.setUint16(i * 2, string.charCodeAt(i), true);
+      view.setUint16(i * 2, string.charCodeAt(i), le);
     }
     return Data.byteStringBuffer(new util.ByteStringBuffer(buffer));
   }
@@ -189,5 +172,4 @@ TextToBytesForm.propTypes = {
   refresh: PropTypes.func.isRequired
 };
 
-export {TextToBytesForm};
 export default TextToBytes;
