@@ -2,12 +2,13 @@ import SHA384 from './SHA384';
 import Data from '../../Data';
 import {ByteStringBufferType} from '../../Types';
 
-var step = new SHA384();
 
 // No tests for null or unsupported types - superclass rejects them.
 
 function expectResult(input, output) {
-  var result = step.calculate(Data.string(input));
+  const step = new SHA384();
+  step.setInput(Data.string(input));
+  const result = step.getOutput();
   expect(result.type).toBe(ByteStringBufferType);
   expect(result.data.toHex()).toBe(output);
 }
