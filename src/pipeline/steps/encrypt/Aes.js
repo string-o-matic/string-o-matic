@@ -9,6 +9,7 @@ import {ByteStringBufferType, StringType} from '../../Types';
 import Globals from '../../../Globals';
 import './Aes.css';
 
+// TODO switch to hex/b64 manual if user edits an inherited key or iv
 class AesForm extends Component {
 
   render() {

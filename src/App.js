@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Pipeline from './pipeline/Pipeline';
 import AesEncryptPipeline from './pipeline/precomposed/AesEncryptPipeline';
+import AesDecryptPipeline from './pipeline/precomposed/AesDecryptPipeline';
 import About from './pages/About';
 import Guide from './pages/Guide';
 import Terms from './pages/Terms';
@@ -33,6 +34,7 @@ class App extends Component {
               <PageRoute path="/terms" component={Terms} />
               <PageRoute path="/privacy" component={Privacy} />
               <PageRoute path="/aes-encrypt" component={AesEncryptPipeline} resetPipeline={true} />
+              <PageRoute path="/aes-decrypt" component={AesDecryptPipeline} resetPipeline={true} />
               <PageRoute component={NotFound}/>
             </Switch>
           </div>

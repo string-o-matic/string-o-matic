@@ -61,6 +61,7 @@ class Pipeline extends Component {
           </p>
           <p>
             <Link to="/aes-encrypt"><strong>AES Encrypt</strong> as Base 64 or Hex</Link>
+            <Link to="/aes-decrypt"><strong>AES Decrypt</strong> from Base 64 or Hex</Link>
           </p>
         </div>
       </div>
