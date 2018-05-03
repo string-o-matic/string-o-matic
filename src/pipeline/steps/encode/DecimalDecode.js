@@ -4,7 +4,7 @@ class DecimalDecode extends AbstractByteDecode {
 
   static title = 'Decimal Decode';
 
-  base = 10;
+  base = 'dec';
 
 }
 

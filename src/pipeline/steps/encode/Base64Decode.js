@@ -9,6 +9,7 @@ class Base64DecodeForm extends ByteDecodeForm {
 
 }
 
+// TODO almost the same as AbstractBaseDecode, try to extend it, or at least use stringutils
 class Base64Decode extends Step {
 
   static title = 'Base64 Decode';
@@ -41,7 +42,7 @@ class Base64Decode extends Step {
       } catch (e) {
         return Data.invalid('Input cannot be decoded as UTF-8 - try another character encoding.');
       }
-    case 'UTF-16': {
+    case 'UTF-16BE': {
       const uint8Array = util.binary.raw.decode(util.decode64(data));
       return this.uint8ArrayToUtf16(uint8Array, 'big');
     }
@@ -49,7 +50,7 @@ class Base64Decode extends Step {
       const uint8Array = util.binary.raw.decode(util.decode64(data));
       return this.uint8ArrayToUtf16(uint8Array, 'little');
     }
-    case 'UTF-16AUTO': {
+    case 'UTF-16': {
       const uint8Array = util.binary.raw.decode(util.decode64(data));
       return this.uint8ArrayToUtf16(uint8Array, 'auto');
     }

@@ -84,6 +84,15 @@ class ByteUtils {
     if (base === 'b64') {
       return this.byteStringBufferToBase64String(buffer, opts);
     }
+    return this.uint8ArrayToBaseString(this.byteStringBufferToUint8Array(buffer), base, opts);
+  }
+
+  /**
+   * Convert a forge byte string buffer to a Uint8Array. Throws an exception if there's an out of range byte.
+   * @param buffer {ByteStringBuffer}
+   * @return {Uint8Array}
+   */
+  static byteStringBufferToUint8Array(buffer) {
     let byteString = buffer.copy().getBytes();
     let uint8Array = new Uint8Array(byteString.length);
     for (let i = 0; i < byteString.length; i++) {
@@ -93,7 +102,7 @@ class ByteUtils {
       }
       uint8Array[i] = uint8;
     }
-    return this.uint8ArrayToBaseString(uint8Array, base, opts);
+    return uint8Array;
   }
 
   /**
@@ -150,6 +159,7 @@ class ByteUtils {
 
     // Clean and standardise the string replacing all characters not in the alphabet with spaces so they're treated as
     // byte separators.
+    data = data.toLowerCase();
     if (conf.prefix) {
       data = data.replace(conf.prefix, ' ');
     }
@@ -158,7 +168,6 @@ class ByteUtils {
     }
 
     return Uint8Array.from(data
-      .toLowerCase()
       .split(' ')
       .filter((e) => e.length > 0)
       .reduce((r, e) => {

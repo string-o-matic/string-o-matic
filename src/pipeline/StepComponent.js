@@ -6,6 +6,7 @@ import StepForm from './steps/StepForm';
 import ResizingTextArea from './ResizingTextArea';
 import HexEncode from './steps/encode/HexEncode';
 import Base64Encode from './steps/encode/Base64Encode';
+import BytesToText from './steps/convert/BytesToText';
 import {StringType, BoolType, NullType, ByteStringBufferType} from './Types';
 import './StepComponent.css';
 
@@ -80,6 +81,7 @@ class StepComponent extends Component {
           <p>Recommended conversion steps:</p>
           <button className="btn" onClick={this.injectStepBefore.bind(this, HexEncode)}>{HexEncode.title}</button>
           <button className="btn" onClick={this.injectStepBefore.bind(this, Base64Encode)}>{Base64Encode.title}</button>
+          <button className="btn" onClick={this.injectStepBefore.bind(this, BytesToText)}>{BytesToText.title}</button>
         </div>);
       }
       content.push(this.error(<span>This step can&apos;t convert {output.inputType.displayPlural} - supported types are: {supports}{suggestions}</span>));

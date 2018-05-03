@@ -147,8 +147,16 @@ test('decode hex with prefixes', () => {
   expect(ByteUtils.baseStringToByteStringBuffer('0x71;0x75;0x69;0x64;0x64;0x69;0x74;0x63;0x68;', 'hex').toHex()).toBe('717569646469746368');
 });
 
-test('decode bin with prexies', () => {
+test('decode hex with mixed case prefixes', () => {
+  expect(ByteUtils.baseStringToByteStringBuffer('0X71;0x75;0x69;0X64;0x64;0x69;0X74;0x63;0x68;', 'hex').toHex()).toBe('717569646469746368');
+});
+
+test('decode bin with prefixes', () => {
   expect(ByteUtils.baseStringToByteStringBuffer('0b01110001;0b01110101;0b01101001;0b01100100;0b01100100;0b01101001;0b01110100;0b01100011;0b01101000;', 'bin').toHex()).toBe('717569646469746368');
+});
+
+test('decode bin with mixed case prefixes', () => {
+  expect(ByteUtils.baseStringToByteStringBuffer('0b01110001;0B01110101;0B01101001;0b01100100;0b01100100;0B01101001;0b01110100;0B01100011;0b01101000;', 'bin').toHex()).toBe('717569646469746368');
 });
 
 

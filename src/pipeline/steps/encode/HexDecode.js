@@ -4,7 +4,7 @@ class HexDecode extends AbstractByteDecode {
 
   static title = 'Hex Decode';
 
-  base = 16;
+  base = 'hex';
 
 }
 

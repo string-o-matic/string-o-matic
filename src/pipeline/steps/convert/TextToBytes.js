@@ -89,8 +89,7 @@ class TextToBytesForm extends Component {
 
 class TextToBytes extends Step {
 
-  static title = 'Convert Text \u2192 Bytes';
-  static selectorTitle = 'Text \u2192 Bytes';
+  static title = 'Text \u2192 Bytes';
   static supports = [ StringType ];
   static output = ByteStringBufferType;
   static form = TextToBytesForm;

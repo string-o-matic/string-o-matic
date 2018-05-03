@@ -29,6 +29,7 @@ import LowerCase from './steps/string/LowerCase';
 import StripControlCharacters from './steps/string/StripControlCharacters';
 import StripWhiteSpace from './steps/string/StripWhiteSpace';
 import TextToBytes from './steps/convert/TextToBytes';
+import BytesToText from './steps/convert/BytesToText';
 import AsyncTest from './steps/test/AsyncTest';
 import Iso88591Test from './steps/test/Iso88591Test';
 import { StepTop } from '../Common';
@@ -48,7 +49,7 @@ class StepSelector extends Component {
       { root: 'Decimal', variants: [DecimalEncode, DecimalDecode] },
       { root: 'Binary', variants: [BinaryEncode, BinaryDecode] },
     ],
-    'Convert': [ TextToBytes ],
+    'Convert': [ TextToBytes, BytesToText ],
     'Hash': [
       { root: 'BCrypt', variants: [BCryptHash, BCryptVerify] },
       MD5, SHA1, SHA256, SHA384, SHA512, SHA512224, SHA512256
@@ -117,7 +118,7 @@ class StepSelector extends Component {
                   if (step.supports.indexOf(this.props.type) === -1) {
                     className += ' fade';
                   }
-                  return <button key={si} className={className} onClick={this.addStep.bind(this, step)}>{step.selectorTitle || step.title}</button>;
+                  return <button key={si} className={className} onClick={this.addStep.bind(this, step)}>{step.title}</button>;
                 }
               })
             }

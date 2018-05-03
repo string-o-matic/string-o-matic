@@ -120,48 +120,48 @@ test('suffix', () => {
 });
 
 test('multiline', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('254 255\n0 36', '$');
 });
 
 test('combined options', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('\\d254;|\\d255;\n\\d0;|\\d36;', '$');
 });
 
 // -------- BOM DETECTION --------
 
 test('utf16be correct bom', () => {
-  step.setEncoding('UTF-16');
-  expectResult('254 255 0 36', '$', 'Stripped big-endian byte order mark (254 255)');
+  step.setEncoding('UTF-16BE');
+  expectResult('254 255 0 36', '$', 'Stripped big-endian byte order mark');
 });
 
 test('utf16be incorrect bom', () => {
-  step.setEncoding('UTF-16');
-  expectResult('255 254 0 36', '$', 'Stripped little-endian byte order mark (255 254)');
+  step.setEncoding('UTF-16BE');
+  expectResult('255 254 0 36', '$', 'Stripped little-endian byte order mark');
 });
 
 test('utf16le correct bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('255 254 36 0', '$', 'Stripped little-endian byte order mark (255 254)');
+  expectResult('255 254 36 0', '$', 'Stripped little-endian byte order mark');
 });
 
 test('utf16le incorrect bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('254 255 36 0', '$', 'Stripped big-endian byte order mark (254 255)');
+  expectResult('254 255 36 0', '$', 'Stripped big-endian byte order mark');
 });
 
 test('utf16be auto bom', () => {
-  step.setEncoding('UTF-16AUTO');
+  step.setEncoding('UTF-16');
   expectResult('254 255 0 36', '$', 'Found big-endian byte order mark');
 });
 
 test('utf16le auto bom', () => {
-  step.setEncoding('UTF-16AUTO');
+  step.setEncoding('UTF-16');
   expectResult('255 254 36 0', '$', 'Found little-endian byte order mark');
 });
 
 test('utf16be auto no bom', () => {
-  step.setEncoding('UTF-16AUTO');
+  step.setEncoding('UTF-16');
   expectResult('0 36', '$', 'No byte order mark - assuming big-endian');
 });

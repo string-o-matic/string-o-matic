@@ -4,7 +4,7 @@ class BinaryDecode extends AbstractByteDecode {
 
   static title = 'Binary Decode';
 
-  base = 2;
+  base = 'bin';
 
 }
 

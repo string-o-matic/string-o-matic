@@ -1,5 +1,11 @@
 import ByteUtils from './ByteUtils';
 
+class ConversionError {
+  constructor(message) {
+    this.message = message;
+  }
+}
+
 class StringUtils {
 
   /**
@@ -35,6 +41,76 @@ class StringUtils {
     return unescape(encodeURIComponent(string));
   }
 
+  static byteStringBufferToJsString(buffer, encoding) {
+    return this.uint8ArrayToJsString(ByteUtils.byteStringBufferToUint8Array(buffer), encoding);
+  }
+
+  /**
+   * Convert a byte array into a javascript string, given the specified encoding. For UTF-16, the byte-order mark is
+   * stripped if present and will be used to select the endianness if the encoding is 'UTF-16' without the BE or LE
+   * suffix.
+   * @param uint8Array {Uint8Array}
+   * @param encoding {string}
+   * @returns {{string: string, info: string}}
+   */
+  static uint8ArrayToJsString(uint8Array, encoding) {
+    let width = 1;
+    let endian = null;
+    if (encoding.indexOf('UTF-16') === 0) {
+      width = 2;
+      endian = encoding.substring(6);
+    }
+
+    let start = 0;
+    let info = null;
+    if (width === 2 && uint8Array.length >= 2) {
+      const bom = (uint8Array[0] << 8) + uint8Array[1];
+      if (!endian) {
+        if (bom === 0xFFFE) {
+          start = 2;
+          endian = 'LE';
+          info = 'Found little-endian byte order mark';
+        } else if (bom === 0xFEFF) {
+          start = 2;
+          endian = 'BE';
+          info = 'Found big-endian byte order mark';
+        } else {
+          endian = 'BE';
+          info = 'No byte order mark - assuming big-endian';
+        }
+      } else if (bom === 0xFFFE) {
+        start = 2;
+        info = 'Stripped little-endian byte order mark';
+      } else if (bom === 0xFEFF) {
+        start = 2;
+        info = 'Stripped big-endian byte order mark';
+      }
+    }
+
+    let string = '';
+    for (let i = start; i < uint8Array.length - (width - 1); i += width) {
+      let b = uint8Array[i];
+      if (width === 2) {
+        let b2 = uint8Array[i + 1];
+        if (endian === 'LE') {
+          b = (b2 << 8) + b;
+        } else {
+          b = (b << 8) + b2;
+        }
+      }
+      string += String.fromCharCode(b);
+    }
+    if (encoding === 'UTF-8') {
+      try {
+        string = decodeURIComponent(escape(string));
+      } catch (e) {
+        throw new ConversionError('Input cannot be decoded as UTF-8 - try another character encoding.');
+      }
+    }
+    return { string: string, info: info };
+  }
+
 }
 
+export {ConversionError};
 export default StringUtils;

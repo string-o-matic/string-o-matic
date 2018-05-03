@@ -50,44 +50,44 @@ test('red heart emoji utf8', () => {
   expectResult('e29da4efb88f', '\u2764\uFE0F');
 });
 
-test('empty utf16', () => {
-  step.setEncoding('UTF-16');
+test('empty utf16be', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('', '');
 });
 
-test('abc utf16', () => {
-  step.setEncoding('UTF-16');
+test('abc utf16be', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('006100620063', 'abc');
 });
 
-test('space utf16', () => {
-  step.setEncoding('UTF-16');
+test('space utf16be', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('0020', ' ');
 });
 
-test('space utf16 without leading zeros', () => {
-  step.setEncoding('UTF-16');
+test('space utf16be without leading zeros', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('0 20', ' ');
 });
 
-test('pound utf16', () => {
-  step.setEncoding('UTF-16');
+test('pound utf16be', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('00a3', '\u00A3');
 });
 
-test('pound utf16 without leading zeros', () => {
-  step.setEncoding('UTF-16');
+test('pound utf16be without leading zeros', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('0 a3', '\u00A3');
 });
 
-test('pound utf16 correct bom', () => {
-  step.setEncoding('UTF-16');
-  expectResult('feff00a3', '\u00A3', 'Stripped big-endian byte order mark (FE FF)');
+test('pound utf16be correct bom', () => {
+  step.setEncoding('UTF-16BE');
+  expectResult('feff00a3', '\u00A3', 'Stripped big-endian byte order mark');
 });
 
-test('pound utf16 incorrect bom', () => {
-  step.setEncoding('UTF-16');
-  expectResult('fffe00a3', '\u00A3', 'Stripped little-endian byte order mark (FF FE)');
+test('pound utf16be incorrect bom', () => {
+  step.setEncoding('UTF-16BE');
+  expectResult('fffe00a3', '\u00A3', 'Stripped little-endian byte order mark');
 });
 
 test('abc utf16le', () => {
@@ -107,26 +107,26 @@ test('pound utf16le', () => {
 
 test('pound utf16le correct bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('fffea300', '\u00A3', 'Stripped little-endian byte order mark (FF FE)');
+  expectResult('fffea300', '\u00A3', 'Stripped little-endian byte order mark');
 });
 
 test('pound utf16le incorrect bom', () => {
   step.setEncoding('UTF-16LE');
-  expectResult('feffa300', '\u00A3', 'Stripped big-endian byte order mark (FE FF)');
+  expectResult('feffa300', '\u00A3', 'Stripped big-endian byte order mark');
 });
 
-test('dash emoji utf16', () => {
-  step.setEncoding('UTF-16');
+test('dash emoji utf16BE', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('d83ddca8', '\uD83D\uDCA8');
 });
 
-test('heavy black heart emoji utf16', () => {
-  step.setEncoding('UTF-16');
+test('heavy black heart emoji utf16BE', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('2764', '\u2764');
 });
 
-test('red heart emoji utf16', () => {
-  step.setEncoding('UTF-16');
+test('red heart emoji utf16BE', () => {
+  step.setEncoding('UTF-16BE');
   expectResult('2764fe0f', '\u2764\uFE0F');
 });
 
@@ -136,37 +136,37 @@ test('red heart emoji utf16le', () => {
 });
 
 test('separate with spaces', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('27 64 fe 0f', '\u2764\uFE0F');
 });
 
 test('line length 2', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('2764\nfe0f', '\u2764\uFE0F');
 });
 
 test('x prefix', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('\\x27\\x64\\xfe\\x0f', '\u2764\uFE0F');
 });
 
 test('0x prefix', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('0x270X640xfe0X0f', '\u2764\uFE0F');
 });
 
 test('; suffix', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('27;64;fe;0f;', '\u2764\uFE0F');
 });
 
 test('uppercase', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('2764FE0F', '\u2764\uFE0F');
 });
 
 test('combined options', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('0x27;|0x64;\n0xFE;|0x0F;', '\u2764\uFE0F');
 });
 
@@ -176,16 +176,16 @@ test('iso-8859-1', () => {
 });
 
 test('pound utf16 be auto bom', () => {
-  step.setEncoding('UTF-16AUTO');
+  step.setEncoding('UTF-16');
   expectResult('feff00a3', '\u00A3', 'Found big-endian byte order mark');
 });
 
 test('pound utf16 le auto bom', () => {
-  step.setEncoding('UTF-16AUTO');
+  step.setEncoding('UTF-16');
   expectResult('fffea300', '\u00A3', 'Found little-endian byte order mark');
 });
 
 test('pound utf16 be auto no bom', () => {
-  step.setEncoding('UTF-16AUTO');
+  step.setEncoding('UTF-16');
   expectResult('00a3', '\u00A3', 'No byte order mark - assuming big-endian');
 });
