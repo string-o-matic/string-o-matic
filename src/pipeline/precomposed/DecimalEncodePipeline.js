@@ -1,8 +1,14 @@
 import React  from 'react';
 import Pipeline from '../Pipeline';
 import DecimalEncode from '../steps/encode/DecimalEncode';
+import Globals from '../../Globals';
+/* globals document */
 
 class DecimalEncodePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Decimal Encode @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

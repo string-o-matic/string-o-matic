@@ -8,7 +8,7 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <h1 className="logo"><span>string-o-matic</span></h1>
+        <h1 className="logo"><span>string-o-matic</span><span>do things with strings</span></h1>
         <nav>
           <NavLink exact to="/" activeClassName="active">Home</NavLink>
           <NavLink to="/guide" activeClassName="active">Guide</NavLink>

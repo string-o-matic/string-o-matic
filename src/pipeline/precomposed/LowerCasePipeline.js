@@ -1,8 +1,14 @@
 import React  from 'react';
 import Pipeline from '../Pipeline';
 import LowerCase from '../steps/string/LowerCase';
+import Globals from '../../Globals';
+/* globals document */
 
 class LowerCasePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Lower Case @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

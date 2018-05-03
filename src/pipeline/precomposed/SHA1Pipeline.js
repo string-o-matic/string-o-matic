@@ -2,8 +2,14 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import SHA1 from '../steps/hash/SHA1';
 import HexEncode from '../steps/encode/HexEncode';
+import Globals from '../../Globals';
+/* globals document */
 
 class SHA1Pipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'SHA-1 Hash @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

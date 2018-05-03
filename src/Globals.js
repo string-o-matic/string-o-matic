@@ -2,6 +2,8 @@ import Data from './pipeline/Data';
 
 class Globals {
 
+  static title = 'string-o-matic >️ do things with strings';
+
   static steps = [];
 
   static inputSequence = 0;

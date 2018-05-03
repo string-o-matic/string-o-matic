@@ -2,8 +2,13 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import HtmlUnescape from '../steps/escape/HtmlUnescape';
 import Globals from '../../Globals';
+/* globals document */
 
 class HtmlUnescapePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'HTML Unescape @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

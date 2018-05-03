@@ -2,9 +2,13 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import HexDecode from '../steps/encode/HexDecode';
 import Globals from '../../Globals';
-
+/* globals document */
 
 class HexDecodePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Hex Decode @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

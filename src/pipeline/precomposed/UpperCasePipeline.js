@@ -1,8 +1,14 @@
 import React  from 'react';
 import Pipeline from '../Pipeline';
 import UpperCase from '../steps/string/UpperCase';
+import Globals from '../../Globals';
+/* globals document */
 
 class UpperCasePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Upper Case @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

@@ -2,8 +2,14 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import MD5 from '../steps/hash/MD5';
 import HexEncode from '../steps/encode/HexEncode';
+import Globals from '../../Globals';
+/* globals document */
 
 class MD5Pipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'MD5 Hash @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

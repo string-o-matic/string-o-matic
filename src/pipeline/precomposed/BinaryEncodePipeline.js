@@ -1,8 +1,14 @@
 import React  from 'react';
 import Pipeline from '../Pipeline';
 import BinaryEncode from '../steps/encode/BinaryEncode';
+import Globals from '../../Globals';
+/* globals document */
 
 class BinaryEncodePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Binary Encode @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

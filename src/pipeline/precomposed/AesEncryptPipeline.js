@@ -2,8 +2,14 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import AesEncrypt from '../steps/encrypt/AesEncrypt';
 import Base64Encode from '../steps/encode/Base64Encode';
+import Globals from '../../Globals';
+/* globals document */
 
 class AesEncryptPipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'AES Encrypt @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

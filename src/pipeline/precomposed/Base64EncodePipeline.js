@@ -1,8 +1,14 @@
 import React  from 'react';
 import Pipeline from '../Pipeline';
 import Base64Encode from '../steps/encode/Base64Encode';
+import Globals from '../../Globals';
+/* globals document */
 
 class Base64EncodePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Base64 Encode @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

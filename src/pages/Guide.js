@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import Globals from '../Globals';
 import './Guide.css';
+/* global document */
 
 class Guide extends Component {
+
+  componentDidMount() {
+    document.title = 'Guide @ ' + Globals.title;
+  }
 
   render() {
     return (

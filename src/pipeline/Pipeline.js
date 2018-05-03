@@ -7,6 +7,7 @@ import Data from './Data';
 import Globals from '../Globals';
 import {StringType} from './Types';
 import './Pipeline.css';
+/* globals document */
 
 class Pipeline extends Component {
 
@@ -18,6 +19,10 @@ class Pipeline extends Component {
     this.deleteStep = this.deleteStep.bind(this);
     this.injectStepBefore = this.injectStepBefore.bind(this);
     this.refresh = this.refresh.bind(this);
+  }
+
+  componentDidMount() {
+    document.title = Globals.title;
   }
 
   /**

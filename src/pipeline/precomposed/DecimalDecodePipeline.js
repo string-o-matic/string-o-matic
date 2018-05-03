@@ -2,9 +2,13 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import DecimalDecode from '../steps/encode/DecimalDecode';
 import Globals from '../../Globals';
-
+/* globals document */
 
 class DecimalDecodePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Decimal Decode @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

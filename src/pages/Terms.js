@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Globals from '../Globals';
+/* global document */
 
 class Terms extends Component {
+
+  componentDidMount() {
+    document.title = 'Terms @ ' + Globals.title;
+  }
 
   render() {
     return (

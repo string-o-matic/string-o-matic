@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import Globals from '../Globals';
+/* global document */
 
 class Privacy extends Component {
+
+  componentDidMount() {
+    document.title = 'Privacy @ ' + Globals.title;
+  }
 
   render() {
     return (

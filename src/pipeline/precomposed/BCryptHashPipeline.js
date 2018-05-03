@@ -2,8 +2,14 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import BCryptHash from '../steps/hash/BCryptHash';
 import BCryptVerify from '../steps/hash/BCryptVerify';
+import Globals from '../../Globals';
+/* globals document */
 
 class BCryptHashPipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'BCrypt Hash @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

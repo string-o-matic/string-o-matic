@@ -2,8 +2,13 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import HtmlEscape from '../steps/escape/HtmlEscape';
 import Globals from '../../Globals';
+/* globals document */
 
 class HtmlEscapePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'HTML Escape @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

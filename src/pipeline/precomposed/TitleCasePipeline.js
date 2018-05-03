@@ -1,8 +1,14 @@
 import React  from 'react';
 import Pipeline from '../Pipeline';
 import TitleCase from '../steps/string/TitleCase';
+import Globals from '../../Globals';
+/* globals document */
 
 class TitleCasePipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'Title Case @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (

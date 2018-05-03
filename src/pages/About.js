@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Globals from '../Globals';
+/* global document */
 /* global process */
 
 class About extends Component {
+
+  componentDidMount() {
+    document.title = 'About @ ' + Globals.title;
+  }
 
   render() {
     let commit = null;

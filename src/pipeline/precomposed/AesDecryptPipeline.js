@@ -3,8 +3,13 @@ import Pipeline from '../Pipeline';
 import AesDecrypt from '../steps/encrypt/AesDecrypt';
 import BytesToText from '../steps/convert/BytesToText';
 import Globals from '../../Globals';
+/* global document */
 
 class AesDecryptPipeline extends Pipeline {
+
+  componentDidMount() {
+    document.title = 'AES Decrypt @ ' + Globals.title;
+  }
 
   precomposedIntro() {
     return (
