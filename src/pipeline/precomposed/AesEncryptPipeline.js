@@ -26,7 +26,7 @@ class AesEncryptPipeline extends Pipeline {
             The encrypted result will be shown in the <strong>AES Encrypt</strong> box as a hex string.
           </li>
           <li>
-            We&apos;ve added a <strong>Base 64 Encode</strong> step to convert the encrypted bytes. You can swap this
+            We&apos;ve added a <strong>Base64 Encode</strong> step to convert the encrypted bytes. You can swap this
             for any other byte encode step - hex, decimal, binary etc.
           </li>
         </ol>

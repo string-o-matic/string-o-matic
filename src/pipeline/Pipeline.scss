@@ -63,7 +63,7 @@
     font-family: Lato, Helvetica, Arial, sans-serif;
     font-size: $body-size;
     outline: none;
-    padding: 7px 10px;
+    padding: 4px 8px;
     text-align: left;
     margin-right: 5px;
     margin-bottom: 5px;
@@ -75,4 +75,5 @@
       background: lighten($precomposed, 10%);
     }
   }
+
 }

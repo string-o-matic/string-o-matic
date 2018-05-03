@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Step from '../Step';
 import Data from '../../Data';
 import {StringType} from '../../Types';
-import ByteUtils from '../../../lib/ByteUtils';
+import ByteUtils, {OutOfRangeError} from '../../../lib/ByteUtils';
 import StringUtils, {ConversionError} from '../../../lib/StringUtils';
 
 class ByteDecodeForm extends Component {
@@ -68,7 +68,9 @@ class AbstractByteDecode extends Step {
       return result;
     } catch (e) {
       // TODO is OutOfRangeError possible?
-      if (e instanceof ConversionError) {
+      if (e instanceof OutOfRangeError && this.base === 'dec') {
+        return Data.invalid('Input contained a number outside the range 0-255 and cannot be decoded as decimal.');
+      } else if (e instanceof ConversionError) {
         return Data.invalid(e.message);
       } else {
         throw e;

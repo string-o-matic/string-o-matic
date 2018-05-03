@@ -59,10 +59,39 @@ class Pipeline extends Component {
             Each page has instructions so if you&apos;re confused or in a hurry they&apos;re a great way to get started.
             They probably help our Google search ranking too, so everybody wins.
           </p>
-          <p>
-            <Link to="/aes-encrypt"><strong>AES Encrypt</strong> as Base 64 or Hex</Link>
-            <Link to="/aes-decrypt"><strong>AES Decrypt</strong> from Base 64 or Hex</Link>
-          </p>
+          <div className="row">
+            <div className="col-md-6 col-sm-12 col-xs-12">
+              <Link to="/aes-encrypt" className="encryption">AES Encrypt as Base64 or Hex</Link>
+              <Link to="/aes-decrypt" className="encryption">AES Decrypt from Base64 or Hex</Link>
+            </div>
+            <div className="col-md-6 col-sm-12 col-xs-12">
+              <Link to="/md5" className="hash">MD5 Hash</Link>
+              <Link to="/sha1" className="hash">SHA-1 Hash</Link>
+              <Link to="/sha256" className="hash">SHA-256 Hash</Link>
+              <Link to="/bcrypt" className="hash">BCrypt Hash</Link>
+            </div>
+            <div className="col-md-6 col-sm-12 col-xs-12">
+              <Link to="/html-escape" className="escape">HTML Escape</Link>
+              <Link to="/html-unescape" className="escape">HTML Unescape</Link>
+            </div>
+            <div className="col-md-6 col-sm-12 col-xs-12">
+              <Link to="/upper-case" className="case">Upper Case</Link>
+              <Link to="/lower-case" className="case">Lower Case</Link>
+              <Link to="/title-case" className="case">Title Case</Link>
+            </div>
+            <div className="col-md-6 col-sm-12 col-xs-12">
+              <Link to="/base64-encode" className="encode">Base64 Encode</Link>
+              <Link to="/hex-encode" className="encode">Hex Encode</Link>
+              <Link to="/decimal-encode" className="encode">Decimal Encode</Link>
+              <Link to="/binary-encode" className="encode">Binary Encode</Link>
+            </div>
+            <div className="col-md-6 col-sm-12 col-xs-12">
+              <Link to="/base64-decode" className="decode">Base64 Decode</Link>
+              <Link to="/hex-decode" className="decode">Hex Decode</Link>
+              <Link to="/decimal-decode" className="decode">Decimal Decode</Link>
+              <Link to="/binary-decode" className="decode">Binary Decode</Link>
+            </div>
+          </div>
         </div>
       </div>
     );
