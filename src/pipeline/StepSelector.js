@@ -26,6 +26,8 @@ import URIDecode from './steps/encode/URIDecode';
 import Reverse from './steps/string/Reverse';
 import UpperCase from './steps/string/UpperCase';
 import LowerCase from './steps/string/LowerCase';
+import InverseCase from './steps/string/InverseCase';
+import TitleCase from './steps/string/TitleCase';
 import StripControlCharacters from './steps/string/StripControlCharacters';
 import StripWhiteSpace from './steps/string/StripWhiteSpace';
 import TextToBytes from './steps/convert/TextToBytes';
@@ -39,7 +41,7 @@ import './StepSelector.css';
 class StepSelector extends Component {
 
   categories = {
-    'String Case': [ UpperCase, LowerCase ], // Title, Snake, Camel, Inverse ...
+    'String Case': [ UpperCase, LowerCase, InverseCase, TitleCase ], // Snake, Camel
     'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ], // Replace, Normalize ...
     'Escape': [ { root: 'HTML', variants: [HtmlEscape, HtmlUnescape] } ], // Java, Python ...
     'Character Encode': [ { root: 'URI', variants: [URIEncode, URIDecode] } ], // Code points decimal/hex
