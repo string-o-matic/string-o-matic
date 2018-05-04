@@ -66,6 +66,22 @@
       }
     }
 
+    .copy {
+      background: none;
+      border: 0;
+      font-size: 22px;
+      padding: 6px 12px;
+      color: transparentize($primary, .5);
+      transition: .2s linear;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: $primary;
+        outline: none;
+      }
+    }
+
     .btn-group {
       button {
         padding: 11px 15px 10px;
@@ -109,6 +125,10 @@
           background: $error-vlight;
           outline: none;
         }
+      }
+
+      .copy {
+        color: transparentize($error-text, .5);
       }
     }
 

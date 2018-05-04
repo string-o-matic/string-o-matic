@@ -8,7 +8,9 @@ import HexEncode from './steps/encode/HexEncode';
 import Base64Encode from './steps/encode/Base64Encode';
 import BytesToText from './steps/convert/BytesToText';
 import {StringType, BoolType, NullType, ByteStringBufferType} from './Types';
+import Toast from '../chrome/Toast';
 import './StepComponent.css';
+/* globals document */
 
 class StepComponent extends Component {
 
@@ -30,6 +32,7 @@ class StepComponent extends Component {
     const step = this.props.step;
     const output = step.getOutput();
     const content = [];
+    let copy = null;
     let clazz = 'normal';
     content.push(<StepForm key="form" step={step} refresh={this.props.refresh}/>);
     if (output == null) {
@@ -45,6 +48,7 @@ class StepComponent extends Component {
         content.push(this.data(output.data.toHex()));
         meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes. Hex preview.</span></div>);
       } else if (output.type === StringType) {
+        copy = output.data;
         // eslint-disable-next-line no-control-regex
         const cleanData = output.data.replace(/[^\x09\x0a\x0d\x20-\x7e\xa0-\xac\xae-\xff\u00ff-\uffff]/g, '\ufffd');
         if (cleanData !== output.data) {
@@ -92,12 +96,16 @@ class StepComponent extends Component {
 
     clazz += ' step step-transform';
 
+    const copyButton = copy !== null ? (<button className="pull-right copy" onClick={this.copy(copy)} title="Copy to clipboard"><span className="ion-md-copy"/></button>) : null;
+
     return (
       <div className={clazz + (this.state.deleteFocus ? ' focus': '')}>
+        <Toast message={this.state.toast}/>
         <StepTop/>
         <div className="step-header" ref="step-header">
           <h4 className="pull-left">{this.props.step.constructor.title}</h4>
           <button className="pull-right delete" onClick={this.deleteStep} onMouseEnter={this.deleteFocus} onFocus={this.deleteFocus} onMouseLeave={this.deleteBlur} onBlur={this.deleteBlur}><span className="ion-md-close"/></button>
+          {copyButton}
         </div>
         <div className="step-body">
           {content.map(c => c)}
@@ -134,6 +142,26 @@ class StepComponent extends Component {
   brokenPipe() {
     return <div key="broken-pipe" className="broken-pipe"><span className="ionicon ion-ios-thunderstorm-outline"/><br/>Can&apos;t show this step due to errors above</div>;
   }
+
+  copy = (str) => {
+    return () => {
+      let el = null;
+      try {
+        el = document.createElement('textarea');
+        el.value = str;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        this.setState({ toast: { text: 'Copied to clipboard' }});
+      } catch (e) {
+        this.setState({ toast: { text: 'Couldn\'t copy to clipboard!', className: 'error' }});
+      } finally {
+        if (el) {
+          document.body.removeChild(el);
+        }
+      }
+    };
+  };
 
 }
 

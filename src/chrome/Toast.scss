@@ -1,0 +1,63 @@
+@import '../css/colors';
+@import '../css/variables';
+
+@keyframes slide-in {
+  0% {
+    display: inline-block;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    display: inline-block;
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateY(0%);
+  }
+
+  99% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  100% {
+    opacity: 0;
+    height: 0;
+    transform: translateY(-100%);
+  }
+}
+
+.toast {
+  background: transparentize($primary, .2);
+  display: inline-block;
+  font-size: $body-size;
+  color: #FFF;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  right: 50%;
+  width: 250px;
+  text-align: center;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  margin-left: -125px;
+  z-index: 100000;
+
+  &.error {
+    background: transparentize(darken($error, 15%), .2);
+  }
+
+  &.slide-in {
+    animation: slide-in .25s forwards;
+    animation-timing-function: ease-out;
+  }
+
+  &.slide-out {
+    animation: slide-out .25s forwards;
+    animation-timing-function: ease-out;
+  }
+}
