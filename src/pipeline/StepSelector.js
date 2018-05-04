@@ -70,8 +70,6 @@ class StepSelector extends Component {
   constructor(props) {
     super(props);
     this.state = {'filter': ''};
-    this.onSearchChange = this.onSearchChange.bind(this);
-    this.clearSearch = this.clearSearch.bind(this);
     if (process.env.NODE_ENV !== 'production') {
       this.categories['Tests'] = [ AsyncTest, Iso88591Test ];
     }
@@ -151,13 +149,13 @@ class StepSelector extends Component {
     );
   }
 
-  onSearchChange(e) {
+  onSearchChange = (e) => {
     this.setState({'filter': e.target.value});
-  }
+  };
 
-  clearSearch() {
+  clearSearch = () => {
     this.setState({'filter': ''});
-  }
+  };
 
   addStep(step) {
     this.props.addStep(new step());

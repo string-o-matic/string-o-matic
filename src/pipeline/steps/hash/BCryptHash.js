@@ -8,13 +8,8 @@ import Step from '../Step';
 
 class BCryptHashForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
-
   render() {
-    var formGroupClass = this.props.step.costValid ? '' : ' has-error';
+    const formGroupClass = this.props.step.costValid ? '' : ' has-error';
     return (
       <form className="form-inline row">
         <div className="help col-xs-12">
@@ -28,10 +23,10 @@ class BCryptHashForm extends Component {
     );
   }
 
-  onChange(e) {
+  onChange = (e) => {
     this.props.step.setCost(parseInt(e.target.value, 10));
     this.props.refresh();
-  }
+  };
 
 }
 

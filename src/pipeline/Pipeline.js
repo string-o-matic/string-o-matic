@@ -14,11 +14,6 @@ class Pipeline extends Component {
   constructor(props) {
     super(props);
     this.state = { input: Data.string(Globals.textInput) };
-    this.inputChange = this.inputChange.bind(this);
-    this.addStep = this.addStep.bind(this);
-    this.deleteStep = this.deleteStep.bind(this);
-    this.injectStepBefore = this.injectStepBefore.bind(this);
-    this.refresh = this.refresh.bind(this);
   }
 
   componentDidMount() {
@@ -108,21 +103,21 @@ class Pipeline extends Component {
     }
   }
 
-  inputChange(input) {
+  inputChange = (input) => {
     // Pass new input to first step in pipeline. It will pass its output down the chain.
     if (Globals.steps.length > 0) {
       Globals.steps[0].setInput(input);
     }
     this.setState({ input: input });
-  }
+  };
 
   // Called from any step in the pipeline when an option has been changed in the step that
   // requires a recalculation of later steps.
-  refresh() {
+  refresh = () => {
     this.setState({});
-  }
+  };
 
-  addStep(step) {
+  addStep = (step) => {
     if (Globals.steps.length > 0) {
       Globals.steps[Globals.steps.length - 1].setNext(step);
     } else {
@@ -130,9 +125,9 @@ class Pipeline extends Component {
     }
     Globals.steps.push(step);
     this.setState({});
-  }
+  };
 
-  injectStepBefore(thisStep, newStep) {
+  injectStepBefore = (thisStep, newStep) => {
     const steps = [ ];
     const pushStep = (step) => {
       step.setNext(null);
@@ -151,9 +146,9 @@ class Pipeline extends Component {
     });
     Globals.steps = steps;
     this.setState({});
-  }
+  };
 
-  deleteStep(deleteStep) {
+  deleteStep = (deleteStep) => {
     const steps = [ ];
     Globals.steps.forEach(step => {
       if (step !== deleteStep) {
@@ -168,7 +163,7 @@ class Pipeline extends Component {
     });
     Globals.steps = steps;
     this.setState({});
-  }
+  };
 }
 
 export default Pipeline;

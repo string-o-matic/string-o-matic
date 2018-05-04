@@ -7,14 +7,6 @@ import {StringType,ByteStringBufferType} from '../../Types';
 
 class Base64EncodeForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onEncodingChange = this.onEncodingChange.bind(this);
-    this.onBomChange = this.onBomChange.bind(this);
-    this.onVariantChange = this.onVariantChange.bind(this);
-    this.onLineLengthChange = this.onLineLengthChange.bind(this);
-  }
-
   render() {
     let encoding = null;
     let bom = null;
@@ -61,25 +53,25 @@ class Base64EncodeForm extends Component {
     );
   }
 
-  onEncodingChange(e) {
+  onEncodingChange = (e) => {
     this.props.step.setEncoding(e.target.value);
     this.props.refresh();
-  }
+  };
 
-  onBomChange(e) {
+  onBomChange = (e) => {
     this.props.step.setBom(e.target.value);
     this.props.refresh();
-  }
+  };
 
-  onVariantChange(e) {
+  onVariantChange = (e) => {
     this.props.step.setVariant(e.target.value);
     this.props.refresh();
-  }
+  };
 
-  onLineLengthChange(e) {
+  onLineLengthChange = (e) => {
     this.props.step.setLineLength(e.target.value);
     this.props.refresh();
-  }
+  };
 
 }
 

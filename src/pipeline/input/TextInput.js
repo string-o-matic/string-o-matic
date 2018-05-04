@@ -6,11 +6,6 @@ import Globals from '../../Globals';
 
 class TextInput extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
-
   render() {
     let warning = null;
     // eslint-disable-next-line no-control-regex
@@ -39,11 +34,11 @@ class TextInput extends Component {
     this.send(Globals.textInput + '');
   }
 
-  onChange(value) {
+  onChange = (value) => {
     Globals.textInput = value;
     this.setState({ });
     this.send(value);
-  }
+  };
 
   clear() {
     Globals.textInput = '';

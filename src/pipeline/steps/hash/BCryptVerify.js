@@ -7,11 +7,6 @@ import PropTypes from 'prop-types';
 
 class BCryptVerifyForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
-
   render() {
     return (
       <form className="form-inline row">
@@ -26,10 +21,10 @@ class BCryptVerifyForm extends Component {
     );
   }
 
-  onChange(e) {
+  onChange = (e) => {
     this.props.step.setPassword(e.target.value);
     this.props.refresh();
-  }
+  };
 
 }
 

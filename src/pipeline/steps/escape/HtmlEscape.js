@@ -6,13 +6,6 @@ import PropTypes from 'prop-types';
 
 class HtmlEscapeForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onCharactersChange = this.onCharactersChange.bind(this);
-    this.onEncodingChange = this.onEncodingChange.bind(this);
-    this.onLinesChange = this.onLinesChange.bind(this);
-  }
-
   render() {
     return (
       <form className="form-inline row">
@@ -48,20 +41,20 @@ class HtmlEscapeForm extends Component {
     );
   }
 
-  onCharactersChange(e) {
+  onCharactersChange = (e) => {
     this.props.step.setCharacters(e.target.value);
     this.props.refresh();
-  }
+  };
 
-  onEncodingChange(e) {
+  onEncodingChange = (e) => {
     this.props.step.setEncoding(e.target.value);
     this.props.refresh();
-  }
+  };
 
-  onLinesChange(e) {
+  onLinesChange = (e) => {
     this.props.step.setLines(e.target.value);
     this.props.refresh();
-  }
+  };
 
 }
 

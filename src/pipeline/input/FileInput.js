@@ -10,11 +10,6 @@ import './FileInput.css';
 
 class FileInput extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
-
   render() {
     let style = { };
     let status = null;
@@ -43,7 +38,7 @@ class FileInput extends Component {
     }
     return (
       <div>
-        <Dropzone onDrop={this.onDrop.bind(this)} maxSize={1048576} disablePreview={true} multiple={false} style={style} className="dropzone" activeClassName="active" rejectClassName="reject">
+        <Dropzone onDrop={this.onDrop} maxSize={1048576} disablePreview={true} multiple={false} style={style} className="dropzone" activeClassName="active" rejectClassName="reject">
           <span className="ionicon ion-ios-folder-open-outline"/>
           <div className="drop-label">
             Drop a file here
@@ -64,7 +59,7 @@ class FileInput extends Component {
     this.props.inputChange(Globals.fileInput.withSequence(++Globals.inputSequence));
   }
 
-  onDrop(acceptedFiles, rejectedFiles) {
+  onDrop = (acceptedFiles, rejectedFiles) => {
     if (acceptedFiles && acceptedFiles.length > 0) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -94,14 +89,14 @@ class FileInput extends Component {
       Globals.fileError = 'File ' + rejectedFiles[0].name + ' is unsupported. Max size is 1Mb.';
       this.setState({ });
     }
-  }
+  };
 
-  onChange(value) {
+  onChange = (value) => {
     const input = Data.string(value).withSequence(++Globals.inputSequence);
     this.props.inputChange(input);
     Globals.fileInput = input;
     this.setState({ });
-  }
+  };
 
   clear() {
     const input = Data.string('').withSequence(++Globals.inputSequence);

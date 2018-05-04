@@ -8,11 +8,6 @@ import './Input.css';
 
 class Input extends Component {
 
-  constructor(props) {
-    super(props);
-    this.clear = this.clear.bind(this);
-  }
-
   render() {
     let content = null;
     if (Globals.inputType === 'text') {
@@ -27,9 +22,9 @@ class Input extends Component {
           <h4 className="pull-left">Input</h4>
           <div className="btn-group pull-right">
             <button className="btn-clear" onClick={this.clear} title="Clear"><span className="ion-ios-backspace"/></button>
-            <button className={Globals.inputType === 'text' ? ' active' : ''} onClick={this.setType.bind(this, 'text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
-            <button className={Globals.inputType === 'file' ? ' active' : ''} onClick={this.setType.bind(this, 'file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
-            {/*<button className={Globals.inputType === 'rand' ? ' active' : ''} onClick={this.setType.bind(this, 'rand')}>Random</button>*/}
+            <button className={Globals.inputType === 'text' ? ' active' : ''} onClick={this.setType('text')}><span className="ion-ios-keypad-outline"/> &nbsp;Text</button>
+            <button className={Globals.inputType === 'file' ? ' active' : ''} onClick={this.setType('file')}><span className="ion-ios-folder-open-outline"/> &nbsp;File</button>
+            {/*<button className={Globals.inputType === 'rand' ? ' active' : ''} onClick={this.setType('rand')}>Random</button>*/}
           </div>
         </div>
         <div className="step-body">
@@ -40,19 +35,21 @@ class Input extends Component {
     );
   }
 
-  setType(type) {
-    Globals.inputType = type;
-    this.setState({ });
-  }
+  setType = (type) => {
+    return () => {
+      Globals.inputType = type;
+      this.setState({ });
+    };
+  };
 
-  clear() {
+  clear = () => {
     if (this.refs.fileInput) {
       this.refs.fileInput.clear();
     }
     if (this.refs.textInput) {
       this.refs.textInput.clear();
     }
-  }
+  };
 
 }
 

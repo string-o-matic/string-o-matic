@@ -33,11 +33,6 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 
 class App extends Component {
 
-  constructor(props) {
-    super(props);
-    this.reset = this.reset.bind(this);
-  }
-
   render() {
     return (
       <Router>
@@ -78,10 +73,10 @@ class App extends Component {
     );
   }
 
-  reset() {
+  reset = () => {
     Globals.reset();
     this.setState({});
-  }
+  };
 
 }
 

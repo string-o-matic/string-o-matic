@@ -3,13 +3,8 @@ import PropTypes from 'prop-types';
 
 class ResizingTextArea extends Component {
 
-  constructor(props) {
-    super(props);
-    this.onChange = this.onChange.bind(this);
-  }
-
   render() {
-    var className = 'data';
+    let className = 'data';
     if (this.props.className) {
       className += ' ' + this.props.className;
     }
@@ -38,17 +33,16 @@ class ResizingTextArea extends Component {
     this.adjustTextArea();
   }
 
-  onChange(e) {
-    var value = e.target.value;
-    this.props.onChange(value);
-  }
-
   adjustTextArea() {
     if (this.refs.textarea) {
       this.refs.textarea.style.height = 'auto';
       this.refs.textarea.style.height = Math.min(600, this.refs.textarea.scrollHeight) + 'px';
     }
   }
+
+  onChange = (e) => {
+    this.props.onChange(e.target.value);
+  };
 
 }
 
