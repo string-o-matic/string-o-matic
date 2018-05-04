@@ -56,7 +56,7 @@ class StepComponent extends Component {
         }
         content.push(this.data(cleanData));
         if (output.data.match(/[\u0300-\u036F\u1AB0-\u1AFF\u1DC0-\u1DFF\u20D0-\u20FF\uFE20-\uFE2F\uFE00-\uFE0F\uD800-\uDBFF\uDC00-\uDFFF]/g)) {
-          meta.push(<div key="type">String, ~{output.data.length} characters<br/><span className="ion-md-information-circle"/> Contains combining characters, variation selectors or surrogate pairs.</div>);
+          meta.push(<div key="type">String, ~{output.data.length} characters. <span className="ion-md-information-circle"/> Contains combining characters, variation selectors or surrogate pairs.</div>);
         } else {
           meta.push(<div key="type">String, {output.data.length} characters</div>);
         }

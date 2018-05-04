@@ -21,6 +21,8 @@ import BinaryEncode from './steps/encode/BinaryEncode';
 import BinaryDecode from './steps/encode/BinaryDecode';
 import DecimalEncode from './steps/encode/DecimalEncode';
 import DecimalDecode from './steps/encode/DecimalDecode';
+import UnicodeEncode from './steps/encode/UnicodeEncode';
+import UnicodeDecode from './steps/encode/UnicodeDecode';
 import URIEncode from './steps/encode/URIEncode';
 import URIDecode from './steps/encode/URIDecode';
 import Reverse from './steps/string/Reverse';
@@ -44,12 +46,15 @@ class StepSelector extends Component {
     'String Case': [ UpperCase, LowerCase, InverseCase, TitleCase ], // Snake, Camel
     'String Transform': [ Reverse, StripControlCharacters, StripWhiteSpace ], // Replace, Normalize ...
     'Escape': [ { root: 'HTML', variants: [HtmlEscape, HtmlUnescape] } ], // Java, Python ...
-    'Character Encode': [ { root: 'URI', variants: [URIEncode, URIDecode] } ], // Code points decimal/hex
+    'Character Encode': [
+      { root: 'URI', variants: [URIEncode, URIDecode] },
+      { root: 'Unicode', variants: [UnicodeEncode, UnicodeDecode] }
+    ],
     'Byte Encode': [
       { root: 'Base64', variants: [Base64Encode, Base64Decode] },
       { root: 'Hex', variants: [HexEncode, HexDecode] },
       { root: 'Decimal', variants: [DecimalEncode, DecimalDecode] },
-      { root: 'Binary', variants: [BinaryEncode, BinaryDecode] },
+      { root: 'Binary', variants: [BinaryEncode, BinaryDecode] }
     ],
     'Convert': [ TextToBytes, BytesToText ],
     'Hash': [
