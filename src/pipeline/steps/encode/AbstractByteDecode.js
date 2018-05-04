@@ -67,7 +67,6 @@ class AbstractByteDecode extends Step {
       }
       return result;
     } catch (e) {
-      // TODO is OutOfRangeError possible?
       if (e instanceof OutOfRangeError && this.base === 'dec') {
         return Data.invalid('Input contained a number outside the range 0-255 and cannot be decoded as decimal.');
       } else if (e instanceof ConversionError) {

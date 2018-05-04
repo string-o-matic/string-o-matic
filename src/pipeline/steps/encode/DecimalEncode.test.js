@@ -49,6 +49,27 @@ test('bytes per line', () => {
   expectResult('$', '254 255\n0 36');
 });
 
+test('bytes per line str', () => {
+  step.convertStep.setEncoding('UTF-16BE');
+  step.convertStep.toggleBom();
+  step.setBytesPerLine('2');
+  expectResult('$', '254 255\n0 36');
+});
+
+test('bytes per line invalid', () => {
+  step.convertStep.setEncoding('UTF-16BE');
+  step.convertStep.toggleBom();
+  step.setBytesPerLine('x');
+  expectResult('$', '254 255 0 36');
+});
+
+test('bytes per line out of range', () => {
+  step.convertStep.setEncoding('UTF-16BE');
+  step.convertStep.toggleBom();
+  step.setBytesPerLine('-1');
+  expectResult('$', '254 255 0 36');
+});
+
 test('combined options', () => {
   step.convertStep.setEncoding('UTF-16BE');
   step.convertStep.toggleBom();

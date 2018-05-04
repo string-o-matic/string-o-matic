@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import {StringType} from '../../Types';
 import Data from '../../Data';
 import Step from '../Step';
+import Compat from '../../../lib/Compat';
 
 class BCryptHashForm extends Component {
 
@@ -31,7 +32,6 @@ class BCryptHashForm extends Component {
 }
 
 // https://github.com/dcodeIO/bcrypt.js/
-// TODO fail if crypto.getRandomValues is unavailable, later implement fallback
 class BCryptHash extends Step {
 
   static title = 'BCrypt Hash';
@@ -56,6 +56,9 @@ class BCryptHash extends Step {
 
   // TODO This has to copy sequence and context to the output, which should be done by the Step class.
   calculate(input) {
+    if (!Compat.supportsSecureRandom()) {
+      return Data.unavailable('Your browser can\'t provide cryptographically strong random values, so BCrypt hashing is not supported.');
+    }
     const cost = parseInt(this.cost, 10);
     this.costValid = cost && cost >= this.minCost && cost <= this.maxCost;
     if (!this.costValid) {

@@ -9,7 +9,6 @@ import {ByteStringBufferType, StringType} from '../../Types';
 import Globals from '../../../Globals';
 import './Aes.css';
 
-// TODO switch to hex/b64 manual if user edits an inherited key or iv
 class AesForm extends Component {
 
   render() {
@@ -122,6 +121,9 @@ class Aes extends Step {
   allowContextIv = false;
   allowContextKey = false;
 
+  contextKey = null;
+  contextIv = null;
+
   prefs = {
     source: 'plain',
     encoding: 'UTF-8',
@@ -135,9 +137,21 @@ class Aes extends Step {
 
   setKeySize = (v) => { this.prefs.keySize = v; this._update(); };
   setKeyType = (v) => { this.prefs.keyType = v; this.prefs.key = ''; this._update(); };
-  setKey = (v) => { this.prefs.key = v; this._update(); };
+  setKey = (v) => {
+    if (this.prefs.keyType === 'context' && this.contextKey) {
+      this.prefs.keyType = this.contextKey.encoding;
+    }
+    this.prefs.key = v;
+    this._update();
+  };
   setIvType = (v) => { this.prefs.ivType = v; this.prefs.iv = ''; this._update(); };
-  setIv = (v) => { this.prefs.iv = v; this._update(); };
+  setIv = (v) => {
+    if (this.prefs.ivType === 'context' && this.contextIv) {
+      this.prefs.ivType = this.contextIv.encoding;
+    }
+    this.prefs.iv = v;
+    this._update();
+  };
 
   generateKey = () => {
     const keyBytes = random.getBytesSync(this.prefs.keySize / 8);
@@ -170,7 +184,8 @@ class Aes extends Step {
 
     let key = null;
     if (this.allowContextKey && this.prefs.keyType === 'context') {
-      key = input.context['aes.encrypt.key'];
+      this.contextKey = input.context['aes.encrypt.key'];
+      key = this.contextKey;
       this.prefs.key = key.string;
     } else {
       key = {
@@ -182,7 +197,8 @@ class Aes extends Step {
 
     let iv = null;
     if (this.allowContextIv && this.prefs.ivType === 'context') {
-      iv = input.context['aes.encrypt.iv'];
+      this.contextIv = input.context['aes.encrypt.iv'];
+      iv = this.contextIv;
       this.prefs.iv = iv.string;
     } else {
       iv = {

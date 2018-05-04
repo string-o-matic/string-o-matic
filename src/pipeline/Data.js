@@ -50,6 +50,12 @@ class Data {
     return new Data('bug', null, null);
   }
 
+  static unavailable(message) {
+    const data = new Data('unavailable', null, null);
+    data.message = message;
+    return data;
+  }
+
   static brokenPipe() {
     return new Data('broken-pipe', null, null);
   }

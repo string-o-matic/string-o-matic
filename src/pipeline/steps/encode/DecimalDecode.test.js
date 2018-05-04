@@ -103,8 +103,9 @@ test('dollar utf16le bom', () => {
 // -------- OPTIONS --------
 
 test('no separator', () => {
-  // FIXME needs error message
-  expectResult('194 162', '¢');
+  const result = step.calculate(Data.string('194162'));
+  expect(result.status).toBe('invalid');
+  expect(result.message).toBe('Input contained a number outside the range 0-255 and cannot be decoded as decimal.');
 });
 
 test('pipe separator', () => {

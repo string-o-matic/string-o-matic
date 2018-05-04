@@ -34,7 +34,9 @@ class StepComponent extends Component {
     const content = [];
     let copy = null;
     let clazz = 'normal';
-    content.push(<StepForm key="form" step={step} refresh={this.props.refresh}/>);
+    if (output == null || output.status !== 'unavailable') {
+      content.push(<StepForm key="form" step={step} refresh={this.props.refresh}/>);
+    }
     if (output == null) {
       clazz = 'error';
       content.push(this.bug('Whoops! This step hasn\'t received any input. You\'ve found a bug.'));
@@ -76,6 +78,9 @@ class StepComponent extends Component {
     } else if (output.status === 'bug') {
       clazz = 'error';
       content.push(this.bug('Whoops! This value couldn\'t be calculated. You\'ve found a bug.'));
+    } else if (output.status === 'unavailable') {
+      clazz = 'error';
+      content.push(this.unavailable(output.message || 'Sorry, your browser does not support this step!'));
     } else if (output.status === 'unsupported') {
       clazz = 'error';
       const supports = step.constructor.supports.map(s => s.display).join(', ');
@@ -137,6 +142,10 @@ class StepComponent extends Component {
 
   bug(content) {
     return <div key="bug" className="error"><span className="ionicon ion-ios-bug-outline"/><br/>{content}<br/><small>You might find the cause in your browser&apos;s console log.</small></div>;
+  }
+
+  unavailable(content) {
+    return <div key="unavailable" className="error"><span className="ionicon ion-ios-thunderstorm-outline"/><br/>{content}</div>;
   }
 
   brokenPipe() {

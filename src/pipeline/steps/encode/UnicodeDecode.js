@@ -62,12 +62,10 @@ class UnicodeDecode extends Step {
     }
 
     let string = input.data.replace(/([^0-9a-f]|^)0x/gi, '$1').replace(disallowed, ' ');
-    console.log(string);
     let characters = string
       .split(' ')
       .filter((e) => e.length > 0)
       .reduce((r, e) => {
-        console.log(e);
         r.push(...this.utf16SurrogatePair(parseInt(e, base)));
         return r;
       }, []);

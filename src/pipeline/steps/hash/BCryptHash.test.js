@@ -4,11 +4,20 @@ import Data from '../../Data';
 import {StringType,BoolType} from '../../Types';
 import bcrypt from 'bcryptjs';
 import {randomBytes} from 'crypto';
+import Compat from '../../../lib/Compat';
+
+beforeAll(() => {
+  Compat.fixtures.supportsSecureRandom = true;
+});
+
+afterAll(() => {
+  Compat.fixtures.supportsSecureRandom = null;
+});
 
 bcrypt.setRandomFallback(randomBytes);
 
-var hash = new BCryptHash();
-var verify = new BCryptVerify();
+let hash = new BCryptHash();
+let verify = new BCryptVerify();
 
 test('hash 6', async () => {
   hash.setCost(6);

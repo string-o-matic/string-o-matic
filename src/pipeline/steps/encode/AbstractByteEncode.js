@@ -34,7 +34,7 @@ class ByteEncodeForm extends Component {
           <label>Suffix</label>
           <input onChange={this.settingHandler(step.setSuffix)} type="text" maxLength="4" value={prefs.suffix} {...Globals.noAutoComplete}/>
         </div>
-        <div className="material-group col-xs-4 col-sm-3 col-md-2">
+        <div className={'material-group col-xs-4 col-sm-3 col-md-2' + (step.bytesPerLineValid ? '' : ' has-error')}>
           <label>Bytes per line</label>
           <input onChange={this.settingHandler(step.setBytesPerLine)} type="number" value={prefs.bytesPerLine} {...Globals.noAutoComplete}/>
         </div>
@@ -63,6 +63,7 @@ class AbstractByteEncode extends Step {
   base = 'bin';
   showCase = false;
   showEncoding = false;
+  bytesPerLineValid = true;
 
   prefs = {
     source: 'plain',
@@ -88,7 +89,16 @@ class AbstractByteEncode extends Step {
 
   calculate(input) {
     let opts = Object.assign({}, this.prefs);
-    opts.bytesPerLine = parseInt(this.prefs.bytesPerLine, 10);
+    opts.bytesPerLine = null;
+    this.bytesPerLineValid = true;
+    if (typeof this.prefs.bytesPerLine === 'number' || this.prefs.bytesPerLine.length > 0) {
+      let bytesPerLine = typeof this.prefs.bytesPerLine === 'number' ? this.prefs.bytesPerLine : parseInt(this.prefs.bytesPerLine, 10);
+      if (isNaN(bytesPerLine) || bytesPerLine < 1) {
+        this.bytesPerLineValid = false;
+      } else {
+        opts.bytesPerLine = bytesPerLine;
+      }
+    }
     try {
       return Data.string(ByteUtils.byteStringBufferToBaseString(input.data.copy(), this.base, opts));
     } catch (e) {

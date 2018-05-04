@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StringUtils, {ConversionError} from '../../../lib/StringUtils';
+import {OutOfRangeError} from '../../../lib/ByteUtils';
 import {ByteStringBufferType, StringType} from '../../Types';
 import Step from '../Step';
 import Data from '../../Data';
@@ -63,8 +64,9 @@ class BytesToText extends Step {
       }
       return result;
     } catch (e) {
-      // TODO is OutOfRangeError possible?
-      if (e instanceof ConversionError) {
+      if (e instanceof OutOfRangeError) {
+        return Data.invalid('Received unexpected out-of-range byte value!');
+      } else if (e instanceof ConversionError) {
         return Data.invalid(e.message);
       } else {
         throw e;
