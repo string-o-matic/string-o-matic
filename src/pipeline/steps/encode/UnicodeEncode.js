@@ -42,8 +42,8 @@ class UnicodeEncodeForm extends Component {
           <input onChange={this.settingHandler(step.setSuffix)} type="text" maxLength="4" value={prefs.suffix} {...Globals.noAutoComplete}/>
         </div>
         <div className="material-group col-xs-4 col-sm-3 col-md-2">
-          <label>Bytes per line</label>
-          <input onChange={this.settingHandler(step.setBytesPerLine)} type="number" value={prefs.bytesPerLine} {...Globals.noAutoComplete}/>
+          <label>Chars per line</label>
+          <input onChange={this.settingHandler(step.setCharsPerLine)} type="number" value={prefs.charsPerLine} {...Globals.noAutoComplete}/>
         </div>
         {kase}
       </form>
@@ -71,7 +71,7 @@ class UnicodeEncode extends Step {
 
   prefs = {
     style: 'hex-padded',
-    bytesPerLine: '',
+    charsPerLine: '',
     separator: ' ',
     prefix: 'U+',
     suffix: '',
@@ -87,7 +87,7 @@ class UnicodeEncode extends Step {
   setSeparator = (v) => { this.prefs.separator = v; this._update(); };
   setPrefix = (v) => { this.prefs.prefix = v; this._update(); };
   setSuffix = (v) => { this.prefs.suffix = v; this._update(); };
-  setBytesPerLine = (v) => { this.prefs.bytesPerLine = v; this._update(); };
+  setCharsPerLine = (v) => { this.prefs.charsPerLine = v; this._update(); };
   setCase = (v) => { this.prefs.case = v; this._update(); };
 
   calculate(input) {
@@ -111,13 +111,13 @@ class UnicodeEncode extends Step {
       }
     }
 
-    let bytesPerLine = parseInt(this.prefs.bytesPerLine, 10) || 0;
+    let charsPerLine = parseInt(this.prefs.charsPerLine, 10) || 0;
     let strArray = new Array(intArray.length);
     if (intArray.length > 0) {
       for (let i = 0; i < intArray.length; i++) {
         let terminator = '';
         if (i < intArray.length - 1) {
-          if (bytesPerLine && (i + 1) % bytesPerLine === 0) {
+          if (charsPerLine && (i + 1) % charsPerLine === 0) {
             terminator = '\n';
           } else {
             terminator = this.prefs.separator;

@@ -61,7 +61,7 @@ class UnicodeDecode extends Step {
       disallowed = /[^0-9 ]/g;
     }
 
-    let string = input.data.replace(disallowed, ' ');
+    let string = input.data.replace(/([^0-9a-f]|^)0x/gi, '$1').replace(disallowed, ' ');
     console.log(string);
     let characters = string
       .split(' ')
