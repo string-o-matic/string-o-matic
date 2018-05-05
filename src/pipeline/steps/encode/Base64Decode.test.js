@@ -47,27 +47,27 @@ test('lines ignored utf8', () => {
 });
 
 test('empty utf16', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('', '');
 });
 
 test('f utf16', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('AGY=', 'f');
 });
 
 test('fo utf16', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('AGYAbw==', 'fo');
 });
 
 test('foo utf16', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('AGYAbwBv', 'foo');
 });
 
 test('foobar utf16', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('AGYAbwBvAGIAYQBy', 'foobar');
 });
 
@@ -82,7 +82,7 @@ test('ao iso', () => {
 });
 
 test('lines ignored utf16', () => {
-  step.setEncoding('UTF-16');
+  step.setEncoding('UTF-16BE');
   expectResult('AGY\nAbwBv\r\nAGIA\rYQBy', 'foobar');
 });
 
