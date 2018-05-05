@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 
 class ResizingTextArea extends Component {
 
+  constructor(props) {
+    super(props);
+    this.textArea = React.createRef();
+  }
+
   render() {
     let className = 'data';
     if (this.props.className) {
@@ -20,7 +25,7 @@ class ResizingTextArea extends Component {
         spellCheck="false"
         readOnly={this.props.readOnly}
         dir={this.props.direction || 'ltr'}
-        ref="textarea">
+        ref={this.textArea}>
       </textarea>
     );
   }
@@ -34,9 +39,9 @@ class ResizingTextArea extends Component {
   }
 
   adjustTextArea() {
-    if (this.refs.textarea) {
-      this.refs.textarea.style.height = 'auto';
-      this.refs.textarea.style.height = Math.min(600, this.refs.textarea.scrollHeight) + 'px';
+    if (this.textArea.current) {
+      this.textArea.current.style.height = 'auto';
+      this.textArea.current.style.height = Math.min(600, this.textArea.current.scrollHeight) + 'px';
     }
   }
 

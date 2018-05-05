@@ -9,7 +9,6 @@ import * as util from 'node-forge/lib/util';
 class TextToBytesForm extends Component {
 
   // TODO Alerts or grey out the options which don't match the input
-  // TODO steps should update their type and encoding in the context so prefs can set automatically
   render() {
     const step = this.props.step;
     const prefs = step.prefs;

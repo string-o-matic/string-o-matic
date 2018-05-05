@@ -60,7 +60,7 @@ class HtmlEscapeForm extends Component {
 }
 
 /**
- * TODO Try https://github.com/mathiasbynens/he or use its entity list
+ * Try https://github.com/mathiasbynens/he or use its entity list?
  */
 class HtmlEscape extends Step {
 

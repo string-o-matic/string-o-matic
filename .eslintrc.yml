@@ -31,5 +31,3 @@ rules:
   no-unused-vars:
     - error
     - argsIgnorePattern: _
-  react/no-string-refs:
-    - off # TODO Fix

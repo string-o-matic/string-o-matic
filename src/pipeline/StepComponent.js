@@ -107,7 +107,7 @@ class StepComponent extends Component {
       <div className={clazz + (this.state.deleteFocus ? ' focus': '')}>
         <Toast message={this.state.toast}/>
         <StepTop/>
-        <div className="step-header" ref="step-header">
+        <div className="step-header">
           <h4 className="pull-left">{this.props.step.constructor.title}</h4>
           <button className="pull-right delete" onClick={this.deleteStep} onMouseEnter={this.deleteFocus} onFocus={this.deleteFocus} onMouseLeave={this.deleteBlur} onBlur={this.deleteBlur}><span className="ion-md-close"/></button>
           {copyButton}

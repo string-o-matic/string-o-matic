@@ -8,12 +8,18 @@ import './Input.css';
 
 class Input extends Component {
 
+  constructor(props) {
+    super(props);
+    this.fileInput = React.createRef();
+    this.textInput = React.createRef();
+  }
+
   render() {
     let content = null;
     if (Globals.inputType === 'text') {
-      content = <TextInput initialInput={this.props.initialInput} inputChange={this.props.inputChange} direction={Globals.inputDirection} ref="textInput"/>;
+      content = <TextInput initialInput={this.props.initialInput} inputChange={this.props.inputChange} direction={Globals.inputDirection} ref={this.textInput}/>;
     } else if (Globals.inputType === 'file') {
-      content = <FileInput inputChange={this.props.inputChange} ref="fileInput"/>;
+      content = <FileInput inputChange={this.props.inputChange} ref={this.fileInput}/>;
     }
 
     return (
@@ -43,11 +49,11 @@ class Input extends Component {
   };
 
   clear = () => {
-    if (this.refs.fileInput) {
-      this.refs.fileInput.clear();
+    if (this.fileInput.current) {
+      this.fileInput.current.clear();
     }
-    if (this.refs.textInput) {
-      this.refs.textInput.clear();
+    if (this.textInput.current) {
+      this.textInput.current.clear();
     }
   };
 
