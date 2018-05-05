@@ -40,10 +40,11 @@ class ByteUtils {
    * @param uint8Array {Uint8Array} Array of ints between 0 and 255.
    * @param base {String} bin, dec, hex or b64
    * @param opts {Object=} options: separator (not b64), suffix (not b64), prefix (not b64), line length, case (hex only), variant (b64 only)
+   * @return {String}
    */
   static uint8ArrayToBaseString(uint8Array, base, opts) {
     if (base === 'b64') {
-      return this.byteStringBufferToBase64String(new util.ByteStringBuffer(uint8Array), opts);
+      return this.uint8ArrayToBase64String(uint8Array, opts);
     }
     let line = (opts && opts.line) || 0;
     let separator = (opts && opts.separator) || '';
@@ -75,16 +76,18 @@ class ByteUtils {
   }
 
   /**
-   * Encode binary data in a byte string buffer as bin, dec or hex.
-   * @param buffer {ByteStringBuffer}
-   * @param base {String}
-   * @param opts {Object=}
+   * Convert a Uint8Array to a binary encoded string.
+   * @param uint8Array {Uint8Array}
+   * @returns {string}
    */
-  static byteStringBufferToBaseString(buffer, base, opts) {
-    if (base === 'b64') {
-      return this.byteStringBufferToBase64String(buffer, opts);
-    }
-    return this.uint8ArrayToBaseString(this.byteStringBufferToUint8Array(buffer), base, opts);
+  static uint8ArrayToByteString(uint8Array) {
+    const strArray = Array(uint8Array.length);
+    uint8Array.map(e => strArray.push(String.fromCharCode(e)));
+    return strArray.join('');
+  }
+
+  static uint8ArrayToByteStringBuffer(uint8Array) {
+    return new util.ByteStringBuffer(uint8Array);
   }
 
   /**
@@ -93,10 +96,18 @@ class ByteUtils {
    * @return {Uint8Array}
    */
   static byteStringBufferToUint8Array(buffer) {
-    let byteString = buffer.copy().getBytes();
-    let uint8Array = new Uint8Array(byteString.length);
-    for (let i = 0; i < byteString.length; i++) {
-      const uint8 = byteString.charCodeAt(i);
+    return this.byteStringToUint8Array(buffer.getBytes());
+  }
+
+  /**
+   *
+   * @param string {String}
+   * @returns {Uint8Array}
+   */
+  static byteStringToUint8Array(string) {
+    const uint8Array = new Uint8Array(string.length);
+    for (let i = 0; i < string.length; i++) {
+      const uint8 = string.charCodeAt(i);
       if (uint8 > 0xFF || uint8 < 0x00) {
         throw new OutOfRangeError();
       }
@@ -110,27 +121,21 @@ class ByteUtils {
    * @param string {String}
    * @param base {String}
    * @param opts {Object=}
-   * @returns {*|Array}
+   * @returns {String}
    */
   static byteStringToBaseString(string, base, opts) {
-    const uint8Array = new Uint8Array(string.length);
-    for (let i = 0; i < string.length; i++) {
-      const uint8 = string.charCodeAt(i);
-      if (uint8 > 0xFF) {
-        throw new OutOfRangeError();
-      }
-      uint8Array[i] = uint8;
-    }
+    const uint8Array = this.byteStringToUint8Array(string);
     return this.uint8ArrayToBaseString(uint8Array, base, opts);
   }
 
   /**
    * Special case for base64. Supports options variant (standard or urlsafe) and lineLength.
-   * @param buffer {ByteStringBuffer}
+   * @param uint8Array {Uint8Array}
    * @param opts {Object=}
    */
-  static byteStringBufferToBase64String(buffer, opts) {
-    let result = util.encode64(buffer.copy().getBytes());
+  static uint8ArrayToBase64String(uint8Array, opts) {
+    const buffer = new util.ByteStringBuffer(uint8Array);
+    let result = util.encode64(buffer.getBytes());
     if (opts && opts.variant === 'urlsafe') {
       result = result.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
     }
@@ -207,32 +212,6 @@ class ByteUtils {
       .map((e) => {
         return e.charCodeAt(0);
       }));
-  }
-
-  /**
-   * Decodes a hex/decimal/binary string into a forge ByteStringBuffer.
-   * @param data {String} input string.
-   * @param base {String} bin, hex, dec or b64
-   * @returns {ByteStringBuffer}
-   */
-  static baseStringToByteStringBuffer(data, base) {
-    return new util.ByteStringBuffer(this.baseStringToBinaryString(data, base));
-  }
-
-  /**
-   * Decodes a hex/decimal/binary string into a forge ByteStringBuffer.
-   * @param data {String} input string.
-   * @param base {String} bin, hex, dec or b64
-   * @returns {String}
-   */
-  static baseStringToBinaryString(data, base) {
-    const bytes = this.baseStringToUint8Array(data, base);
-    let start = 0;
-    let string = '';
-    for (let i = start; i < bytes.length; i++) {
-      string += String.fromCharCode(bytes[i]);
-    }
-    return string;
   }
 
   /**

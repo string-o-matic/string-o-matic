@@ -1,5 +1,5 @@
 import Data from '../Data';
-import {ByteStringBufferType, NullType, StringType} from '../Types';
+import {ByteArrayType, NullType, StringType} from '../Types';
 import Globals from '../../Globals';
 import '../StepComponent.css';
 /* global process */
@@ -149,7 +149,7 @@ class Step {
   _updateConvertStep(input) {
     let converterType = null;
     if (this.constructor.input && this.constructor.input !== input.type) {
-      if (this.constructor.input === ByteStringBufferType && input.type === StringType) {
+      if (this.constructor.input === ByteArrayType && input.type === StringType) {
         converterType = require('./convert/TextToBytes').default;
       }
     }

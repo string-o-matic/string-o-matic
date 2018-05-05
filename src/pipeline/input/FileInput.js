@@ -1,4 +1,3 @@
-import * as util from 'node-forge/lib/util';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {StringType} from '../Types';
@@ -28,8 +27,8 @@ class FileInput extends Component {
       } else {
         textarea = (
           <div>
-            <div className="binary">This file can&apos;t be displayed or edited as text, so it&apos;s been imported as a byte array. You can encode, hash or encrypt it.</div>
-            <div className="meta">Byte array, {Globals.fileInput.data.length()} bytes</div>
+            <div className="binary">All files are currently treated as binary. Just add a <strong>Bytes &rarr; Text</strong> step and select the right encoding if your file is text.<br/>We&apos;re working on encoding detection!</div>
+            <div className="meta">Byte array, {Globals.fileInput.data.length} bytes</div>
           </div>
         );
       }
@@ -64,13 +63,14 @@ class FileInput extends Component {
       const reader = new FileReader();
       reader.onload = () => {
         const arrayBuffer = reader.result;
-        const byteStringBuffer = util.createBuffer(arrayBuffer);
-        let input = null;
-        try {
-          input = Data.string(byteStringBuffer.toString());
-        } catch (e) {
-          input = Data.byteStringBuffer(byteStringBuffer);
-        }
+        const byteArray = new Uint8Array(arrayBuffer);
+        // If string decodes as UTF-8, assume UTF-8
+        // else if string has a BOM, assume 16BE/16LE
+        // else if string has many null even bytes, assume 16BE
+        // else if string has many null odd bytes, assume 16LE
+        // else if string has no unprintable characters, assume ISO-8859-1
+        // else binary
+        let input = Data.byteArray(byteArray);
         Globals.file = acceptedFiles[0];
         Globals.fileInput = input.withSequence(++Globals.inputSequence);
         this.props.inputChange(input);

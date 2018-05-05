@@ -1,4 +1,4 @@
-import {NullType, BoolType, StringType, ByteStringBufferType} from './Types';
+import {NullType, BoolType, StringType, ByteArrayType} from './Types';
 
 class Data {
 
@@ -26,8 +26,8 @@ class Data {
     return new Data('valid', StringType, data);
   }
 
-  static byteStringBuffer(data) {
-    return new Data('valid', ByteStringBufferType, data);
+  static byteArray(data) {
+    return new Data('valid', ByteArrayType, data);
   }
 
   static nul() {

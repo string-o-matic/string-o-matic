@@ -1,6 +1,7 @@
 import MD5 from './MD5';
 import Data from '../../Data';
-import {ByteStringBufferType} from '../../Types';
+import {ByteArrayType} from '../../Types';
+import ByteUtils from '../../../lib/ByteUtils';
 
 
 // No tests for null or unsupported types - superclass rejects them.
@@ -9,8 +10,8 @@ function expectResult(input, output) {
   const step = new MD5();
   step.setInput(Data.string(input));
   const result = step.getOutput();
-  expect(result.type).toBe(ByteStringBufferType);
-  expect(result.data.toHex()).toBe(output);
+  expect(result.type).toBe(ByteArrayType);
+  expect(ByteUtils.uint8ArrayToBaseString(result.data, 'hex')).toBe(output);
 }
 
 test('name', () => {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import StringUtils, {ConversionError} from '../../../lib/StringUtils';
 import {OutOfRangeError} from '../../../lib/ByteUtils';
-import {ByteStringBufferType, StringType} from '../../Types';
+import {ByteArrayType, StringType} from '../../Types';
 import Step from '../Step';
 import Data from '../../Data';
 
@@ -40,7 +40,7 @@ class BytesToTextForm extends Component {
 class BytesToText extends Step {
 
   static title = 'Bytes \u2192 Text';
-  static supports = [ ByteStringBufferType ];
+  static supports = [ ByteArrayType ];
   static output = StringType;
   static form = BytesToTextForm;
 
@@ -57,7 +57,7 @@ class BytesToText extends Step {
 
   calculate(input) {
     try {
-      const jsString = StringUtils.byteStringBufferToJsString(input.data, this.prefs.encoding);
+      const jsString = StringUtils.uint8ArrayToJsString(input.data, this.prefs.encoding);
       const result = Data.string(jsString.string);
       if (jsString.info) {
         result.addInfo(jsString.info);

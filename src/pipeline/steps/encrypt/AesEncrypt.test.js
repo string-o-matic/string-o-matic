@@ -1,6 +1,6 @@
 import AesEncrypt from './AesEncrypt';
 import Data from '../../Data';
-import {ByteStringBufferType} from '../../Types';
+import {ByteArrayType} from '../../Types';
 import ByteUtils from '../../../lib/ByteUtils';
 
 let step;
@@ -10,9 +10,9 @@ beforeEach(() => {
 });
 
 function expectResult(input, output) {
-  const result = step.calculate(Data.byteStringBuffer(input));
-  expect(result.type).toBe(ByteStringBufferType);
-  expect(result.data.toHex()).toBe(output);
+  const result = step.calculate(Data.byteArray(input));
+  expect(result.type).toBe(ByteArrayType);
+  expect(result.data).toEqual(ByteUtils.baseStringToUint8Array(output, 'hex'));
 }
 
 test('aes128-cbc', () => {
@@ -28,5 +28,5 @@ test('aes128-cbc', () => {
   step.setIvType('hex');
   step.setIv(ivHex);
 
-  expectResult(ByteUtils.baseStringToByteStringBuffer(plainHex, 'hex'), resultHex);
+  expectResult(ByteUtils.baseStringToUint8Array(plainHex, 'hex'), resultHex);
 });

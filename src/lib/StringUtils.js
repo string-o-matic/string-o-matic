@@ -37,12 +37,30 @@ class StringUtils {
     }
   }
 
-  static jsStringToUtf8ByteString(string) {
-    return unescape(encodeURIComponent(string));
+  static jsStringToUint8Array(string, opts) {
+    const encoding = (opts && opts.encoding) || 'UTF-8';
+    switch (encoding) {
+    case 'UTF-8':
+      return ByteUtils.byteStringToUint8Array(this.jsStringToUtf8ByteString(string));
+    case 'UTF-16BE':
+    case 'UTF-16LE': {
+      if (opts && opts.bom) {
+        string = '\ufeff' + string;
+      }
+      const uint8Array = new Uint8Array(string.length * 2);
+      const view = new DataView(uint8Array.buffer);
+      for (let i = 0; i < string.length; i++) {
+        view.setUint16(i * 2, string.charCodeAt(i), encoding === 'UTF-16LE');
+      }
+      return uint8Array;
+    }
+    default:
+      return ByteUtils.byteStringToUint8Array(string);
+    }
   }
 
-  static byteStringBufferToJsString(buffer, encoding) {
-    return this.uint8ArrayToJsString(ByteUtils.byteStringBufferToUint8Array(buffer), encoding);
+  static jsStringToUtf8ByteString(string) {
+    return unescape(encodeURIComponent(string));
   }
 
   /**

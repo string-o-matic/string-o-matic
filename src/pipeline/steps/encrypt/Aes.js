@@ -5,7 +5,7 @@ import ByteUtils from '../../../lib/ByteUtils';
 import PropTypes from 'prop-types';
 import Step from '../Step';
 import Data from '../../Data';
-import {ByteStringBufferType, StringType} from '../../Types';
+import {ByteArrayType, StringType} from '../../Types';
 import Globals from '../../../Globals';
 import './Aes.css';
 
@@ -109,9 +109,9 @@ class Aes extends Step {
     aes.keepMe = true;
   }
 
-  static supports = [ StringType, ByteStringBufferType ];
-  static input = ByteStringBufferType;
-  static output = ByteStringBufferType;
+  static supports = [ StringType, ByteArrayType ];
+  static input = ByteArrayType;
+  static output = ByteArrayType;
   static form = AesForm;
 
   keyValid = false;
@@ -191,7 +191,7 @@ class Aes extends Step {
       key = {
         string: this.prefs.key,
         encoding: this.prefs.keyType,
-        byteStringBuffer: ByteUtils.baseStringToByteStringBuffer(this.prefs.key, this.prefs.keyType)
+        byteArray: ByteUtils.baseStringToUint8Array(this.prefs.key, this.prefs.keyType)
       };
     }
 
@@ -204,20 +204,20 @@ class Aes extends Step {
       iv = {
         string: this.prefs.iv,
         encoding: this.prefs.ivType,
-        byteStringBuffer: ByteUtils.baseStringToByteStringBuffer(this.prefs.iv, this.prefs.ivType)
+        byteArray: ByteUtils.baseStringToUint8Array(this.prefs.iv, this.prefs.ivType)
       };
     }
 
-    this.keyValid = key.byteStringBuffer.length() === this.prefs.keySize / 8;
-    this.ivValid = iv.byteStringBuffer.length() === 16;
+    this.keyValid = key.byteArray.length === this.prefs.keySize / 8;
+    this.ivValid = iv.byteArray.length === 16;
     if (!this.keyValid) {
-      return Data.invalid('AES-' + this.prefs.keySize + ' requires a ' + (this.prefs.keySize / 8) + ' byte key. Your key is ' + key.byteStringBuffer.length() + ' bytes.');
+      return Data.invalid('AES-' + this.prefs.keySize + ' requires a ' + (this.prefs.keySize / 8) + ' byte key. Your key is ' + key.byteArray.length + ' bytes.');
     }
     if (!this.ivValid) {
-      return Data.invalid('AES-' + this.prefs.keySize + ' requires a 16 byte IV. Your IV is ' + iv.byteStringBuffer.length() + ' bytes.');
+      return Data.invalid('AES-' + this.prefs.keySize + ' requires a 16 byte IV. Your IV is ' + iv.byteArray.length + ' bytes.');
     }
 
-    return this._calculate(key, iv, input.data.copy());
+    return this._calculate(key, iv, input.data);
   }
 
   _calculate() {

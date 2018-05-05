@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Step from '../Step';
 import Data from '../../Data';
-import {StringType,ByteStringBufferType} from '../../Types';
+import {StringType,ByteArrayType} from '../../Types';
 import Globals from '../../../Globals';
 import ByteUtils, {OutOfRangeError} from '../../../lib/ByteUtils';
 
@@ -55,8 +55,8 @@ class ByteEncodeForm extends Component {
 class AbstractByteEncode extends Step {
 
   static variantTitle = 'Encode';
-  static supports = [ StringType, ByteStringBufferType ];
-  static input = ByteStringBufferType;
+  static supports = [ StringType, ByteArrayType ];
+  static input = ByteArrayType;
   static output = StringType;
   static form = ByteEncodeForm;
 
@@ -99,7 +99,7 @@ class AbstractByteEncode extends Step {
       }
     }
     try {
-      return Data.string(ByteUtils.byteStringBufferToBaseString(input.data.copy(), this.base, opts));
+      return Data.string(ByteUtils.uint8ArrayToBaseString(input.data, this.base, opts));
     } catch (e) {
       if (e instanceof OutOfRangeError) {
         return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');

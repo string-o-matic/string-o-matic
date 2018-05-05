@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Step from './steps/Step';
 import {StepTail, StepTop} from '../Common';
+import ByteUtils from '../lib/ByteUtils';
 import StepForm from './steps/StepForm';
 import ResizingTextArea from './ResizingTextArea';
 import HexEncode from './steps/encode/HexEncode';
 import Base64Encode from './steps/encode/Base64Encode';
 import BytesToText from './steps/convert/BytesToText';
-import {StringType, BoolType, NullType, ByteStringBufferType} from './Types';
+import {StringType, BoolType, NullType, ByteArrayType} from './Types';
 import Toast from '../chrome/Toast';
 import './StepComponent.css';
 /* globals document */
@@ -46,9 +47,9 @@ class StepComponent extends Component {
       output.then(_ => this.setState({}));
     } else if (output.status === 'valid') {
       const meta = [];
-      if (output.type === ByteStringBufferType) {
-        content.push(this.data(output.data.toHex()));
-        meta.push(<div key="type"><span>Byte array, {output.data.length()} bytes. Hex preview.</span></div>);
+      if (output.type === ByteArrayType) {
+        content.push(this.data(ByteUtils.uint8ArrayToBaseString(output.data, 'hex')));
+        meta.push(<div key="type"><span>Byte array, {output.data.length} bytes. Hex preview.</span></div>);
       } else if (output.type === StringType) {
         copy = output.data;
         // eslint-disable-next-line no-control-regex
@@ -85,7 +86,7 @@ class StepComponent extends Component {
       clazz = 'error';
       const supports = step.constructor.supports.map(s => s.display).join(', ');
       let suggestions = <div>Try adding a conversion step</div>;
-      if (output.inputType === ByteStringBufferType && step.constructor.supports.indexOf(StringType) > -1) {
+      if (output.inputType === ByteArrayType && step.constructor.supports.indexOf(StringType) > -1) {
         suggestions = (<div className="suggestions">
           <p>Recommended conversion steps:</p>
           <button className="btn" onClick={this.injectStepBefore.bind(this, HexEncode)}>{HexEncode.title}</button>

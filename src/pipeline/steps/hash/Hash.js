@@ -1,13 +1,14 @@
 import * as util from 'node-forge/lib/util';
 import Step from '../Step';
 import Data from '../../Data';
-import {StringType,ByteStringBufferType} from '../../Types';
+import {StringType,ByteArrayType} from '../../Types';
+import ByteUtils from '../../../lib/ByteUtils';
 
 class Hash extends Step {
 
-  static supports = [ StringType, ByteStringBufferType ];
-  static input = ByteStringBufferType;
-  static output = ByteStringBufferType;
+  static supports = [ StringType, ByteArrayType ];
+  static input = ByteArrayType;
+  static output = ByteArrayType;
 
   constructor(hash) {
     super();
@@ -22,7 +23,7 @@ class Hash extends Step {
   calculate(input) {
     this.hash.start();
     this.hash.update(util.createBuffer(input.data).getBytes());
-    return Data.byteStringBuffer(this.hash.digest());
+    return Data.byteArray(ByteUtils.byteStringBufferToUint8Array(this.hash.digest()));
   }
 
 }
