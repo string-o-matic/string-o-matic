@@ -1,78 +1,79 @@
 import StringUtils from './StringUtils';
 import ByteUtils from './ByteUtils';
 
+// TODO b64, dec, bin tests copied from steps
 
-test('decode utf8 buffer', () => {
+test('decode hex utf8 buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('717569646469746368', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-8')).toEqual({ string: 'quidditch', info: null });
 });
 
-test('decode utf8 emoji buffer', () => {
+test('decode hex utf8 emoji buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('e29da4efb88f', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-8')).toEqual({ string: '❤️', info: null });
 });
 
-test('decode iso-8859-1 buffer', () => {
+test('decode hex iso-8859-1 buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('717569646469746368', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'ISO-8859-1')).toEqual({ string: 'quidditch', info: null });
 });
 
-test('decode iso-8859-1 emoji buffer', () => {
+test('decode hex iso-8859-1 emoji buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('e29da4efb88f', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'ISO-8859-1')).toEqual({ string: '\u{e2}\u{9d}\u{a4}\u{ef}\u{b8}\u{8f}', info: null });
 });
 
-test('decode utf-16be no bom buffer', () => {
+test('decode hex utf-16be no bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('007100750069006400640069007400630068', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16BE')).toEqual({ string: 'quidditch', info: null });
 });
 
-test('decode utf-16be be bom buffer', () => {
+test('decode hex utf-16be be bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('feff007100750069006400640069007400630068', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16BE')).toEqual({ string: 'quidditch', info: 'Stripped big-endian byte order mark' });
 });
 
-test('decode utf-16be le bom buffer', () => {
+test('decode hex utf-16be le bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('fffe007100750069006400640069007400630068', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16BE')).toEqual({ string: 'quidditch', info: 'Stripped little-endian byte order mark' });
 });
 
-test('decode utf-16be emoji buffer', () => {
+test('decode hex utf-16be emoji buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('2764fe0f', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16BE')).toEqual({ string: '❤️', info: null });
 });
 
-test('decode utf-16le no bom buffer', () => {
+test('decode hex utf-16le no bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('710075006900640064006900740063006800', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16LE')).toEqual({ string: 'quidditch', info: null });
 });
 
-test('decode utf-16le le bom buffer', () => {
+test('decode hex utf-16le le bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('fffe710075006900640064006900740063006800', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16LE')).toEqual({ string: 'quidditch', info: 'Stripped little-endian byte order mark' });
 });
 
-test('decode utf-16le be bom buffer', () => {
+test('decode hex utf-16le be bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('feff710075006900640064006900740063006800', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16LE')).toEqual({ string: 'quidditch', info: 'Stripped big-endian byte order mark' });
 });
 
-test('decode utf-16le emoji buffer', () => {
+test('decode hex utf-16le emoji buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('64270ffe', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16LE')).toEqual({ string: '❤️', info: null });
 });
 
-test('decode utf-16auto no bom buffer', () => {
+test('decode hex utf-16auto no bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('007100750069006400640069007400630068', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16')).toEqual({ string: 'quidditch', info: 'No byte order mark - assuming big-endian' });
 });
 
-test('decode utf-16auto le bom buffer', () => {
+test('decode hex utf-16auto le bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('fffe710075006900640064006900740063006800', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16')).toEqual({ string: 'quidditch', info: 'Found little-endian byte order mark' });
 });
 
-test('decode utf-16auto be bom buffer', () => {
+test('decode hex utf-16auto be bom buffer', () => {
   const buffer = ByteUtils.baseStringToByteStringBuffer('feff007100750069006400640069007400630068', 'hex');
   expect(StringUtils.byteStringBufferToJsString(buffer, 'UTF-16')).toEqual({ string: 'quidditch', info: 'Found big-endian byte order mark' });
 });
@@ -487,7 +488,7 @@ test('encode b64 foobar utf8', () => {
 });
 
 test('encode b64 line length utf8', () => {
-  const opts = { encoding: 'UTF-8', lineLength: 2 };
+  const opts = { encoding: 'UTF-8', line: 2 };
   expect(StringUtils.jsStringToBaseString('foobar', 'b64', opts)).toBe('Zm\r\n9v\r\nYm\r\nFy');
 });
 

@@ -116,6 +116,13 @@ test('decode b64', () => {
   expect(ByteUtils.baseStringToByteStringBuffer('cXVpZGRpdGNo', 'b64').toHex()).toBe('717569646469746368');
 });
 
+test('decode b64 unix lines', () => {
+  expect(ByteUtils.baseStringToByteStringBuffer('aGVs\nbG8=', 'b64').toHex()).toBe('68656c6c6f');
+});
+
+test('decode b64 windows lines', () => {
+  expect(ByteUtils.baseStringToByteStringBuffer('aGVs\r\nbG8=', 'b64').toHex()).toBe('68656c6c6f');
+});
 
 test('decode hex 0x80+', () => {
   expect(ByteUtils.baseStringToByteStringBuffer('c0cbced5da', 'hex').toHex()).toBe('c0cbced5da');

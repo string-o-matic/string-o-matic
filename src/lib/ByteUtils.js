@@ -134,8 +134,8 @@ class ByteUtils {
     if (opts && opts.variant === 'urlsafe') {
       result = result.replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
     }
-    if (opts && opts.lineLength && opts.lineLength > 0) {
-      const pattern = '.{1,' + opts.lineLength + '}';
+    if (opts && opts.line && opts.line > 0) {
+      const pattern = '.{1,' + opts.line + '}';
       const regExp = new RegExp(pattern, 'g');
       const lines = result.match(regExp) || [];
       result = lines.join('\r\n');
@@ -195,7 +195,7 @@ class ByteUtils {
   static base64StringToUint8Array(data) {
     const conf = this.baseConfig.b64;
     if (conf.disallowed) {
-      data = data.replace(conf.disallowed, ' ');
+      data = data.replace(conf.disallowed, '');
     }
     data = data.replace(/-/g, '+').replace(/_/g, '/');
     while (data.length % 4 !== 0) {
