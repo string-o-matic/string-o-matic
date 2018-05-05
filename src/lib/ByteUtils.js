@@ -45,7 +45,7 @@ class ByteUtils {
     if (base === 'b64') {
       return this.byteStringBufferToBase64String(new util.ByteStringBuffer(uint8Array), opts);
     }
-    let bytesPerLine = (opts && opts.bytesPerLine) || 0;
+    let line = (opts && opts.line) || 0;
     let separator = (opts && opts.separator) || '';
     let prefix = (opts && opts.prefix) || '';
     let suffix = (opts && opts.suffix) || '';
@@ -58,7 +58,7 @@ class ByteUtils {
         }
         let terminator = '';
         if (i < uint8Array.length - 1) {
-          if (bytesPerLine && (i + 1) % bytesPerLine === 0) {
+          if (line && (i + 1) % line === 0) {
             terminator = '\n';
           } else {
             terminator = separator;

@@ -218,12 +218,12 @@ test('encode dec suffix', () => {
 });
 
 test('encode dec bytes per line', () => {
-  const opts = { encoding: 'UTF-16BE', bom: true, bytesPerLine: 2, separator: ' ' };
+  const opts = { encoding: 'UTF-16BE', bom: true, line: 2, separator: ' ' };
   expect(StringUtils.jsStringToBaseString('$', 'dec', opts)).toBe('254 255\n0 36');
 });
 
 test('encode dec combined options', () => {
-  const opts = { encoding: 'UTF-16BE', bom: true, bytesPerLine: 2, prefix: '\\d', suffix: ';', separator: '|' };
+  const opts = { encoding: 'UTF-16BE', bom: true, line: 2, prefix: '\\d', suffix: ';', separator: '|' };
   expect(StringUtils.jsStringToBaseString('$', 'dec', opts)).toBe('\\d254;|\\d255;\n\\d0;|\\d36;');
 });
 
@@ -335,12 +335,12 @@ test('encode bin suffix', () => {
 });
 
 test('encode bin bytes per line', () => {
-  const opts = { encoding: 'UTF-16BE', separator: ' ', bom: true, bytesPerLine: 2 };
+  const opts = { encoding: 'UTF-16BE', separator: ' ', bom: true, line: 2 };
   expect(StringUtils.jsStringToBaseString('$', 'bin', opts)).toBe('11111110 11111111\n00000000 00100100');
 });
 
 test('encode bin combined options', () => {
-  const opts = { encoding: 'UTF-16BE', separator: '|', bom: true, bytesPerLine: 2, prefix: '\\b', suffix: ';' };
+  const opts = { encoding: 'UTF-16BE', separator: '|', bom: true, line: 2, prefix: '\\b', suffix: ';' };
   expect(StringUtils.jsStringToBaseString('$', 'bin', opts)).toBe('\\b11111110;|\\b11111111;\n\\b00000000;|\\b00100100;');
 });
 
@@ -450,12 +450,12 @@ test('encode hex suffix', () => {
 });
 
 test('encode hex bytes per line', () => {
-  const opts = { encoding: 'UTF-16BE', bom: true, bytesPerLine: 2, separator: ' ' };
+  const opts = { encoding: 'UTF-16BE', bom: true, line: 2, separator: ' ' };
   expect(StringUtils.jsStringToBaseString('$', 'hex', opts)).toBe('fe ff\n00 24');
 });
 
 test('encode hex combined options', () => {
-  const opts = { encoding: 'UTF-16BE', bom: true, bytesPerLine: 2, prefix: '\\x', suffix: ';', separator: '|', case: 'upper' };
+  const opts = { encoding: 'UTF-16BE', bom: true, line: 2, prefix: '\\x', suffix: ';', separator: '|', case: 'upper' };
   expect(StringUtils.jsStringToBaseString('$', 'hex', opts)).toBe('\\xFE;|\\xFF;\n\\x00;|\\x24;');
 });
 

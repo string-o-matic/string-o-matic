@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Step from '../Step';
-import Data from '../../Data';
-import {StringType,ByteStringBufferType} from '../../Types';
 import Globals from '../../../Globals';
-import ByteUtils, {OutOfRangeError} from '../../../lib/ByteUtils';
+import AbstractByteEncode from './AbstractByteEncode';
 
 class Base64EncodeForm extends Component {
 
@@ -37,13 +34,9 @@ class Base64EncodeForm extends Component {
 
 }
 
-class Base64Encode extends Step {
+class Base64Encode extends AbstractByteEncode {
 
   static title = 'Base64 Encode';
-  static variantTitle = 'Encode';
-  static supports = [ StringType, ByteStringBufferType ];
-  static input = ByteStringBufferType;
-  static output = StringType;
   static form = Base64EncodeForm;
 
   base = 'b64';
@@ -64,30 +57,6 @@ class Base64Encode extends Step {
 
   setVariant = (v) => { this.prefs.variant = v; this._update(); };
   setLine = (v) => { this.prefs.line = v; this._update(); };
-
-  calculate(input) {
-    let opts = Object.assign({}, this.prefs);
-    opts.line = null;
-    this.lineValid = true;
-    if (typeof this.prefs.line === 'number' || this.prefs.line.length > 0) {
-      let line = typeof this.prefs.line === 'number' ? this.prefs.line : parseInt(this.prefs.line, 10);
-      if (isNaN(line) || line < 1) {
-        this.lineValid = false;
-      } else {
-        opts.line = line;
-      }
-    }
-
-    try {
-      return Data.string(ByteUtils.byteStringBufferToBaseString(input.data.copy(), this.base, opts));
-    } catch (e) {
-      if (e instanceof OutOfRangeError) {
-        return Data.invalid('Input contains multi-byte characters and cannot be encoded as ISO-8859-1');
-      } else {
-        throw e;
-      }
-    }
-  }
 
 }
 

@@ -34,9 +34,9 @@ class ByteEncodeForm extends Component {
           <label>Suffix</label>
           <input onChange={this.settingHandler(step.setSuffix)} type="text" maxLength="4" value={prefs.suffix} {...Globals.noAutoComplete}/>
         </div>
-        <div className={'material-group col-xs-4 col-sm-3 col-md-2' + (step.bytesPerLineValid ? '' : ' has-error')}>
+        <div className={'material-group col-xs-4 col-sm-3 col-md-2' + (step.lineValid ? '' : ' has-error')}>
           <label>Bytes per line</label>
-          <input onChange={this.settingHandler(step.setBytesPerLine)} type="number" value={prefs.bytesPerLine} {...Globals.noAutoComplete}/>
+          <input onChange={this.settingHandler(step.setLine)} type="number" value={prefs.line} {...Globals.noAutoComplete}/>
         </div>
         {kase}
       </form>
@@ -62,14 +62,13 @@ class AbstractByteEncode extends Step {
 
   base = 'bin';
   showCase = false;
-  showEncoding = false;
-  bytesPerLineValid = true;
+  lineValid = true;
 
   prefs = {
     source: 'plain',
     encoding: 'UTF-8',
     bom: false,
-    bytesPerLine: '',
+    line: '',
     separator: ' ',
     prefix: '',
     suffix: '',
@@ -85,18 +84,18 @@ class AbstractByteEncode extends Step {
   setPrefix = (v) => { this.prefs.prefix = v; this._update(); };
   setSuffix = (v) => { this.prefs.suffix = v; this._update(); };
   setCase = (v) => { this.prefs.case = v; this._update(); };
-  setBytesPerLine = (v) => { this.prefs.bytesPerLine = v; this._update(); };
+  setLine = (v) => { this.prefs.line = v; this._update(); };
 
   calculate(input) {
     let opts = Object.assign({}, this.prefs);
-    opts.bytesPerLine = null;
-    this.bytesPerLineValid = true;
-    if (typeof this.prefs.bytesPerLine === 'number' || this.prefs.bytesPerLine.length > 0) {
-      let bytesPerLine = typeof this.prefs.bytesPerLine === 'number' ? this.prefs.bytesPerLine : parseInt(this.prefs.bytesPerLine, 10);
-      if (isNaN(bytesPerLine) || bytesPerLine < 1) {
-        this.bytesPerLineValid = false;
+    opts.line = null;
+    this.lineValid = true;
+    if (typeof this.prefs.line === 'number' || this.prefs.line.length > 0) {
+      let line = typeof this.prefs.line === 'number' ? this.prefs.line : parseInt(this.prefs.line, 10);
+      if (isNaN(line) || line < 1) {
+        this.lineValid = false;
       } else {
-        opts.bytesPerLine = bytesPerLine;
+        opts.line = line;
       }
     }
     try {

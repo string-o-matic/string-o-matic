@@ -30,25 +30,25 @@ test('no separator', () => {
 
 test('bytes per line', () => {
   step.convertStep.setEncoding('UTF-16BE');
-  step.setBytesPerLine(2);
+  step.setLine(2);
   expectResult('\u2764\uFE0F', '27 64\nfe 0f');
 });
 
 test('bytes per line str', () => {
   step.convertStep.setEncoding('UTF-16BE');
-  step.setBytesPerLine('2');
+  step.setLine('2');
   expectResult('\u2764\uFE0F', '27 64\nfe 0f');
 });
 
 test('bytes per line invalid', () => {
   step.convertStep.setEncoding('UTF-16BE');
-  step.setBytesPerLine('x');
+  step.setLine('x');
   expectResult('\u2764\uFE0F', '27 64 fe 0f');
 });
 
 test('bytes per line out of range', () => {
   step.convertStep.setEncoding('UTF-16BE');
-  step.setBytesPerLine('-1');
+  step.setLine('-1');
   expectResult('\u2764\uFE0F', '27 64 fe 0f');
 });
 
@@ -75,7 +75,7 @@ test('combined options', () => {
   step.setPrefix('0x');
   step.setSuffix(';');
   step.setSeparator('|');
-  step.setBytesPerLine(2);
+  step.setLine(2);
   step.setCase('upper');
   expectResult('\u2764\uFE0F', '0x27;|0x64;\n0xFE;|0x0F;');
 });
