@@ -96,7 +96,7 @@ class HtmlEscape extends Step {
     let result = '';
     let data = input.data;
     // When encoding lines as breaks/paragraphs, replace windows new lines first
-    if (this.lines === 'b' || this.lines === 'p') {
+    if (this.lines === 'br' || this.lines === 'brx' || this.lines === 'p') {
       data = data.replace(/\r\n/g, '\n');
     }
     for (let i = 0; i < data.length; i++) {
