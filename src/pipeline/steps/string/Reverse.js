@@ -6,6 +6,7 @@ class Reverse extends Step {
 
   static title = 'Reverse';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

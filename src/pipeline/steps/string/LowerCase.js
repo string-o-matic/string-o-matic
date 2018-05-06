@@ -6,6 +6,7 @@ class LowerCase extends Step {
 
   static title = 'Lower Case';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

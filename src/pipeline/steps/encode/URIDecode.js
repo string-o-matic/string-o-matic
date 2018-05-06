@@ -7,6 +7,7 @@ class URIDecode extends Step {
   static title = 'URI Decode';
   static variantTitle = 'Decode';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

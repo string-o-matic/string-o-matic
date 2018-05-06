@@ -7,6 +7,7 @@ class URIEncode extends Step {
   static title = 'URI Encode';
   static variantTitle = 'Encode';
   static supports = [ StringType ];
+  static output = StringType;
 
   calculate(input) {
     return Data.string(encodeURIComponent(input.data));

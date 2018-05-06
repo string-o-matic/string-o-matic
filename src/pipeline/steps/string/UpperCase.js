@@ -6,6 +6,7 @@ class UpperCase extends Step {
 
   static title = 'Upper Case';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

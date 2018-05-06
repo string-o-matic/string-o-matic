@@ -6,6 +6,7 @@ class TitleCase extends Step {
 
   static title = 'Title Case';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

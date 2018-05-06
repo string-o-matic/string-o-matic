@@ -6,6 +6,7 @@ class InverseCase extends Step {
 
   static title = 'Inverse Case';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

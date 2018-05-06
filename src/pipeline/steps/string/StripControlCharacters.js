@@ -10,6 +10,7 @@ class StripControlCharacters extends Step {
 
   static title = 'Strip Control Characters';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

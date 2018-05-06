@@ -9,6 +9,7 @@ class StripWhiteSpace extends Step {
 
   static title = 'Strip White Space';
   static supports = [ StringType ];
+  static output = StringType;
   static rtl = true;
 
   calculate(input) {

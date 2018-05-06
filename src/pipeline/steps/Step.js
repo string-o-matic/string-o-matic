@@ -19,7 +19,8 @@ class StepCounter {
  */
 class Step {
 
-  static title = 'Identity';
+  input = null;
+  output = null;
 
   constructor() {
     this.key = this.constructor.name + '-' + (StepCounter.count++);
@@ -59,7 +60,6 @@ class Step {
           this.input.then(result => {
             this.log('setInput (Resolved)', result);
             this.input = result;
-            this.log('Calling _getOutputForData from input resolve');
             resolve(this._getOutputForData(result));
           });
         });
@@ -84,7 +84,6 @@ class Step {
         this.error('Unexpected state! Output should never be null if input is a promise.');
         this.output = Data.bug();
       } else {
-        this.log('Calling _getOutputForData direct');
         this._getOutputForData(this.input);
       }
     }
@@ -126,13 +125,14 @@ class Step {
             });
           } else {
             this.output.withSequence(input.sequence);
-            this.output.context = Object.assign(this.output.context, input.context);
+            this.output.context = Object.assign({}, input.context, this.output.context);
           }
         }
       } catch (e) {
         this.error('Calculation failed', {input: input, error: e});
         this.output = Data.bug();
-        if (process.env.NODE_ENV !== 'production') {
+        console.log(process.env.NODE_ENV);
+        if (process.env.NODE_ENV === 'development') {
           throw e;
         }
       }
@@ -166,12 +166,12 @@ class Step {
    * passed - no promises or errors. A promise may be returned for async calculations. Subclasses
    * must not reject the promises they return, they must resolve them with {@link Data.bug} if
    * necessary.
-   * @param {Data} input
+   * @param {Data} _
    * @returns {Data|Promise}
    * @protected
    */
-  calculate(input) {
-    return input;
+  calculate(_) {
+    throw Error('calculate() not implemented');
   }
 
   /**
@@ -179,7 +179,7 @@ class Step {
    * if either this step's input is a promise or the calculation is async.
    */
   passInput() {
-    if (this.next) {
+    if (this.next && this.input) {
       const output = this.getOutput();
       if (output.then) {
         this.next.setInput(new Promise(resolve => {
