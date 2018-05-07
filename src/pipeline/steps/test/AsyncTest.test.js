@@ -2,7 +2,7 @@ import AsyncTest from './AsyncTest';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
-var step = new AsyncTest();
+let step = new AsyncTest();
 
 test('sync', () => {
   const result = step.calculate(Data.string('_'));

@@ -6,7 +6,7 @@ import {randomBytes} from 'crypto';
 
 bcrypt.setRandomFallback(randomBytes);
 
-var step = new BCryptVerify();
+let step = new BCryptVerify();
 
 test('valid', async () => {
   step.setPassword('P4ssW0Rd!');

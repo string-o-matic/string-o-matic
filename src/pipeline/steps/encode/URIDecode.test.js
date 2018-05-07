@@ -2,12 +2,12 @@ import URIDecode from './URIDecode';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
-var step = new URIDecode();
+let step = new URIDecode();
 
 // No tests for null or unsupported types - superclass rejects them.
 
 function expectResult(input, output) {
-  var result = step.calculate(Data.string(input));
+  const result = step.calculate(Data.string(input));
   expect(result.type).toBe(StringType);
   expect(result.data).toBe(output);
 }

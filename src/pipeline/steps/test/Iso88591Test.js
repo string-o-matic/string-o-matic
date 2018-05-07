@@ -11,10 +11,10 @@ class Iso88591Test extends Step {
   static supports = [ StringType ];
 
   calculate() {
-    var string = '';
-    for (var int = 0; int < 256; int++) {
+    let string = '';
+    for (let int = 0; int < 256; int++) {
       const char = String.fromCharCode(int);
-      var displayChar = '\ufffd';
+      let displayChar = '\ufffd';
       if (int === 9 || int === 10 || int === 13 || (int >= 32 && int <= 126) || (int >= 160 && int <= 172) || int >= 174) {
         displayChar = char;
       }

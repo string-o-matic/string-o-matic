@@ -4,6 +4,6 @@ import TextInput from './TextInput';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  var inputChange = function() { };
+  const inputChange = function() { };
   ReactDOM.render(<TextInput initialInput="wobbly wombat" inputChange={inputChange}/>, div);
 });

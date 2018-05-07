@@ -4,7 +4,7 @@ import UpperCase from './steps/string/UpperCase';
 import StepComponent from './StepComponent';
 
 it('renders without crashing', () => {
-  var step = new UpperCase();
+  const step = new UpperCase();
   const div = document.createElement('div');
   const refresh = function() { };
   const deleteStep = function() { };

@@ -2,7 +2,7 @@ import HexDecode from './HexDecode';
 import Data from '../../Data';
 import {StringType} from '../../Types';
 
-var step = new HexDecode();
+let step = new HexDecode();
 
 // No tests for null or unsupported types - superclass rejects them.
 
