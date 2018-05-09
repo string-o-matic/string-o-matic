@@ -23,7 +23,7 @@ This project started in March 2018 and has reached MVP, with a relatively small 
 and more to follow.
 
 The [After MVP](https://github.com/string-o-matic/string-o-matic/projects/2) project lists planned future features. If
-you have a feature request that isn't listed project board, please open an issue or a pull request!
+you have a feature request that isn't listed, please open an issue or a pull request!
 
 ### Development setup
 
