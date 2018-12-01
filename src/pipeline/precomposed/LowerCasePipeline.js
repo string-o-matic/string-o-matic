@@ -7,6 +7,7 @@ import Globals from '../../Globals';
 class LowerCasePipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Lower Case @ ' + Globals.title;
   }
 

@@ -7,6 +7,7 @@ import Globals from '../../Globals';
 class DecimalEncodePipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Decimal Encode @ ' + Globals.title;
   }
 

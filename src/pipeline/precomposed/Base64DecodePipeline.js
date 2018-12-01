@@ -2,11 +2,19 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import Base64Decode from '../steps/encode/Base64Decode';
 import Globals from '../../Globals';
+import Data from '../Data';
 /* globals document */
 
 class Base64DecodePipeline extends Pipeline {
 
+  constructor(props) {
+    super(props);
+    Globals.textInput = 'TGlmZSBpcyBsaWtlIGEg8J+TpiBvZiDwn42r';
+    this.state = { input: Data.string(Globals.textInput) };
+  }
+
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Base64 Decode @ ' + Globals.title;
   }
 
@@ -32,7 +40,6 @@ class Base64DecodePipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    Globals.textInput = 'TGlmZSBpcyBsaWtlIGEg8J+TpiBvZiDwn42r';
     this.addStep(new Base64Decode());
   }
   

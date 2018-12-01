@@ -2,11 +2,19 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import BinaryDecode from '../steps/encode/BinaryDecode';
 import Globals from '../../Globals';
+import Data from '../Data';
 /* globals document */
 
 class BinaryDecodePipeline extends Pipeline {
 
+  constructor(props) {
+    super(props);
+    Globals.textInput = '01001100 01101001 01100110 01100101 00100000 01101001 01110011 00100000 01101100 01101001 01101011 01100101 00100000 01100001 00100000 11110000 10011111 10010011 10100110 00100000 01101111 01100110 00100000 11110000 10011111 10001101 10101011';
+    this.state = { input: Data.string(Globals.textInput) };
+  }
+
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Binary Decode @ ' + Globals.title;
   }
 
@@ -32,7 +40,6 @@ class BinaryDecodePipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    Globals.textInput = '01001100 01101001 01100110 01100101 00100000 01101001 01110011 00100000 01101100 01101001 01101011 01100101 00100000 01100001 00100000 11110000 10011111 10010011 10100110 00100000 01101111 01100110 00100000 11110000 10011111 10001101 10101011';
     this.addStep(new BinaryDecode());
   }
   

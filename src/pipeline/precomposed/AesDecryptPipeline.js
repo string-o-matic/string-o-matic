@@ -3,11 +3,19 @@ import Pipeline from '../Pipeline';
 import AesDecrypt from '../steps/encrypt/AesDecrypt';
 import BytesToText from '../steps/convert/BytesToText';
 import Globals from '../../Globals';
+import Data from '../Data';
 /* global document */
 
 class AesDecryptPipeline extends Pipeline {
 
+  constructor(props) {
+    super(props);
+    Globals.textInput = '5yYZ9VBFi5CNAH956h72vA5gbOjuh+Tguz+3RvINI7s=';
+    this.state = { input: Data.string(Globals.textInput) };
+  }
+
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'AES Decrypt @ ' + Globals.title;
   }
 
@@ -48,7 +56,6 @@ class AesDecryptPipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    Globals.textInput = '5yYZ9VBFi5CNAH956h72vA5gbOjuh+Tguz+3RvINI7s=';
     const aes = new AesDecrypt();
     aes.prefs.source = 'b64';
     aes.prefs.keyType = 'b64';

@@ -8,6 +8,7 @@ import Globals from '../../Globals';
 class MD5Pipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'MD5 Hash @ ' + Globals.title;
   }
 

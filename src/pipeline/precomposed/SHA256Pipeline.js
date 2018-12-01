@@ -8,6 +8,7 @@ import Globals from '../../Globals';
 class SHA256Pipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'SHA-256 Hash @ ' + Globals.title;
   }
 

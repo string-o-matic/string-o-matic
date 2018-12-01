@@ -2,11 +2,19 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import HtmlEscape from '../steps/escape/HtmlEscape';
 import Globals from '../../Globals';
+import Data from '../Data';
 /* globals document */
 
 class HtmlEscapePipeline extends Pipeline {
 
+  constructor(props) {
+    super(props);
+    Globals.textInput = '"eight" is > 六 & < десять';
+    this.state = { input: Data.string(Globals.textInput) };
+  }
+
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'HTML Escape @ ' + Globals.title;
   }
 
@@ -44,7 +52,6 @@ class HtmlEscapePipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    Globals.textInput = '"eight" is > 六 & < десять';
     this.addStep(new HtmlEscape());
   }
   

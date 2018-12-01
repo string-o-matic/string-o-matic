@@ -7,6 +7,7 @@ import Globals from '../../Globals';
 class HexEncodePipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Hex Encode @ ' + Globals.title;
   }
 

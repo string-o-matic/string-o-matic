@@ -7,6 +7,7 @@ import Globals from '../../Globals';
 class Base64EncodePipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Base64 Encode @ ' + Globals.title;
   }
 

@@ -2,11 +2,19 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import HexDecode from '../steps/encode/HexDecode';
 import Globals from '../../Globals';
+import Data from '../Data';
 /* globals document */
 
 class HexDecodePipeline extends Pipeline {
 
+  constructor(props) {
+    super(props);
+    Globals.textInput = '4c696665206973206c696b65206120f09f93a6206f6620f09f8dab';
+    this.state = { input: Data.string(Globals.textInput) };
+  }
+
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Hex Decode @ ' + Globals.title;
   }
 
@@ -32,7 +40,6 @@ class HexDecodePipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    Globals.textInput = '4c696665206973206c696b65206120f09f93a6206f6620f09f8dab';
     this.addStep(new HexDecode());
   }
   

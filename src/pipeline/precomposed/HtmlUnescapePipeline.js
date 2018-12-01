@@ -2,11 +2,19 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import HtmlUnescape from '../steps/escape/HtmlUnescape';
 import Globals from '../../Globals';
+import Data from '../Data';
 /* globals document */
 
 class HtmlUnescapePipeline extends Pipeline {
 
+  constructor(props) {
+    super(props);
+    Globals.textInput = '&quot;eight&quot; is &gt; 六 &amp; &lt; десять';
+    this.state = { input: Data.string(Globals.textInput) };
+  }
+
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'HTML Unescape @ ' + Globals.title;
   }
 
@@ -35,7 +43,6 @@ class HtmlUnescapePipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    Globals.textInput = '&quot;eight&quot; is &gt; 六 &amp; &lt; десять';
     this.addStep(new HtmlUnescape());
   }
   

@@ -8,6 +8,7 @@ import Globals from '../../Globals';
 class AesEncryptPipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'AES Encrypt @ ' + Globals.title;
   }
 

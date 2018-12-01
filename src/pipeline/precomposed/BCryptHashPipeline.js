@@ -8,6 +8,7 @@ import Globals from '../../Globals';
 class BCryptHashPipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'BCrypt Hash @ ' + Globals.title;
   }
 

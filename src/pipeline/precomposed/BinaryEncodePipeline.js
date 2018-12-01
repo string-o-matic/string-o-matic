@@ -7,6 +7,7 @@ import Globals from '../../Globals';
 class BinaryEncodePipeline extends Pipeline {
 
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Binary Encode @ ' + Globals.title;
   }
 

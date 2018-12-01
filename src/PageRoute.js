@@ -6,16 +6,15 @@ import Globals from './Globals';
 
 class PageRoute extends Component {
 
-  // Clear the pipeline when forward navigating to a precomposed page, but not when visiting home or pressing back to
-  // return to a precomposed page.
-  componentWillUpdate(newProps) {
-    if (newProps.path === newProps.location.pathname &&
-      newProps.location.pathname !== this.props.location.pathname &&
-      newProps.history &&
-      newProps.history.action === 'PUSH' &&
-      newProps.resetPipeline) {
+  getSnapshotBeforeUpdate(prevProps) {
+    if (this.props.path === this.props.location.pathname &&
+      this.props.location.pathname !== prevProps.location.pathname &&
+      this.props.history &&
+      this.props.history.action === 'PUSH' &&
+      this.props.resetPipeline) {
       Globals.steps = [];
     }
+    return null;
   }
 
   // Scroll to top after moving to a new page

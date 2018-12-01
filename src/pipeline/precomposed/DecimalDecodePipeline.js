@@ -2,11 +2,19 @@ import React  from 'react';
 import Pipeline from '../Pipeline';
 import DecimalDecode from '../steps/encode/DecimalDecode';
 import Globals from '../../Globals';
+import Data from '../Data';
 /* globals document */
 
 class DecimalDecodePipeline extends Pipeline {
 
+  constructor(props) {
+    super(props);
+    Globals.textInput = '76 105 102 101 32 105 115 32 108 105 107 101 32 97 32 240 159 147 166 32 111 102 32 240 159 141 171';
+    this.state = { input: Data.string(Globals.textInput) };
+  }
+
   componentDidMount() {
+    super.componentDidMount();
     document.title = 'Decimal Decode @ ' + Globals.title;
   }
 
@@ -32,7 +40,6 @@ class DecimalDecodePipeline extends Pipeline {
   }
 
   buildPrecomposedPipeline() {
-    Globals.textInput = '76 105 102 101 32 105 115 32 108 105 107 101 32 97 32 240 159 147 166 32 111 102 32 240 159 141 171';
     this.addStep(new DecimalDecode());
   }
   

@@ -18,6 +18,9 @@ class Pipeline extends Component {
 
   componentDidMount() {
     document.title = Globals.title;
+    if (Globals.steps.length === 0) {
+      this.buildPrecomposedPipeline();
+    }
   }
 
   /**
@@ -95,12 +98,6 @@ class Pipeline extends Component {
         </div>
       </div>
     );
-  }
-
-  componentWillMount() {
-    if (Globals.steps.length === 0) {
-      this.buildPrecomposedPipeline();
-    }
   }
 
   inputChange = (input) => {
