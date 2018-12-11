@@ -26,8 +26,8 @@ mv ${BUILD} ${NAME}
 zip -r ${ZIP} ${NAME}
 
 # Upload
-scp ${ZIP} ${LINODE}:/tmp
-scp vhost.conf ${LINODE}:/tmp
+scp ${ZIP} ${LINODE2}:/tmp
+scp vhost.conf ${LINODE2}:/tmp
 
 # Cleanup
 rm -rf ${ZIP}
